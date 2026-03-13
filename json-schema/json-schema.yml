@@ -1,0 +1,7 @@
+$schema: http://json-schema.org/draft-07/schema#
+title: Amazon Lex API Schema
+description: >-
+  JSON Schema for the Amazon Lex API, providing conversational AI
+  and chatbot capabilities.
+type: object
+properties: {}

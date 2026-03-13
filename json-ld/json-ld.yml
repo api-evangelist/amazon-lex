@@ -1,0 +1,16 @@
+"@context":
+  "@vocab": https://schema.org/
+  name: name
+  description: description
+  url: url
+"@type": WebAPI
+name: Amazon Lex API
+description: >-
+  Amazon Lex is a fully managed artificial intelligence (AI) service with
+  advanced natural language models to design, build, test, and deploy
+  conversational interfaces in applications.
+url: https://aws.amazon.com/lex/
+provider:
+  "@type": Organization
+  name: Amazon Web Services
+  url: https://aws.amazon.com/

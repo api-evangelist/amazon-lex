@@ -1,0 +1,14 @@
+openapi: 3.0.0
+info:
+  title: Amazon Lex API
+  description: >-
+    Amazon Lex is a fully managed artificial intelligence (AI) service with
+    advanced natural language models to design, build, test, and deploy
+    conversational interfaces in applications.
+  version: '2021-04-13'
+  contact:
+    name: Kin Lane
+    email: kin@apievangelist.com
+servers:
+  - url: https://models-v2-lex.amazonaws.com
+paths: {}
