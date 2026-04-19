@@ -1,0 +1,9 @@
+{
+  "intentId": "ABCDEF123456",
+  "intentName": "OrderPizza",
+  "description": "example-value",
+  "botId": "abc12345-def0-6789-1234-abcdef012345",
+  "botVersion": "example-value",
+  "localeId": "en_US",
+  "creationDateTime": "2025-03-15T14:30:00Z"
+}

@@ -1,0 +1,58 @@
+naftiko: 1.0.0-alpha1
+info:
+  label: Amazon Lex Workflow
+  description: Unified workflow capability for Amazon Lex combining resource management and operations.
+  tags:
+  - Amazon Lex
+  - AWS
+  - Workflow
+  created: '2026-04-19'
+  modified: '2026-04-19'
+binds:
+- namespace: env
+  keys:
+    AWS_ACCESS_KEY_ID: AWS_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY: AWS_SECRET_ACCESS_KEY
+capability:
+  consumes:
+  - import: lex
+    location: ./shared/lex.yaml
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: lex-api
+    description: REST API for Amazon Lex workflow.
+    resources: []
+  - type: mcp
+    port: 9090
+    namespace: lex-mcp
+    transport: http
+    description: MCP server for Amazon Lex.
+    tools:
+    - name: bots-create-bot
+      description: Creates an Amazon Lex conversational bot.
+      hints:
+        readOnly: false
+        idempotent: false
+      call: lex.createbot
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: bots-list-bots
+      description: Gets a list of available bots.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: lex.listbots
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: bots-describe-bot
+      description: Provides metadata information about a bot.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: lex.describebot
+      outputParameters:
+      - type: object
+        mapping: $.

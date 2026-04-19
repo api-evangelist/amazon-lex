@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-lex/refs/heads/main/json-structure/amazon-lex-bot-structure.json",
+  "name": "Bot",
+  "description": "An Amazon Lex V2 bot for building conversational interfaces.",
+  "type": "object",
+  "properties": {
+    "botId": {
+      "type": "string",
+      "description": "The unique identifier assigned to the bot.",
+      "example": "ABCDEF123456"
+    },
+    "botName": {
+      "type": "string",
+      "description": "The name specified for the bot.",
+      "example": "CustomerServiceBot"
+    },
+    "botStatus": {
+      "type": "string",
+      "description": "The current status of the bot.",
+      "example": "Available",
+      "enum": [
+        "Creating",
+        "Available",
+        "Inactive",
+        "Deleting",
+        "Failed",
+        "Versioning",
+        "Importing",
+        "Updating"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of the bot."
+    },
+    "roleArn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) of the role assumed by the bot."
+    },
+    "creationDateTime": {
+      "type": "datetime",
+      "description": "A timestamp of the date and time the bot was created."
+    },
+    "lastUpdatedDateTime": {
+      "type": "datetime",
+      "description": "A timestamp of the date and time the bot was last updated."
+    }
+  }
+}

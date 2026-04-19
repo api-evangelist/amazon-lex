@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-lex/refs/heads/main/json-schema/amazon-lex-intent-schema.json",
+  "title": "Intent",
+  "description": "An Amazon Lex intent representing an action a user can perform.",
+  "type": "object",
+  "properties": {
+    "intentId": {
+      "type": "string",
+      "description": "The unique identifier assigned to the intent.",
+      "example": "ABCDEF123456"
+    },
+    "intentName": {
+      "type": "string",
+      "description": "The name of the intent.",
+      "example": "OrderPizza"
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of the intent."
+    },
+    "botId": {
+      "type": "string",
+      "description": "The identifier of the bot associated with this intent."
+    },
+    "botVersion": {
+      "type": "string",
+      "description": "The version of the bot associated with this intent."
+    },
+    "localeId": {
+      "type": "string",
+      "description": "The language and locale of the intent.",
+      "example": "en_US"
+    },
+    "creationDateTime": {
+      "type": "string",
+      "description": "A timestamp of the date and time the intent was created.",
+      "format": "date-time"
+    }
+  }
+}

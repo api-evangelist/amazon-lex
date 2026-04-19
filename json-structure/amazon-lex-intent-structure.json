@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-lex/refs/heads/main/json-structure/amazon-lex-intent-structure.json",
+  "name": "Intent",
+  "description": "An Amazon Lex intent representing an action a user can perform.",
+  "type": "object",
+  "properties": {
+    "intentId": {
+      "type": "string",
+      "description": "The unique identifier assigned to the intent.",
+      "example": "ABCDEF123456"
+    },
+    "intentName": {
+      "type": "string",
+      "description": "The name of the intent.",
+      "example": "OrderPizza"
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of the intent."
+    },
+    "botId": {
+      "type": "string",
+      "description": "The identifier of the bot associated with this intent."
+    },
+    "botVersion": {
+      "type": "string",
+      "description": "The version of the bot associated with this intent."
+    },
+    "localeId": {
+      "type": "string",
+      "description": "The language and locale of the intent.",
+      "example": "en_US"
+    },
+    "creationDateTime": {
+      "type": "datetime",
+      "description": "A timestamp of the date and time the intent was created."
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "botId": "ABCDEF123456",
+  "botName": "CustomerServiceBot",
+  "botStatus": "Available",
+  "description": "example-value",
+  "roleArn": "arn:aws:service:us-east-1:123456789012:resource/example",
+  "creationDateTime": "2025-03-15T14:30:00Z",
+  "lastUpdatedDateTime": "2025-03-15T14:30:00Z"
+}

@@ -1,0 +1,82 @@
+naftiko: 1.0.0-alpha1
+info:
+  label: Amazon Lex
+  description: Amazon Lex API for managing lex resources.
+  tags:
+  - Amazon Lex
+  - AWS
+  created: '2026-04-19'
+  modified: '2026-04-19'
+binds:
+- namespace: env
+  keys:
+    AWS_ACCESS_KEY_ID: AWS_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY: AWS_SECRET_ACCESS_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: lex
+    baseUri: https://models-v2-lex.us-east-1.amazonaws.com
+    description: Amazon Lex service.
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{AWS_ACCESS_KEY_ID}}'
+      placement: header
+    resources:
+    - name: bots
+      path: /bots
+      description: Lex bot management
+      operations:
+      - name: createbot
+        method: POST
+        description: Creates an Amazon Lex conversational bot.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: listbots
+        method: GET
+        description: Gets a list of available bots.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: describebot
+        method: GET
+        description: Provides metadata information about a bot.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8101
+    namespace: lex-rest
+    resources: []
+  - type: mcp
+    port: 9101
+    namespace: lex-mcp
+    transport: http
+    tools:
+    - name: createbot
+      description: Creates an Amazon Lex conversational bot.
+      hints:
+        readOnly: false
+        idempotent: false
+      call: lex.createbot
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listbots
+      description: Gets a list of available bots.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: lex.listbots
+      outputParameters:
+      - type: object
+        mapping: $.

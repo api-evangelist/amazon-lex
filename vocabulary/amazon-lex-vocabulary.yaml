@@ -1,0 +1,76 @@
+vocabulary: 1.0.0
+info:
+  provider: Amazon Lex
+  description: Unified vocabulary for Amazon Lex API operations and capability workflows.
+  created: '2026-04-19'
+  modified: '2026-04-19'
+operational:
+  apis:
+  - namespace: lex
+    version: '2024-01-01'
+    status: active
+  resources:
+  - name: bots
+    api: lex
+    actions:
+    - create bot
+    - list bots
+    - describe bot
+    - update bot
+    - delete bot
+    - create intent
+    - list intents
+  actions:
+  - name: create
+    http_method: POST
+    pattern: write
+  - name: list
+    http_method: GET
+    pattern: read
+  - name: describe
+    http_method: GET
+    pattern: read
+  - name: update
+    http_method: PUT
+    pattern: write
+  - name: delete
+    http_method: DELETE
+    pattern: destructive
+  authentication:
+    schemes:
+    - type: apikey
+      header: Authorization
+      description: AWS Signature Version 4
+capability:
+  workflows:
+  - name: Amazon Lex Workflow
+    file: capabilities/amazon-lex-workflow.yaml
+    description: Unified workflow for Amazon Lex resource management
+    apis_combined:
+    - lex
+    tool_count: 3
+    personas:
+    - Developer
+    - Administrator
+  personas:
+  - id: developer
+    name: Developer
+    description: Integrates API into applications
+  - id: administrator
+    name: Administrator
+    description: Manages resources and configurations
+crossReference:
+- resource: bots
+  operations:
+  - CreateBot
+  - ListBots
+  - DescribeBot
+  - UpdateBot
+  - DeleteBot
+  - CreateIntent
+  - ListIntents
+  workflows:
+  - Amazon Lex Workflow
+  personas:
+  - Developer
+  - Administrator
