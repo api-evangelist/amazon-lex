@@ -1,0 +1,13 @@
+{
+  "repo": "amazon-lex",
+  "feeds": [
+    {
+      "source": "https://aws.amazon.com/blogs/machine-learning/",
+      "feed_url": "https://aws.amazon.com/blogs/machine-learning/feed/",
+      "saved": 10,
+      "title": "Artificial Intelligence"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:21:34Z"
+}
