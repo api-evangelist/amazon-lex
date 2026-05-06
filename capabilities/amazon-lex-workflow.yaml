@@ -1,4 +1,4 @@
-naftiko: 1.0.0-alpha1
+naftiko: 1.0.0-alpha2
 info:
   label: Amazon Lex Workflow
   description: Unified workflow capability for Amazon Lex combining resource management and operations.
@@ -7,7 +7,7 @@ info:
   - AWS
   - Workflow
   created: '2026-04-19'
-  modified: '2026-04-19'
+  modified: '2026-05-06'
 binds:
 - namespace: env
   keys:
@@ -15,8 +15,44 @@ binds:
     AWS_SECRET_ACCESS_KEY: AWS_SECRET_ACCESS_KEY
 capability:
   consumes:
-  - import: lex
-    location: ./shared/lex.yaml
+  - type: http
+    namespace: lex
+    baseUri: https://models-v2-lex.us-east-1.amazonaws.com
+    description: Amazon Lex service.
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{AWS_ACCESS_KEY_ID}}'
+      placement: header
+    resources:
+    - name: bots
+      path: /bots
+      description: Lex bot management
+      operations:
+      - name: createbot
+        method: POST
+        description: Creates an Amazon Lex conversational bot.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: listbots
+        method: GET
+        description: Gets a list of available bots.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: describebot
+        method: GET
+        description: Provides metadata information about a bot.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
   exposes:
   - type: rest
     port: 8080
