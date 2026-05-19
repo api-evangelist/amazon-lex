@@ -1,23 +1,16 @@
 name: Amazon Lex
-description: >-
-  Amazon Lex is a fully managed artificial intelligence (AI) service with
-  advanced natural language models to design, build, test, and deploy
-  conversational interfaces in applications. It provides the deep learning
-  functionalities of automatic speech recognition (ASR) for converting speech
-  to text, and natural language understanding (NLU) to recognize the intent of
-  the text, enabling you to build applications with highly engaging user
-  experiences and lifelike conversational interactions.
+description: Amazon Lex is a fully managed artificial intelligence (AI) service with advanced natural language models to design,
+  build, test, and deploy conversational interfaces in applications. It provides the deep learning functionalities of automatic
+  speech recognition (ASR) for converting speech to text, and natural language understanding (NLU) to recognize the intent
+  of the text, enabling you to build applications with highly engaging user experiences and lifelike conversational interactions.
 image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
 url: https://apis.io/amazon-lex
 created: '2024-01-15'
-modified: '2026-04-19'
-
+modified: '2026-05-19'
 apis:
 - name: Amazon Lex API
-  description: >-
-    The Amazon Lex API provides programmatic access to manage bots,
-    bot aliases, bot channels, intents, slots, and slot types for building
-    conversational AI interfaces and chatbots.
+  description: The Amazon Lex API provides programmatic access to manage bots, bot aliases, bot channels, intents, slots,
+    and slot types for building conversational AI interfaces and chatbots.
   image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
   baseURL: https://models-v2-lex.amazonaws.com
   properties:
@@ -26,8 +19,7 @@ apis:
   - type: openapi
     url: openapi/openapi.yml
   - type: openapi
-    url: >-
-      https://api.apis.guru/v2/specs/amazonaws.com/models.lex.v2/latest/openapi.yaml
+    url: https://api.apis.guru/v2/specs/amazonaws.com/models.lex.v2/latest/openapi.yaml
   - type: json-schema
     url: json-schema/json-schema.yml
   - type: json-ld
@@ -38,13 +30,14 @@ apis:
     url: https://aws.amazon.com/lex/getting-started/
   - type: faq
     url: https://aws.amazon.com/lex/faqs/
-
   - type: JSONSchema
     url: json-schema/amazon-lex-bot-schema.json
   - type: JSONSchema
     url: json-schema/amazon-lex-intent-schema.json
   - type: JSONLD
     url: json-ld/amazon-lex-context.jsonld
+  - type: NaftikoCapability
+    url: capabilities/amazon-lex-bots.yaml
 common:
 - type: portal
   url: https://aws.amazon.com/
@@ -82,7 +75,6 @@ common:
   url: https://aws.amazon.com/security/
 - type: compliance
   url: https://aws.amazon.com/compliance/
-
 - type: Features
   data:
   - name: Automatic Speech Recognition
@@ -119,8 +111,6 @@ common:
     description: Convert bot text responses to natural speech using Amazon Polly TTS.
 - type: SpectralRules
   url: rules/amazon-lex-spectral-rules.yml
-- type: NaftikoCapability
-  url: capabilities/amazon-lex-workflow.yaml
 - type: Vocabulary
   url: vocabulary/amazon-lex-vocabulary.yaml
 maintainer:

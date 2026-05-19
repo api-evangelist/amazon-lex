@@ -1,0 +1,314 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Amazon Lex API — Bots
+  description: 'Amazon Lex API — Bots. 7 operations. Lead operation: Amazon Lex Create Bot. Self-contained Naftiko capability
+    covering one Amazon Lex business surface.'
+  tags:
+  - Amazon Lex
+  - Bots
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AMAZON_LEX_API_KEY: AMAZON_LEX_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: amazon-lex-bots
+    baseUri: https://models-v2-lex.us-east-1.amazonaws.com
+    description: Amazon Lex API — Bots business capability. Self-contained, no shared references.
+    resources:
+    - name: bots
+      path: /bots
+      operations:
+      - name: createbot
+        method: POST
+        description: Amazon Lex Create Bot
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: listbots
+        method: GET
+        description: Amazon Lex List Bots
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: bots-botId
+      path: /bots/{botId}
+      operations:
+      - name: describebot
+        method: GET
+        description: Amazon Lex Describe Bot
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: botId
+          in: path
+          type: string
+          description: The unique identifier of the bot.
+          required: true
+      - name: updatebot
+        method: PUT
+        description: Amazon Lex Update Bot
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: botId
+          in: path
+          type: string
+          description: The unique identifier of the bot.
+          required: true
+      - name: deletebot
+        method: DELETE
+        description: Amazon Lex Delete Bot
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: botId
+          in: path
+          type: string
+          description: The unique identifier of the bot.
+          required: true
+    - name: bots-botId-botversions-botVersion-botlocales-localeId-intents
+      path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/intents
+      operations:
+      - name: createintent
+        method: POST
+        description: Amazon Lex Create Intent
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: botId
+          in: path
+          type: string
+          description: The identifier of the bot.
+          required: true
+        - name: botVersion
+          in: path
+          type: string
+          description: The version of the bot.
+          required: true
+        - name: localeId
+          in: path
+          type: string
+          description: The locale of the bot.
+          required: true
+      - name: listintents
+        method: GET
+        description: Amazon Lex List Intents
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: botId
+          in: path
+          type: string
+          description: The identifier of the bot.
+          required: true
+        - name: botVersion
+          in: path
+          type: string
+          description: The version of the bot.
+          required: true
+        - name: localeId
+          in: path
+          type: string
+          description: The locale of the bot.
+          required: true
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.AMAZON_LEX_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: amazon-lex-bots-rest
+    port: 8080
+    description: REST adapter for Amazon Lex API — Bots. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/bots
+      name: bots
+      description: REST surface for bots.
+      operations:
+      - method: POST
+        name: createbot
+        description: Amazon Lex Create Bot
+        call: amazon-lex-bots.createbot
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listbots
+        description: Amazon Lex List Bots
+        call: amazon-lex-bots.listbots
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/bots/{botid}
+      name: bots-botid
+      description: REST surface for bots-botId.
+      operations:
+      - method: GET
+        name: describebot
+        description: Amazon Lex Describe Bot
+        call: amazon-lex-bots.describebot
+        with:
+          botId: rest.botId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatebot
+        description: Amazon Lex Update Bot
+        call: amazon-lex-bots.updatebot
+        with:
+          botId: rest.botId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletebot
+        description: Amazon Lex Delete Bot
+        call: amazon-lex-bots.deletebot
+        with:
+          botId: rest.botId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/bots/{botid}/botversions/{botversion}/botlocales/{localeid}/intents
+      name: bots-botid-botversions-botversion-botlocales-localeid-intents
+      description: REST surface for bots-botId-botversions-botVersion-botlocales-localeId-intents.
+      operations:
+      - method: POST
+        name: createintent
+        description: Amazon Lex Create Intent
+        call: amazon-lex-bots.createintent
+        with:
+          botId: rest.botId
+          botVersion: rest.botVersion
+          localeId: rest.localeId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listintents
+        description: Amazon Lex List Intents
+        call: amazon-lex-bots.listintents
+        with:
+          botId: rest.botId
+          botVersion: rest.botVersion
+          localeId: rest.localeId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: amazon-lex-bots-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Amazon Lex API — Bots. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: amazon-lex-create-bot
+      description: Amazon Lex Create Bot
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-lex-bots.createbot
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-lex-list-bots
+      description: Amazon Lex List Bots
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-lex-bots.listbots
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-lex-describe-bot
+      description: Amazon Lex Describe Bot
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-lex-bots.describebot
+      with:
+        botId: tools.botId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-lex-update-bot
+      description: Amazon Lex Update Bot
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: amazon-lex-bots.updatebot
+      with:
+        botId: tools.botId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-lex-delete-bot
+      description: Amazon Lex Delete Bot
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: amazon-lex-bots.deletebot
+      with:
+        botId: tools.botId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-lex-create-intent
+      description: Amazon Lex Create Intent
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-lex-bots.createintent
+      with:
+        botId: tools.botId
+        botVersion: tools.botVersion
+        localeId: tools.localeId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-lex-list-intents
+      description: Amazon Lex List Intents
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-lex-bots.listintents
+      with:
+        botId: tools.botId
+        botVersion: tools.botVersion
+        localeId: tools.localeId
+      outputParameters:
+      - type: object
+        mapping: $.
