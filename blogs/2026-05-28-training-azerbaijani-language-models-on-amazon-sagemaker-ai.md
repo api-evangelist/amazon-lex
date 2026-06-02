@@ -1,0 +1,8 @@
+---
+title: "Training Azerbaijani language models on Amazon SageMaker AI"
+url: "https://aws.amazon.com/blogs/machine-learning/training-azerbaijani-language-models-on-amazon-sagemaker-ai/"
+date: "2026-05-28"
+author: "Aleksei Iancheruk"
+feed_url: "https://aws.amazon.com/blogs/machine-learning/feed/"
+---
+Azercell Telecom LLC, Azerbaijan's leading telecommunications provider, wanted to build an Azerbaijani large language model (LLM) on Amazon SageMaker AI for telecom use cases and a customer-facing chatbot. The challenge: adapting foundation models (FMs) to a morphologically rich language with limited training data and no existing blueprint for efficient LLM training in Azerbaijani. In a six-week collaboration, Azercell worked with the AWS Generative AI Innovation Center to establish a production-ready framework on Amazon SageMaker AI.
