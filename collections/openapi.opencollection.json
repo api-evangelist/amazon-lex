@@ -1,0 +1,9 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon Lex API",
+    "version": "2021-04-13"
+  },
+  "items": [],
+  "bundled": true
+}

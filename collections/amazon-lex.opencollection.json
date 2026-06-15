@@ -1,0 +1,167 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon Lex API",
+    "version": "2024-01-01"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bots",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Lex List Bots",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://models-v2-lex.us-east-1.amazonaws.com/bots"
+          },
+          "docs": "Gets a list of available bots."
+        },
+        {
+          "info": {
+            "name": "Amazon Lex Create Bot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://models-v2-lex.us-east-1.amazonaws.com/bots"
+          },
+          "docs": "Creates an Amazon Lex conversational bot."
+        },
+        {
+          "info": {
+            "name": "Amazon Lex Describe Bot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://models-v2-lex.us-east-1.amazonaws.com/bots/:botId",
+            "params": [
+              {
+                "name": "botId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the bot."
+              }
+            ]
+          },
+          "docs": "Provides metadata information about a bot."
+        },
+        {
+          "info": {
+            "name": "Amazon Lex Update Bot",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://models-v2-lex.us-east-1.amazonaws.com/bots/:botId",
+            "params": [
+              {
+                "name": "botId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the bot."
+              }
+            ]
+          },
+          "docs": "Updates the configuration of an existing bot."
+        },
+        {
+          "info": {
+            "name": "Amazon Lex Delete Bot",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://models-v2-lex.us-east-1.amazonaws.com/bots/:botId",
+            "params": [
+              {
+                "name": "botId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the bot."
+              }
+            ]
+          },
+          "docs": "Deletes all versions of a bot, including the Draft version."
+        },
+        {
+          "info": {
+            "name": "Amazon Lex List Intents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://models-v2-lex.us-east-1.amazonaws.com/bots/:botId/botversions/:botVersion/botlocales/:localeId/intents",
+            "params": [
+              {
+                "name": "botId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the bot."
+              },
+              {
+                "name": "botVersion",
+                "value": "",
+                "type": "path",
+                "description": "The version of the bot."
+              },
+              {
+                "name": "localeId",
+                "value": "",
+                "type": "path",
+                "description": "The locale of the bot."
+              }
+            ]
+          },
+          "docs": "Returns a list of the intents in the specified bot locale."
+        },
+        {
+          "info": {
+            "name": "Amazon Lex Create Intent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://models-v2-lex.us-east-1.amazonaws.com/bots/:botId/botversions/:botVersion/botlocales/:localeId/intents",
+            "params": [
+              {
+                "name": "botId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the bot."
+              },
+              {
+                "name": "botVersion",
+                "value": "",
+                "type": "path",
+                "description": "The version of the bot."
+              },
+              {
+                "name": "localeId",
+                "value": "",
+                "type": "path",
+                "description": "The locale of the bot."
+              }
+            ]
+          },
+          "docs": "Creates an intent."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

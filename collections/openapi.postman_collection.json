@@ -1,0 +1,20 @@
+{
+  "item": [],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://models-v2-lex.amazonaws.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5fd38d42-337d-40d1-a708-0b5cc3f65a67",
+    "name": "Amazon Lex API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Amazon Lex is a fully managed artificial intelligence (AI) service with advanced natural language models to design, build, test, and deploy conversational interfaces in applications.\n\nContact Support:\n Name: Kin Lane\n Email: kin@apievangelist.com",
+      "type": "text/plain"
+    }
+  }
+}
