@@ -2,12 +2,20 @@
   "repo": "amazon-lex",
   "feeds": [
     {
-      "source": "https://aws.amazon.com/blogs/machine-learning/",
+      "source": "https://aws.amazon.com/blogs/machine-learning/feed/",
       "feed_url": "https://aws.amazon.com/blogs/machine-learning/feed/",
-      "title": "Artificial Intelligence",
-      "saved": 20
+      "title": "",
+      "saved": 17,
+      "method": "feed"
+    },
+    {
+      "source": "https://aws.amazon.com/premiumsupport/",
+      "feed_url": "https://aws.amazon.com/premiumsupport/",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "post_count": 64,
-  "fetched": "2026-06-01T23:00:37Z"
+  "post_count": 85,
+  "fetched": "2026-06-27T12:03:07Z"
 }
