@@ -40,6 +40,14 @@ apis:
       - type: JSONLD
         url: json-ld/amazon-lex-context.jsonld
 common:
+  - type: TrustCenter
+    url: security/amazon-lex-trust-center.yml
+  - type: VulnerabilityDisclosure
+    url: security/amazon-lex-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/amazon-lex-domain-security.yml
+  - type: Authentication
+    url: authentication/amazon-lex-authentication.yml
   - type: Portal
     url: https://aws.amazon.com/
   - type: Website
