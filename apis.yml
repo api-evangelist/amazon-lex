@@ -40,6 +40,8 @@ apis:
       - type: JSONLD
         url: json-ld/amazon-lex-context.jsonld
 common:
+  - type: AgenticAccess
+    url: agentic-access/amazon-lex-agentic-access.yml
   - type: TrustCenter
     url: security/amazon-lex-trust-center.yml
   - type: VulnerabilityDisclosure
