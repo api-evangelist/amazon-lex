@@ -5,41 +5,54 @@ description: >-
   automatic speech recognition (ASR) for converting speech to text, and natural language understanding (NLU) to
   recognize the intent of the text, enabling you to build applications with highly engaging user experiences and
   lifelike conversational interactions.
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
 url: https://apis.io/amazon-lex
 created: '2024-01-15'
 modified: '2026-05-19'
 apis:
-  - name: Amazon Lex API
-    description: >-
-      The Amazon Lex API provides programmatic access to manage bots, bot aliases, bot channels, intents, slots, and
-      slot types for building conversational AI interfaces and chatbots.
-    image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-    baseURL: https://models-v2-lex.amazonaws.com
-    properties:
-      - type: Documentation
-        url: https://docs.aws.amazon.com/lex/latest/dg/what-is.html
-      - type: OpenAPI
-        url: openapi/openapi.yml
-      - type: OpenAPI
-        url: https://api.apis.guru/v2/specs/amazonaws.com/models.lex.v2/latest/openapi.yaml
-      - type: JSONSchema
-        url: json-schema/json-schema.yml
-      - type: JSONLD
-        url: json-ld/json-ld.yml
-      - type: Pricing
-        url: https://aws.amazon.com/lex/pricing/
-      - type: GettingStarted
-        url: https://aws.amazon.com/lex/getting-started/
-      - type: FAQ
-        url: https://aws.amazon.com/lex/faqs/
-      - type: JSONSchema
-        url: json-schema/amazon-lex-bot-schema.json
-      - type: JSONSchema
-        url: json-schema/amazon-lex-intent-schema.json
-      - type: JSONLD
-        url: json-ld/amazon-lex-context.jsonld
+- aid: amazon-lex:amazon-lex-bots-api
+  name: Amazon Lex Bots API
+  description: Lex bot management
+  baseURL: https://models-v2-lex.amazonaws.com
+  tags:
+  - Bots
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-lex-bots-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lex/latest/dg/what-is.html
+  - type: JSONSchema
+    url: json-schema/json-schema.yml
+  - type: JSONLD
+    url: json-ld/json-ld.yml
+  - type: Pricing
+    url: https://aws.amazon.com/lex/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/lex/getting-started/
+  - type: FAQ
+    url: https://aws.amazon.com/lex/faqs/
+  - type: JSONSchema
+    url: json-schema/amazon-lex-bot-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-lex-intent-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-lex-context.jsonld
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/amazon-lex/overview
   - type: AgenticAccess
     url: agentic-access/amazon-lex-agentic-access.yml
   - type: TrustCenter
