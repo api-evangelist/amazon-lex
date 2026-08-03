@@ -1,0 +1,14 @@
+{
+  "provider": "amazon-lex",
+  "sources": [
+    "amazon-lex-bots-api-openapi.yml"
+  ],
+  "outputs": [
+    "amazon-lex-bots-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

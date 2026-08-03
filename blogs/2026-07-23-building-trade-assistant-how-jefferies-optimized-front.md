@@ -1,0 +1,8 @@
+---
+title: "Building trade assistant: How Jefferies optimized front office trading operations with AI"
+url: "https://aws.amazon.com/blogs/machine-learning/building-trade-assistant-how-jefferies-optimized-front-office-trading-operations-with-ai/"
+date: "2026-07-23"
+author: "Sanjay Nagraj"
+feed_url: "https://aws.amazon.com/blogs/machine-learning/feed/"
+---
+In this post, we explore how Jefferies overcame these challenges with a solution built on Strands Agents, an agent harness SDK for building AI agents that can reason, plan, and act by orchestrating calls to foundation models (FMs) and external tools. The solution uses large language models (LLMs), Amazon Bedrock, and Amazon Bedrock Knowledge Bases. It also uses Model Context Protocol (MCP), an open standard that helps AI agents securely connect to diverse data sources and tools through a unified interface.

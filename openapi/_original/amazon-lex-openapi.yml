@@ -1,0 +1,286 @@
+openapi: 3.1.0
+info:
+  title: Amazon Lex API
+  description: The Amazon Lex API provides programmatic access to manage Lex resources.
+  version: '2024-01-01'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/premiumsupport/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  x-logo:
+    url: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
+servers:
+- url: https://models-v2-lex.us-east-1.amazonaws.com
+  description: Amazon Lex endpoint
+security:
+- sigv4: []
+tags:
+- name: Bots
+  description: Lex bot management
+paths:
+  /bots:
+    post:
+      operationId: CreateBot
+      summary: Amazon Lex Create Bot
+      description: Creates an Amazon Lex conversational bot.
+      tags:
+      - Bots
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad request
+        '403':
+          description: Access denied
+        '500':
+          description: Internal server error
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    get:
+      operationId: ListBots
+      summary: Amazon Lex List Bots
+      description: Gets a list of available bots.
+      tags:
+      - Bots
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad request
+        '403':
+          description: Access denied
+        '500':
+          description: Internal server error
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /bots/{botId}:
+    get:
+      operationId: DescribeBot
+      summary: Amazon Lex Describe Bot
+      description: Provides metadata information about a bot.
+      tags:
+      - Bots
+      parameters:
+      - name: botId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique identifier of the bot.
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad request
+        '403':
+          description: Access denied
+        '500':
+          description: Internal server error
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: UpdateBot
+      summary: Amazon Lex Update Bot
+      description: Updates the configuration of an existing bot.
+      tags:
+      - Bots
+      parameters:
+      - name: botId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique identifier of the bot.
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad request
+        '403':
+          description: Access denied
+        '500':
+          description: Internal server error
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: DeleteBot
+      summary: Amazon Lex Delete Bot
+      description: Deletes all versions of a bot, including the Draft version.
+      tags:
+      - Bots
+      parameters:
+      - name: botId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique identifier of the bot.
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad request
+        '403':
+          description: Access denied
+        '500':
+          description: Internal server error
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/intents:
+    post:
+      operationId: CreateIntent
+      summary: Amazon Lex Create Intent
+      description: Creates an intent.
+      tags:
+      - Bots
+      parameters:
+      - name: botId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The identifier of the bot.
+      - name: botVersion
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The version of the bot.
+      - name: localeId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The locale of the bot.
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad request
+        '403':
+          description: Access denied
+        '500':
+          description: Internal server error
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    get:
+      operationId: ListIntents
+      summary: Amazon Lex List Intents
+      description: Returns a list of the intents in the specified bot locale.
+      tags:
+      - Bots
+      parameters:
+      - name: botId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The identifier of the bot.
+      - name: botVersion
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The version of the bot.
+      - name: localeId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The locale of the bot.
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad request
+        '403':
+          description: Access denied
+        '500':
+          description: Internal server error
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  securitySchemes:
+    sigv4:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: AWS Signature Version 4 authentication
+  schemas:
+    Bot:
+      type: object
+      description: An Amazon Lex V2 bot for building conversational interfaces.
+      properties:
+        botId:
+          type: string
+          description: The unique identifier assigned to the bot.
+          example: ABCDEF123456
+        botName:
+          type: string
+          description: The name specified for the bot.
+          example: CustomerServiceBot
+        botStatus:
+          type: string
+          description: The current status of the bot.
+          example: Available
+          enum:
+          - Creating
+          - Available
+          - Inactive
+          - Deleting
+          - Failed
+          - Versioning
+          - Importing
+          - Updating
+        description:
+          type: string
+          description: The description of the bot.
+        roleArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the role assumed by the bot.
+        creationDateTime:
+          type: string
+          description: A timestamp of the date and time the bot was created.
+          format: date-time
+        lastUpdatedDateTime:
+          type: string
+          description: A timestamp of the date and time the bot was last updated.
+          format: date-time
+    Intent:
+      type: object
+      description: An Amazon Lex intent representing an action a user can perform.
+      properties:
+        intentId:
+          type: string
+          description: The unique identifier assigned to the intent.
+          example: ABCDEF123456
+        intentName:
+          type: string
+          description: The name of the intent.
+          example: OrderPizza
+        description:
+          type: string
+          description: The description of the intent.
+        botId:
+          type: string
+          description: The identifier of the bot associated with this intent.
+        botVersion:
+          type: string
+          description: The version of the bot associated with this intent.
+        localeId:
+          type: string
+          description: The language and locale of the intent.
+          example: en_US
+        creationDateTime:
+          type: string
+          description: A timestamp of the date and time the intent was created.
+          format: date-time
