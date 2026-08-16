@@ -1,0 +1,8 @@
+---
+title: "Run interactive IDEs on Amazon EKS with SageMaker AI to power up your AI workflows"
+url: "https://aws.amazon.com/blogs/machine-learning/run-interactive-ides-on-amazon-eks-with-sagemaker-ai-to-power-up-your-ai-workflows/"
+date: "2026-08-10"
+author: "Rajat Jain"
+feed_url: "https://aws.amazon.com/blogs/machine-learning/feed/"
+---
+The Amazon SageMaker AI Spaces add-on for Amazon EKS runs managed JupyterLab and Code Editor environments on the cluster your ML team already operates. This post shows how to install and configure the add-on, connect from the browser and from VS Code over SSH-over-SSM, and move your team to OpenID Connect sign-in with Amazon Cognito.
