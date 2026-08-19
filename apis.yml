@@ -5,6 +5,7 @@ description: >-
   automatic speech recognition (ASR) for converting speech to text, and natural language understanding (NLU) to
   recognize the intent of the text, enabling you to build applications with highly engaging user experiences and
   lifelike conversational interactions.
+specificationVersion: '0.23'
 accessModel:
   pricing: freemium
   onboarding: self-serve
