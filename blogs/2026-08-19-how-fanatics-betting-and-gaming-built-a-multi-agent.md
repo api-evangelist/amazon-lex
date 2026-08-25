@@ -1,0 +1,8 @@
+---
+title: "How Fanatics Betting and Gaming built a multi-agent customer support system"
+url: "https://aws.amazon.com/blogs/machine-learning/how-fanatics-betting-and-gaming-built-a-multi-agent-customer-support-system/"
+date: "2026-08-19"
+author: "Parker Bradshaw"
+feed_url: "https://aws.amazon.com/blogs/machine-learning/feed/"
+---
+Fanatics Betting and Gaming built a multi-agent customer support system on AWS to handle the complexity of sports betting: state-specific rules, real-time responsible gaming, and traffic spikes during major sporting events. This post walks through the architecture, the AWS services involved, and the patterns for your own multi-agent support solution.
