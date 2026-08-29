@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Amazon Lex Bots API
   description: The Amazon Lex API provides programmatic access to manage Lex resources.

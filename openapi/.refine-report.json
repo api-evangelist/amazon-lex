@@ -1,7 +1,8 @@
 {
   "provider": "amazon-lex",
   "sources": [
-    "amazon-lex-bots-api-openapi.yml"
+    "_original/amazon-lex-openapi.yml",
+    "_original/openapi.yml"
   ],
   "outputs": [
     "amazon-lex-bots-api-openapi.yml"
@@ -9,6 +10,12 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "amazon-lex-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0"
+  ],
+  "skipped": [
+    "amazon-lex-bots-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
