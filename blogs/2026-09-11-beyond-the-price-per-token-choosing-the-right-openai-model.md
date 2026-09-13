@@ -1,0 +1,8 @@
+---
+title: "Beyond the price per token: Choosing the right OpenAI model on Amazon Bedrock for your workload"
+url: "https://aws.amazon.com/blogs/machine-learning/beyond-the-price-per-token-choosing-the-right-openai-model-on-amazon-bedrock-for-your-workload/"
+date: "2026-09-11"
+author: "Nick McCarthy"
+feed_url: "https://aws.amazon.com/blogs/machine-learning/feed/"
+---
+Comparing models on dollars per million tokens misses what production workloads actually pay for: outcomes. This post shares an open-source benchmarking harness that measures cost per correct answer, agent trajectory cost, and rubric-graded deliverable quality across OpenAI models on Amazon Bedrock.
