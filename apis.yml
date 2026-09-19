@@ -34,20 +34,36 @@ accessModel:
   method: derived
 image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
 url: https://apis.io/amazon-lex
+tags:
+- Artificial Intelligence
+- Conversational AI
+- Chatbots
+- Natural Language Processing
+- Speech
+- Voice
+- Contact Center
+- Customer Service
+- AWS
 created: '2024-01-15'
-modified: '2026-05-19'
+modified: '2026-09-17'
 apis:
 - aid: amazon-lex:amazon-lex-bots-api
   name: Amazon Lex Bots API
   description: Lex bot management
-  baseURL: https://models-v2-lex.amazonaws.com
+  baseURL: https://models-v2-lex.us-east-1.amazonaws.com
+  humanURL: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
+  image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
   tags:
   - Bots
   properties:
   - type: OpenAPI
-    url: openapi/amazon-lex-bots-api-openapi.yml
+    name: OpenAPI (derived from the AWS Smithy service model, 107 operations)
+    url: openapi/amazon-lex-models-v2-openapi.yml
+  - type: Smithy
+    name: AWS Amazon Lex Model Building V2 Smithy 2.0 model (107 operations)
+    url: smithy/amazon-lex-models-v2-2020-08-07.json
   - type: Documentation
-    url: https://docs.aws.amazon.com/lex/latest/dg/what-is.html
+    url: https://docs.aws.amazon.com/lexv2/latest/dg/what-is.html
   - type: JSONSchema
     url: json-schema/json-schema.yml
   - type: JSONLD
@@ -58,12 +74,47 @@ apis:
     url: https://aws.amazon.com/lex/getting-started/
   - type: FAQ
     url: https://aws.amazon.com/lex/faqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
+  - type: Overlay
+    url: overlays/amazon-lex-models-v2-overlay.yaml
+  - type: DataModel
+    url: data-model/amazon-lex-data-model.yml
   - type: JSONSchema
     url: json-schema/amazon-lex-bot-schema.json
   - type: JSONSchema
     url: json-schema/amazon-lex-intent-schema.json
   - type: JSONLD
     url: json-ld/amazon-lex-context.jsonld
+- aid: amazon-lex:amazon-lex-runtime-v2-api
+  name: Amazon Lex Runtime V2 API
+  description: >-
+    Send user input to a built Amazon Lex V2 bot and manage the conversation session. Six operations:
+    RecognizeText (text turn), RecognizeUtterance (audio or text turn), StartConversation (bidirectional
+    HTTP/2 streaming with barge-in), and PutSession / GetSession / DeleteSession for session state.
+  baseURL: https://runtime-v2-lex.us-east-1.amazonaws.com
+  humanURL: https://docs.aws.amazon.com/lexv2/latest/APIReference/API_Operations_Amazon_Lex_Runtime_V2.html
+  image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
+  tags:
+  - Conversational AI
+  - Runtime
+  - Speech Recognition
+  - Sessions
+  properties:
+  - type: OpenAPI
+    name: OpenAPI (derived from the AWS Smithy service model, 6 operations)
+    url: openapi/amazon-lex-runtime-v2-openapi.yml
+  - type: Smithy
+    name: AWS Amazon Lex Runtime V2 Smithy 2.0 model
+    url: smithy/amazon-lex-runtime-v2-2020-08-07.json
+  - type: Overlay
+    url: overlays/amazon-lex-runtime-v2-overlay.yaml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lexv2/latest/dg/how-it-works.html
+  - type: APIReference
+    url: https://docs.aws.amazon.com/lexv2/latest/APIReference/API_Operations_Amazon_Lex_Runtime_V2.html
+  - type: Pricing
+    url: https://aws.amazon.com/lex/pricing/
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/amazon-lex/overview
@@ -91,10 +142,10 @@ common:
     url: https://aws.amazon.com/premiumsupport/
   - type: Blog
     url: https://aws.amazon.com/blogs/machine-learning/
-  - type: github
+  - type: GitHubOrganization
     url: https://github.com/aws
   - type: Console
-    url: https://console.aws.amazon.com/lex/
+    url: https://console.aws.amazon.com/lexv2/home
   - type: Signup
     url: https://portal.aws.amazon.com/billing/signup
   - type: Login
@@ -151,8 +202,64 @@ common:
     url: rules/amazon-lex-spectral-rules.yml
   - type: Vocabulary
     url: vocabulary/amazon-lex-vocabulary.yaml
-maintainer:
-  name: Kin Lane
+  - type: DeveloperPortal
+    url: https://aws.amazon.com/lex/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
+  - type: GettingStarted
+    url: https://docs.aws.amazon.com/lexv2/latest/dg/getting-started.html
+  - type: Pricing
+    url: https://aws.amazon.com/lex/pricing/
+  - type: Smithy
+    name: AWS-published Smithy 2.0 service models (Model Building V2 + Runtime V2)
+    url: smithy/amazon-lex-models-v2-2020-08-07.json
+  - type: Packages
+    url: packages/amazon-lex-packages.yml
+  - type: SDKs
+    url: packages/amazon-lex-packages.yml
+  - type: CLI
+    url: cli/amazon-lex-cli.yml
+  - type: WellKnown
+    url: well-known/amazon-lex-well-known.yml
+  - type: SecurityTxt
+    url: well-known/amazon-lex-security.txt
+  - type: MCPServer
+    url: mcp/amazon-lex-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/amazon-lex-tool-crosswalk.yml
+  - type: LLMsTxt
+    url: llms/amazon-lex-llms.txt
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: Conformance
+    url: conformance/amazon-lex-conformance.yml
+  - type: ErrorCatalog
+    url: errors/amazon-lex-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/amazon-lex-lifecycle.yml
+  - type: Deprecation
+    url: https://docs.aws.amazon.com/lexv2/latest/dg/migration.html
+  - type: Conventions
+    url: conventions/amazon-lex-conventions.yml
+  - type: ChangeLog
+    url: changelog/amazon-lex-changelog.yml
+  - type: Sandbox
+    url: sandbox/amazon-lex-sandbox.yml
+  - type: DataModel
+    url: data-model/amazon-lex-data-model.yml
+  - type: Plans
+    url: plans/amazon-lex-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/amazon-lex-rate-limits.yml
+  - type: Examples
+    url: examples/amazon-lex-bot-example.json
+maintainers:
+- FN: Kin Lane
   email: kin@apievangelist.com
 x-parent: aws
 x-relationship: product
+x-enrichment:
+  date: '2026-09-17'
+  status: enriched
+  artifacts_added: 26
+  pass: local-v3
