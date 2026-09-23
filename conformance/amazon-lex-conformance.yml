@@ -1,0 +1,119 @@
+generated: '2026-09-17'
+method: searched
+source: >-
+  https://docs.aws.amazon.com/lexv2/latest/dg/compliance.html,
+  https://aws.amazon.com/compliance/services-in-scope/,
+  https://docs.aws.amazon.com/lexv2/latest/dg/building-srgs.html — cross-checked against the shapes and
+  enums in smithy/amazon-lex-models-v2-2020-08-07.json
+provider: Amazon Lex
+providerId: amazon-lex
+note: >-
+  Two kinds of claim are kept apart here. The `compliance` block is AWS's audited programme coverage,
+  asserted by AWS on its own compliance pages and confirmed in the Lex V2 developer guide's own
+  compliance-validation topic. The `conformance` block is what the CONTRACT declares about itself, and
+  it is mostly a list of things Amazon Lex does NOT do — no OAuth, no OIDC, no RFC 9457, no idempotency
+  key. Both matter to a buyer, and only one of them is visible from a marketing page.
+conformance:
+- id: oauth2
+  conforms: false
+  evidence: >-
+    No oauth2 security scheme in either Smithy service model and no OAuth flow in the docs. Amazon Lex
+    authenticates with AWS Signature Version 4 over IAM credentials. /.well-known/oauth-authorization-server
+    404s on every host probed (see well-known/amazon-lex-well-known.yml).
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returned 404 on aws.amazon.com, docs.aws.amazon.com, console.aws.amazon.com and both Lex API hosts on 2026-09-17.
+- id: rfc9457
+  conforms: false
+  evidence: >-
+    Errors are AWS JSON (application/x-amz-json-1.1) with the class in the x-amzn-ErrorType header, not
+    application/problem+json. See errors/amazon-lex-problem-types.yml.
+- id: idempotency
+  conforms: false
+  evidence: >-
+    Zero smithy.api#idempotencyToken members across all 113 operations in both service models. No
+    Idempotency-Key header, no clientToken parameter. See conventions/amazon-lex-conventions.yml.
+- id: pagination
+  conforms: true
+  evidence: >-
+    Cursor pagination on every List* operation — maxResults + opaque nextToken, with a structured
+    sortBy and filters[] block (e.g. ListBotsRequest in smithy/amazon-lex-models-v2-2020-08-07.json).
+- id: aws-sigv4
+  conforms: true
+  evidence: 'aws.auth#sigv4 trait on the LexModelBuildingServiceV2 service shape; signing name `lex`.'
+- id: rest-json
+  conforms: true
+  evidence: >-
+    aws.protocols#restJson1 on the service shape — real HTTP methods and URI templates on every
+    operation, which is why openapi/ could be derived mechanically rather than authored.
+- id: rfc8594
+  conforms: false
+  evidence: No Sunset or Deprecation response headers; no deprecation policy page. See lifecycle/amazon-lex-lifecycle.yml.
+domain_standards:
+- id: ssml
+  name: Speech Synthesis Markup Language (W3C SSML)
+  conforms: true
+  declared_in_contract: true
+  evidence: >-
+    The service model declares it as a first-class message type, not as prose: shape
+    com.amazonaws.lexmodelsv2#SSMLMessage ("Defines a Speech Synthesis Markup Language (SSML) prompt"),
+    member `ssmlMessage` on the message shape, and the value `SSML` in the MessageContentType enum —
+    all in smithy/amazon-lex-models-v2-2020-08-07.json. A bot author who already writes SSML for Polly
+    or any other TTS engine reuses it here with no translation layer.
+  spec: https://www.w3.org/TR/speech-synthesis11/
+- id: srgs
+  name: Speech Recognition Grammar Specification (W3C SRGS)
+  conforms: true
+  declared_in_contract: partial
+  evidence: >-
+    The contract carries GrammarSlotTypeSetting and GrammarSlotTypeSource shapes (a slot type sourced
+    from a grammar file in S3); the developer guide states the file format explicitly — "you can author
+    your own grammar in the XML format per the SRGS specification"
+    (https://docs.aws.amazon.com/lexv2/latest/dg/building-srgs.html). The XML file itself is supplied
+    out-of-band in S3, so the contract names the mechanism and the docs name the standard.
+  spec: https://www.w3.org/TR/speech-grammar/
+  gated: >-
+    ACCESS-GATED FEATURE. The developer guide states Amazon Lex V2 grants grammar-slot-type access per
+    AWS account and rejects both the slot type and the locale build for accounts without it; access is
+    requested through AWS Support. A published standard behind an allow-list.
+  quota: Grammar XML file size capped at 100 KB (build-time quota).
+- id: lex-json
+  name: Amazon Lex bot export format (LexJson)
+  conforms: true
+  declared_in_contract: true
+  vendor_specific: true
+  evidence: >-
+    ImportExportFileFormat enum in the service model. Vendor format, recorded because it is the only
+    round-trippable representation of a whole bot (CreateExport / StartImport) and therefore the de
+    facto portability surface — there is no cross-vendor conversational-bot interchange standard for
+    it to have adopted instead.
+domain_standard_note: >-
+  Conversational AI has no adopted cross-vendor interchange standard for bots, intents and slots the
+  way identity has SCIM or healthcare has FHIR — so the reward-only domain-standard slot is filled here
+  by the two W3C speech standards Amazon Lex genuinely speaks (SSML in the contract, SRGS in the
+  grammar slot type). Nothing was invented to fill it.
+compliance:
+  published: true
+  url: https://docs.aws.amazon.com/lexv2/latest/dg/compliance.html
+  services_in_scope: https://aws.amazon.com/compliance/services-in-scope/
+  audit_reports: AWS Artifact (https://docs.aws.amazon.com/artifact/latest/ug/downloading-documents.html)
+  programs:
+  - name: HIPAA
+    status: eligible
+    evidence: '"Amazon Lex V2 is a HIPAA eligible service." — Lex V2 developer guide, compliance validation topic.'
+  - name: PCI DSS
+    status: in-scope
+    evidence: '"It is PCI, SOC, and ISO compliant." — same topic.'
+  - name: SOC 1/2/3
+    status: in-scope
+    evidence: same topic; report copies via AWS Artifact.
+  - name: ISO 27001 / 27017 / 27018 / 9001
+    status: in-scope
+    evidence: same topic, via AWS services-in-scope listing.
+  - name: FedRAMP
+    status: partial
+    evidence: >-
+      Amazon Lex V2 became available in AWS GovCloud (US-West) on 2024-03-22 (document history).
+      Programme scope per region must be read from https://aws.amazon.com/compliance/services-in-scope/;
+      not asserted here beyond the GovCloud availability that AWS itself dated.
+  cross_link: security/amazon-lex-trust-center.yml

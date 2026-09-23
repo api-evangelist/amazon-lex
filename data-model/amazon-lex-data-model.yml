@@ -1,0 +1,185 @@
+generated: '2026-09-17'
+method: derived
+source: >-
+  openapi/amazon-lex-models-v2-openapi.yml and openapi/amazon-lex-runtime-v2-openapi.yml (both derived
+  mechanically from the AWS Smithy models in smithy/), plus the resource list in
+  https://servicereference.us-east-1.amazonaws.com/v1/lex/lex.json
+provider: Amazon Lex
+providerId: amazon-lex
+note: >-
+  The Amazon Lex V2 entity graph is legible straight from the URI templates — the REST paths nest
+  exactly as the resources do, so the containment hierarchy below is read off the contract rather than
+  inferred from schema names. One fact dominates the model and catches most integrators: EVERY
+  build-time resource below the bot is addressed by a four-part key (botId, botVersion, localeId, then
+  its own id). An intent id alone is not addressable; `DRAFT` is the version you use while developing
+  and a numbered version once you have snapshotted.
+identifier_convention:
+  style: opaque 10-character resource id
+  evidence: >-
+    'The Amazon Lex V2 API assigns every resource a unique 10-character resource ID.' —
+    https://docs.aws.amazon.com/lexv2/latest/dg/migration.html
+  note: >-
+    Ids carry no type prefix. A botId and an intentId are indistinguishable by shape, so a caller cannot
+    tell from the value alone which resource it addresses — position in the path is the only type signal.
+  exceptions:
+  - localeId is a language tag (en_US, fr_FR), not a generated id.
+  - botVersion is a numeric string or the literal DRAFT.
+  - replicaRegion is an AWS region name.
+  - TSTALIASID is a reserved, well-known botAliasId for the built-in test alias.
+root: Bot
+entities:
+- name: Bot
+  key: botId
+  path: /bots/{botId}
+  description: The top-level conversational bot. Owns versions, aliases, replicas and utterance history.
+  operations: [CreateBot, DescribeBot, UpdateBot, DeleteBot, ListBots]
+- name: BotVersion
+  key: botVersion
+  path: /bots/{botId}/botversions/{botVersion}
+  description: An immutable numbered snapshot of a bot's resources, plus the mutable DRAFT version.
+  operations: [CreateBotVersion, DescribeBotVersion, DeleteBotVersion, ListBotVersions]
+- name: BotAlias
+  key: botAliasId
+  path: /bots/{botId}/botaliases/{botAliasId}
+  description: A named pointer to a bot version; what runtime traffic and channel integrations address.
+  operations: [CreateBotAlias, DescribeBotAlias, UpdateBotAlias, DeleteBotAlias, ListBotAliases]
+- name: BotLocale
+  key: localeId
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}
+  description: One language within a bot version. The unit of building — BuildBotLocale compiles it.
+  operations: [CreateBotLocale, DescribeBotLocale, UpdateBotLocale, DeleteBotLocale, ListBotLocales, BuildBotLocale]
+- name: Intent
+  key: intentId
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/intents/{intentId}
+  description: A goal the user can express, with sample utterances, prompts and fulfillment settings.
+  operations: [CreateIntent, DescribeIntent, UpdateIntent, DeleteIntent, ListIntents]
+- name: Slot
+  key: slotId
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/intents/{intentId}/slots/{slotId}
+  description: A parameter an intent collects. References a SlotType.
+  operations: [CreateSlot, DescribeSlot, UpdateSlot, DeleteSlot, ListSlots]
+- name: SlotType
+  key: slotTypeId
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/slottypes/{slotTypeId}
+  description: The value domain for a slot — enumerated values, a grammar (SRGS), or a built-in type.
+  operations: [CreateSlotType, DescribeSlotType, UpdateSlotType, DeleteSlotType, ListSlotTypes, ListBuiltInSlotTypes]
+- name: CustomVocabulary
+  key: null
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/customvocabulary
+  description: Per-locale ASR vocabulary boost list. Singleton per locale (addressed as DEFAULT), with batch item operations.
+  operations: [CreateCustomVocabulary, DescribeCustomVocabularyMetadata, DeleteCustomVocabulary, BatchCreateCustomVocabularyItem, BatchUpdateCustomVocabularyItem, BatchDeleteCustomVocabularyItem, ListCustomVocabularyItems]
+- name: BotReplica
+  key: replicaRegion
+  path: /bots/{botId}/replicas/{replicaRegion}
+  description: A global-resiliency copy of a bot in a secondary AWS region.
+  operations: [CreateBotReplica, DescribeBotReplica, DeleteBotReplica, ListBotReplicas, ListBotAliasReplicas, ListBotVersionReplicas]
+- name: BotRecommendation
+  key: botRecommendationId
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/botrecommendations/{botRecommendationId}
+  description: An Automated Chatbot Designer job that mines intents and slot types from conversation transcripts.
+  operations: [StartBotRecommendation, DescribeBotRecommendation, UpdateBotRecommendation, StopBotRecommendation, ListBotRecommendations, ListRecommendedIntents]
+- name: Export
+  key: exportId
+  path: /exports/{exportId}
+  description: A zip archive of a bot or bot locale. Account-scoped, not nested under the bot.
+  operations: [CreateExport, DescribeExport, UpdateExport, DeleteExport, ListExports]
+- name: Import
+  key: importId
+  path: /imports/{importId}
+  description: An import job restoring a bot or locale from an uploaded archive.
+  operations: [StartImport, DescribeImport, DeleteImport, ListImports, CreateUploadUrl]
+- name: TestSet
+  key: testSetId
+  path: /testsets/{testSetId}
+  description: A recorded set of conversations used to regression-test a bot.
+  operations: [CreateTestSet, DescribeTestSet, UpdateTestSet, DeleteTestSet, ListTestSets, ListTestSetRecords]
+- name: TestExecution
+  key: testExecutionId
+  path: /testexecutions/{testExecutionId}
+  description: One run of a test set against a bot alias.
+  operations: [StartTestExecution, DescribeTestExecution, ListTestExecutions, ListTestExecutionResultItems, GetTestExecutionArtifactsUrl]
+- name: ResourcePolicy
+  key: resourceArn
+  path: /policy/{resourceArn}
+  description: An IAM resource-based policy attached to a bot or bot alias.
+  operations: [CreateResourcePolicy, DescribeResourcePolicy, UpdateResourcePolicy, DeleteResourcePolicy, CreateResourcePolicyStatement, DeleteResourcePolicyStatement]
+- name: Session
+  key: sessionId
+  path: /bots/{botId}/botAliases/{botAliasId}/botLocales/{localeId}/sessions/{sessionId}
+  service: Runtime V2
+  description: A live conversation's state. The only runtime entity.
+  operations: [PutSession, GetSession, DeleteSession, RecognizeText, RecognizeUtterance, StartConversation]
+relationships:
+- from: Bot
+  to: BotVersion
+  type: has_many
+  via: botId
+- from: Bot
+  to: BotAlias
+  type: has_many
+  via: botId
+- from: Bot
+  to: BotReplica
+  type: has_many
+  via: botId
+- from: BotAlias
+  to: BotVersion
+  type: belongs_to
+  via: botVersion
+  note: The alias field botVersion is the pointer that makes aliases useful — repoint it to ship a new version.
+- from: BotVersion
+  to: BotLocale
+  type: has_many
+  via: localeId
+- from: BotLocale
+  to: Intent
+  type: has_many
+  via: intentId
+- from: BotLocale
+  to: SlotType
+  type: has_many
+  via: slotTypeId
+- from: BotLocale
+  to: CustomVocabulary
+  type: has_one
+- from: BotLocale
+  to: BotRecommendation
+  type: has_many
+  via: botRecommendationId
+- from: Intent
+  to: Slot
+  type: has_many
+  via: slotId
+- from: Slot
+  to: SlotType
+  type: belongs_to
+  via: slotTypeId
+  note: >-
+    The one cross-branch reference in the build-time model. A slot names a slot type by id within the
+    same locale; a built-in type is named by string (AMAZON.Date, AMAZON.Confirmation) instead.
+- from: Session
+  to: BotAlias
+  type: belongs_to
+  via: botAliasId
+- from: Export
+  to: Bot
+  type: belongs_to
+  via: resourceSpecification
+  note: Loose reference — the export names its subject in a resourceSpecification body field, not a path segment.
+- from: Import
+  to: Bot
+  type: belongs_to
+  via: resourceSpecification
+- from: TestExecution
+  to: TestSet
+  type: belongs_to
+  via: testSetId
+- from: TestExecution
+  to: BotAlias
+  type: belongs_to
+  via: target
+counts:
+  entities: 16
+  relationships: 16
+  build_time_operations: 107
+  runtime_operations: 6

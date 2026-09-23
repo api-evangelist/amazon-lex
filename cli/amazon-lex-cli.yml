@@ -1,0 +1,63 @@
+generated: '2026-09-17'
+method: searched
+source: >-
+  https://docs.aws.amazon.com/cli/latest/reference/lexv2-models/index.html and
+  https://docs.aws.amazon.com/cli/latest/reference/lexv2-runtime/index.html (command lists read live
+  2026-09-17), https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+provider: Amazon Lex
+providerId: amazon-lex
+name: AWS CLI
+official: true
+note: >-
+  There is no `lex` binary. Amazon Lex is two command groups inside the AWS CLI, which is the same
+  first-party tool that fronts every AWS service. The group split mirrors the API split exactly: build
+  with `aws lexv2-models`, converse with `aws lexv2-runtime`. Both groups are generated from the same
+  Smithy models captured in smithy/, so the CLI command surface and the operation surface stay in
+  lockstep — every command below has a one-to-one operationId.
+url: https://aws.amazon.com/cli/
+docs: https://docs.aws.amazon.com/cli/latest/reference/lexv2-models/index.html
+repository: https://github.com/aws/aws-cli
+install:
+- method: pip
+  command: pip install awscli
+- method: homebrew
+  command: brew install awscli
+- method: installer
+  command: See https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+auth:
+  mechanism: AWS credentials (SigV4)
+  setup: aws configure
+  note: Same IAM principal and same lex:* actions as the API; the CLI signs for you.
+command_groups:
+- group: lexv2-models
+  description: Build and manage bots — bots, aliases, locales, versions, intents, slots, slot types, custom vocabularies, imports/exports, test sets, analytics and resource policies.
+  command_count: 107
+  docs: https://docs.aws.amazon.com/cli/latest/reference/lexv2-models/index.html
+  examples:
+  - aws lexv2-models list-bots
+  - aws lexv2-models create-bot --bot-name OrderFlowers --role-arn <arn> --data-privacy childDirected=false --idle-session-ttl-in-seconds 300
+  - aws lexv2-models build-bot-locale --bot-id <id> --bot-version DRAFT --locale-id en_US
+  - aws lexv2-models create-bot-version --bot-id <id> --bot-version-locale-specification <json>
+  - aws lexv2-models create-export --resource-specification <json> --file-format LexJson
+- group: lexv2-runtime
+  description: Talk to a built bot and manage the conversation session.
+  command_count: 5
+  docs: https://docs.aws.amazon.com/cli/latest/reference/lexv2-runtime/index.html
+  commands:
+  - delete-session
+  - get-session
+  - put-session
+  - recognize-text
+  - recognize-utterance
+  note: >-
+    StartConversation (the bidirectional HTTP/2 streaming operation) has NO CLI command — streaming
+    conversations are SDK-only. That is the one place the CLI surface is narrower than the API.
+  examples:
+  - aws lexv2-runtime recognize-text --bot-id <id> --bot-alias-id TSTALIASID --locale-id en_US --session-id s1 --text "I want to order flowers"
+key_flows:
+- name: Build and test a bot end to end
+  steps: [create-bot, create-bot-locale, create-intent, create-slot, build-bot-locale, create-bot-version, create-bot-alias, recognize-text]
+- name: Export a bot before a destructive change
+  steps: [create-export, describe-export]
+  why: See conventions/amazon-lex-conventions.yml — Lex has no undo, so the export IS the safety net.
+binary_packaging: packages/amazon-lex-packages.yml

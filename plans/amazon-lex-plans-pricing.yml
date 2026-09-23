@@ -3,142 +3,114 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
 provider: Amazon Lex
 providerId: amazon-lex
+generated: '2026-09-17'
+method: probed
+source: >-
+  https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonLex/current/index.json — the AWS Price
+  List API, read unauthenticated on 2026-09-17 (offer version 20260911124446, published
+  2026-09-11T12:44:46Z). Cross-checked against https://aws.amazon.com/lex/pricing/.
+modified: '2026-09-17'
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags: []
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+supersedes: >-
+  The 2026-05-04 bulk-sweep scaffold, which invented a Free/Pro tier ladder with placeholder request
+  quotas. Amazon Lex has no tier ladder at all — it is pure metered usage. Replaced wholesale.
+tags:
+- Pricing
+- Usage-based
+model: usage-based
+plan_count: 1
+currency: USD
+region_priced: true
+region_note: >-
+  Prices below are US East (N. Virginia). Every rate in the Price List API is per-region AND per-locale;
+  the Price List document carries a separate SKU for each of the 30+ supported locales. The en-US rates
+  are the headline rates published on the pricing page.
 plans:
-  - id: amazon-lex-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the Amazon Lex API surface. Intended for evaluation, prototyping,
-      and low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://models-v2-lex.amazonaws.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://models-v2-lex.amazonaws.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Amazon Lex API
-  - id: amazon-lex-pro
-    name: Professional
-    type: paid
-    description: Production tier for Amazon Lex. Provides higher quotas, priority support, and access
-      to the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://models-v2-lex.amazonaws.com
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://models-v2-lex.amazonaws.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains:
-          - https://models-v2-lex.amazonaws.com
-        unit: 1000
-        price: TBD
-        userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Amazon Lex API
-  - id: amazon-lex-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for Amazon Lex. Includes dedicated capacity, contractual SLAs,
-      security review, data residency options, and named technical account management.
-    entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: configurable
-        domains:
-          - https://models-v2-lex.amazonaws.com
-        unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://models-v2-lex.amazonaws.com
-        unit: 1
-        price: custom
-        userMultiplied: false
-    elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Amazon Lex API
-maintainers: []
+- id: amazon-lex-on-demand
+  name: On-Demand (pay-as-you-go)
+  type: usage-based
+  price: 0
+  billing_period: monthly
+  description: >-
+    There is no subscription and no tier to choose. Amazon Lex bills per request processed by a bot,
+    metered by interaction mode (request/response vs streaming) and by input/output modality
+    (speech/text/DTMF). Bot building, versioning, exporting and testing carry no charge; only
+    conversation traffic and Automated Chatbot Designer training do.
+  entries:
+  - label: Speech request (request and response)
+    name: speech_request
+    type: metered
+    unit: request
+    price: 0.004
+    currency: USD
+    operations: [RecognizeUtterance, PostContent]
+    sku_usagetype: USE1-en-US-SpeechToSpeech-Req / USE1-en-US-SpeechToText-Req
+  - label: Text request (request and response)
+    name: text_request
+    type: metered
+    unit: request
+    price: 0.00075
+    currency: USD
+    operations: [RecognizeText, RecognizeUtterance, PostText]
+    sku_usagetype: USE1-en-US-TextToText-Req / USE1-en-US-TextToSpeech-Req
+  - label: Speech request (streaming conversation)
+    name: speech_request_streaming
+    type: metered
+    unit: request
+    price: 0.0065
+    currency: USD
+    operations: [StartConversation]
+    sku_usagetype: USE1-en-US-SpeechToSpeech-Str / USE1-en-US-SpeechToText-Str
+  - label: Text request (streaming conversation)
+    name: text_request_streaming
+    type: metered
+    unit: request
+    price: 0.002
+    currency: USD
+    operations: [StartConversation]
+    sku_usagetype: USE1-en-US-TextToText-Str / USE1-en-US-TextToSpeech-Str
+  - label: DTMF request (streaming conversation)
+    name: dtmf_request_streaming
+    type: metered
+    unit: request
+    price: 0.002
+    currency: USD
+    operations: [StartConversation]
+    sku_usagetype: USE1-en-US-DTMFToText-Str / USE1-en-US-DTMFToSpeech-Str
+  - label: Automated Chatbot Designer training
+    name: bot_design_training
+    type: metered
+    unit: minute of conversation transcript
+    price: 0.5
+    currency: USD
+    operations: [StartBotRecommendation]
+    sku_usagetype: USE1-en-US-botdesign
+  - label: Global resiliency surcharge
+    name: global_resiliency
+    type: surcharge
+    description: >-
+      Requests served by a globally-replicated bot carry a separate higher rate — the Price List
+      publishes parallel "-GR" SKUs for every mode. en-US examples: speech request/response 0.0060 (vs
+      0.0040), text request/response 0.0011 (vs 0.00075), streaming speech 0.0094 (vs 0.0065),
+      streaming text 0.0030 (vs 0.0020).
+    currency: USD
+free_tier:
+  published: true
+  source: https://aws.amazon.com/lex/pricing/
+  description: >-
+    Amazon Lex has no service-specific perpetual free tier of its own. It is covered by the AWS account
+    Free Tier: from 2025-07-15 new AWS customers receive up to $200 in AWS Free Tier credits applicable
+    to eligible services including Amazon Lex. The free plan runs for 6 months after account creation;
+    all credits must be used within 12 months of account creation.
+  credit_amount: 200
+  credit_currency: USD
+  duration_months: 6
+enterprise_contact_only: false
+pricing_url: https://aws.amazon.com/lex/pricing/
+machine_readable_pricing: https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonLex/current/index.json
+note: >-
+  Worth recording as a discoverability fact: Amazon Lex's prices are genuinely machine-readable. The AWS
+  Price List API serves the full SKU set as JSON with no authentication, which is why this artifact is
+  method: probed rather than searched. The HTML pricing page is the weaker source of the two — it
+  renders several rates as unresolved template tokens ({priceOf!lex/lex!Text!to!Text!...}) to a plain
+  fetch, while the JSON gives every rate for every region and locale.

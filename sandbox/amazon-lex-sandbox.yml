@@ -1,0 +1,73 @@
+generated: '2026-09-17'
+method: searched
+source: >-
+  https://docs.aws.amazon.com/lexv2/latest/dg/test-workbench.html,
+  https://docs.aws.amazon.com/lexv2/latest/dg/quotas.html,
+  https://docs.aws.amazon.com/lexv2/latest/dg/versions-aliases.html — shapes cross-checked against
+  smithy/amazon-lex-models-v2-2020-08-07.json
+provider: Amazon Lex
+providerId: amazon-lex
+available: true
+kind: live-account test alias + replay harness
+note: >-
+  Amazon Lex has no separate sandbox account, no test-mode credential and no test/live key prefix pair.
+  Every call is a real call against a real AWS account and is billed. What it does ship is two genuine
+  rehearsal surfaces, both inside the production account: a reserved draft alias for interactive
+  testing, and a replay harness that runs a recorded test set against a bot and reports discrepancies.
+  There are no published magic values, test cards or fixture identifiers to record — and none were
+  invented.
+test_mode:
+  separate_credentials: false
+  key_prefixes: null
+  billed: true
+  note: Test traffic is metered exactly like production traffic; see plans/amazon-lex-plans-pricing.yml.
+surfaces:
+- name: TestBotAlias (TSTALIASID)
+  kind: reserved draft alias
+  description: >-
+    Every bot is created with a built-in test alias pointing at the Draft version, used by the console
+    test window and callable from the Runtime V2 API.
+  alias_id: TSTALIASID
+  docs: https://docs.aws.amazon.com/lexv2/latest/dg/versions-aliases.html
+  constraints: >-
+    Hard-capped at 2 concurrent conversations on every dimension — text mode, voice mode and session
+    management alike — and not adjustable. This is the single most common false signal in Lex load
+    testing: an agent benchmarking against TSTALIASID throttles at 2 and reads a 50/125/400-capacity
+    service as a 2-capacity one. See rate-limits/amazon-lex-rate-limits.yml.
+- name: Test Workbench
+  kind: replay harness
+  description: >-
+    Build a test set from recorded conversations or a manifest, run it against a bot alias, and read
+    per-utterance results plus an intent/slot discrepancy report.
+  docs: https://docs.aws.amazon.com/lexv2/latest/dg/test-workbench.html
+  operations:
+  - CreateTestSet
+  - DescribeTestSet
+  - UpdateTestSet
+  - DeleteTestSet
+  - StartTestExecution
+  - DescribeTestExecution
+  - ListTestExecutionResultItems
+  - CreateTestSetDiscrepancyReport
+  - DescribeTestSetDiscrepancyReport
+  - StartTestSetGeneration
+  - DescribeTestSetGeneration
+  - ListTestSets
+  - ListTestExecutions
+  since: '2023-06-06'
+  since_source: https://docs.aws.amazon.com/lexv2/latest/dg/doc-history.html
+- name: Draft bot version
+  kind: mutable working copy
+  description: >-
+    Every bot carries a mutable DRAFT version used for development; numbered versions are immutable
+    snapshots created from it with CreateBotVersion.
+  docs: https://docs.aws.amazon.com/lexv2/latest/dg/versions-aliases.html
+  agent_note: >-
+    DRAFT is the closest thing Lex has to a safe workspace. An agent making changes should work in
+    DRAFT and promote with CreateBotVersion — that snapshot is also the only rollback material the
+    service offers (see conventions/amazon-lex-conventions.yml, reversibility).
+test_values:
+  published: false
+  note: >-
+    No magic numbers, test cards, simulator identifiers or hosted test tokens are published for Amazon
+    Lex. Recorded as an honest absence rather than left blank.

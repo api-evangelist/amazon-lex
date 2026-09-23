@@ -1,0 +1,116 @@
+generated: '2026-09-17'
+method: derived
+source: >-
+  smithy/amazon-lex-models-v2-2020-08-07.json and smithy/amazon-lex-runtime-v2-2020-08-07.json
+  (AWS-published Smithy 2.0 service models), cross-checked against
+  https://docs.aws.amazon.com/lexv2/latest/APIReference/CommonErrors.html
+provider: Amazon Lex
+providerId: amazon-lex
+format: aws-json
+format_note: >-
+  NOT RFC 9457. Amazon Lex V2 returns an AWS JSON error body, not application/problem+json — there is
+  no type/title/detail/instance envelope and no `problem+json` content type anywhere in either service
+  model. The error class is carried in the `x-amzn-ErrorType` response header (and echoed as
+  `__type` in the body); the human-readable text is in `message`. An agent written against RFC 9457
+  will not find the fields it expects here.
+envelope:
+  content_type: application/x-amz-json-1.1
+  fields:
+  - name: message
+    description: Human-readable description of the failure.
+  - name: __type
+    description: The exception shape name, e.g. ValidationException.
+  headers:
+  - name: x-amzn-ErrorType
+    description: Exception shape name; the canonical machine-readable discriminator.
+  - name: x-amzn-RequestId
+    description: Request identifier to quote when contacting AWS Support.
+  - name: Retry-After
+    description: Present on some throttled responses; see conventions/amazon-lex-conventions.yml.
+problem_types:
+- name: ValidationException
+  status: 400
+  class: client
+  retryable: false
+  services: [Model Building V2, Runtime V2]
+  title: One of the input parameters in your request isn't valid.
+  remediation: Check the parameters and try your request again.
+- name: AccessDeniedException
+  status: 403
+  class: client
+  retryable: false
+  services: [Runtime V2]
+  title: The caller's IAM principal is not authorized for this action.
+  remediation: >-
+    Grant the calling principal the matching lex:* IAM action. The 152 IAM actions the service
+    recognises are published machine-readably at
+    https://servicereference.us-east-1.amazonaws.com/v1/lex/lex.json.
+- name: ResourceNotFoundException
+  status: 404
+  class: client
+  retryable: false
+  services: [Model Building V2, Runtime V2]
+  title: You asked to describe a resource that doesn't exist.
+  remediation: Check the resource id you supplied and try again.
+- name: ConflictException
+  status: 409
+  class: client
+  retryable: false
+  services: [Model Building V2, Runtime V2]
+  title: The resource is in a conflicting state.
+  remediation: >-
+    Resolve the conflict and try again — most commonly a bot or locale that is still BUILDING, or a
+    concurrent write to the same draft version. Poll DescribeBot / DescribeBotLocale until the status
+    settles before retrying.
+- name: PreconditionFailedException
+  status: 412
+  class: client
+  retryable: false
+  services: [Model Building V2]
+  title: One or more request fields aren't valid for the current state of the resource.
+  remediation: Check the fields and the resource's current state, then try your request again.
+- name: DependencyFailedException
+  status: 424
+  class: client
+  retryable: false
+  services: [Runtime V2]
+  title: A downstream dependency the bot relies on failed.
+  remediation: >-
+    Usually the Lambda fulfillment/dialog code hook. Check the function's CloudWatch logs; Lex enforces
+    a 30-second Lambda timeout and a 50 KB output cap (see rate-limits/).
+- name: ServiceQuotaExceededException
+  status: 402
+  class: client
+  retryable: false
+  services: [Model Building V2]
+  title: You have reached a quota for your bot.
+  remediation: >-
+    Check the build-time quota table in rate-limits/amazon-lex-rate-limits.yml; adjustable quotas can
+    be raised in the Service Quotas console at
+    https://console.aws.amazon.com/servicequotas/home/services/lex/quotas.
+- name: ThrottlingException
+  status: 429
+  class: client
+  retryable: true
+  services: [Model Building V2, Runtime V2]
+  title: Your request rate is too high.
+  remediation: Reduce the frequency of requests and retry with exponential backoff and jitter.
+- name: InternalServerException
+  status: 500
+  class: server
+  retryable: true
+  services: [Model Building V2, Runtime V2]
+  title: The service encountered an unexpected condition.
+  remediation: Try your request again.
+- name: BadGatewayException
+  status: 502
+  class: server
+  retryable: true
+  services: [Runtime V2]
+  title: An upstream gateway error occurred.
+  remediation: Retry with backoff.
+counts:
+  problem_type_count: 10
+  retryable_count: 4
+  client_class: 7
+  server_class: 3

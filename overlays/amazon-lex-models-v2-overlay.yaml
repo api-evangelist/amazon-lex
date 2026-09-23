@@ -1,0 +1,74 @@
+# generated: '2026-09-17'
+# method: generated
+# source: openapi/amazon-lex-models-v2-openapi.yml + smithy/amazon-lex-models-v2-2020-08-07.json + conventions/amazon-lex-conventions.yml
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Amazon Lex Model Building V2 API
+  version: 1.0.0
+extends: openapi/amazon-lex-models-v2-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: amazon-lex
+      x-apievangelist-authoritative-contract: smithy/amazon-lex-models-v2-2020-08-07.json
+      x-apievangelist-note: >-
+        This OpenAPI was derived MECHANICALLY from the AWS-published Smithy 2.0 service model
+        (github.com/aws/api-models-aws, models/lex-models-v2/service/2020-08-07) — every path, method,
+        operationId, parameter, schema and error code comes from that model. AWS publishes no OpenAPI
+        of its own for Amazon Lex; the Smithy model is the authoritative first-party contract and this
+        document is a faithful projection of it, not an independent description.
+  - target: $.info
+    update:
+      x-api-conventions:
+        protocol: restJson1 (AWS REST-JSON)
+        content_type: application/x-amz-json-1.1
+        auth: AWS Signature Version 4 (signing name "lex")
+        idempotency:
+          mechanism: none
+          coverage: none
+          evidence: zero smithy.api#idempotencyToken members across all 113 operations
+        pagination:
+          style: cursor
+          request: [maxResults, nextToken]
+          response: [nextToken]
+        rate_limit_headers: none
+        artifact: conventions/amazon-lex-conventions.yml
+  - target: $.info
+    update:
+      x-api-errors:
+        format: aws-json
+        rfc9457: false
+        discriminator_header: x-amzn-ErrorType
+        catalog: errors/amazon-lex-problem-types.yml
+        modeled_error_types: 10
+  - target: $.info
+    update:
+      x-api-lifecycle:
+        generation: Amazon Lex V2
+        api_version: '2020-08-07'
+        sunset_headers: false
+        deprecated_operations: 0
+        sla: https://aws.amazon.com/machine-learning/language/sla/
+        artifact: lifecycle/amazon-lex-lifecycle.yml
+  - target: $.info
+    update:
+      x-api-agent-readiness:
+        mcp: mcp/amazon-lex-mcp.yml
+        mcp_named_tools_for_this_api: 0
+        tool_crosswalk: mcp/amazon-lex-tool-crosswalk.yml
+        skills: skills/_index.yml
+        agent_card: none
+        reversibility: documented
+        dry_run: partial
+  - target: $.servers
+    update:
+      x-apievangelist-regional: >-
+        Amazon Lex exposes one endpoint pair per AWS Region. The server listed is us-east-1; substitute
+        the calling region. The full list is published at
+        https://docs.aws.amazon.com/general/latest/gr/lex.html
+  - target: $.components.securitySchemes.sigv4
+    update:
+      x-apievangelist-iam:
+        actions_reference: https://servicereference.us-east-1.amazonaws.com/v1/lex/lex.json
+        action_count: 152
+        artifact: authentication/amazon-lex-authentication.yml

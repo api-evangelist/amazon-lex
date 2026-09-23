@@ -1,0 +1,88 @@
+generated: '2026-09-17'
+method: searched
+source: >-
+  https://docs.aws.amazon.com/lexv2/latest/dg/doc-history.html,
+  https://docs.aws.amazon.com/lexv2/latest/dg/migration.html,
+  https://aws.amazon.com/machine-learning/language/sla/,
+  https://health.aws.amazon.com/health/status — plus live probes of the Amazon Lex V1 documentation
+  tree on 2026-09-17.
+provider: Amazon Lex
+providerId: amazon-lex
+versioning:
+  scheme: dated service version, selected by endpoint host
+  current: '2020-08-07'
+  generations:
+  - name: Amazon Lex V2
+    api_version: '2020-08-07'
+    status: current
+    model_host: models-v2-lex.<region>.amazonaws.com
+    runtime_host: runtime-v2-lex.<region>.amazonaws.com
+    operations: 113
+    contract: smithy/amazon-lex-models-v2-2020-08-07.json
+  - name: Amazon Lex V1
+    api_version: '2016-11-28'
+    status: legacy
+    model_host: models.lex.<region>.amazonaws.com
+    runtime_host: runtime.lex.<region>.amazonaws.com
+    note: >-
+      MEASURED 2026-09-17, NOT ANNOUNCED. AWS has published no end-of-support date for Amazon Lex V1
+      that this pass could find. What IS observable is that the V1 documentation tree has been
+      withdrawn: https://docs.aws.amazon.com/lex/latest/dg/what-is.html and
+      https://docs.aws.amazon.com/lex/latest/APIReference/Welcome.md both return HTTP 404, and Lex V1
+      appears nowhere in the docs.aws.amazon.com/llms.txt index (only "Amazon Lex Welcome" and the
+      "Amazon Lex V2 Developer Guide" are listed). The V1 service models are still published in
+      aws/api-models-aws (lex-model-building-service, lex-runtime-service), so the API surface has not
+      been withdrawn with the documentation. Recorded as legacy on that evidence; NOT recorded as
+      deprecated, because no deprecation notice was found.
+    evidence:
+    - url: https://docs.aws.amazon.com/lex/latest/dg/what-is.html
+      status: 404
+    - url: https://docs.aws.amazon.com/lex/latest/APIReference/Welcome.md
+      status: 404
+    migration_guide: https://docs.aws.amazon.com/lexv2/latest/dg/migration.html
+deprecation:
+  policy_published: false
+  sunset_headers: false
+  deprecation_headers: false
+  detail: >-
+    Amazon Lex V2 publishes no deprecation policy page and emits no RFC 8594 Sunset or Deprecation
+    response headers. No operation in either Smithy service model carries a `smithy.api#deprecated`
+    trait. The only lifecycle transition AWS documents for Lex is the V1-to-V2 migration guide, which
+    describes how to move a bot rather than when V1 stops answering.
+  migration_guide: https://docs.aws.amazon.com/lexv2/latest/dg/migration.html
+  deprecated_operations: []
+status_page:
+  url: https://health.aws.amazon.com/health/status
+  scope: All AWS services and regions; Amazon Lex is a row in the regional service table.
+  machine_readable: false
+  note: >-
+    The AWS Health Dashboard is AWS-wide, not Lex-specific, and publishes no per-service status feed an
+    agent can subscribe to. Account-scoped events are available through the AWS Health API, which is a
+    separate service requiring Business/Enterprise Support.
+sla:
+  published: true
+  url: https://aws.amazon.com/machine-learning/language/sla/
+  name: Amazon Machine Learning Language Service Level Agreement
+  last_updated: '2023-11-28'
+  commitment: 99.9% Monthly Uptime Percentage per AWS region
+  scope: >-
+    Covers Amazon Lex alongside Comprehend, Comprehend Medical, Polly, Transcribe, Transcribe Medical,
+    HealthScribe and Translate — a shared SLA, not a Lex-specific one.
+  error_definition: Any request returning a 5xx status code.
+  service_credits:
+  - uptime: '< 99.9% and >= 99.0%'
+    credit: 10%
+  - uptime: '< 99.0% and >= 95.0%'
+    credit: 25%
+  - uptime: '< 95.0%'
+    credit: 100%
+release_cadence:
+  changelog: https://docs.aws.amazon.com/lexv2/latest/dg/doc-history.html
+  latest_documented_change: '2025-10-27'
+  note: >-
+    Document history is the de facto changelog; see changelog/amazon-lex-changelog.yml. The published
+    service model (2020-08-07) has not been re-versioned since launch — new capability arrives as new
+    operations and new shapes inside the same dated version.
+regions:
+  reference: https://docs.aws.amazon.com/general/latest/gr/lex.html
+  note: One regional endpoint pair per AWS Region, including AWS GovCloud (US-West) since 2024-03-22.

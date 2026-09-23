@@ -1,0 +1,744 @@
+generated: '2026-09-17'
+method: derived
+source: mcp/amazon-lex-mcp.yml (tools/list probed live 2026-09-17) bound against openapi/amazon-lex-models-v2-openapi.yml
+  and openapi/amazon-lex-runtime-v2-openapi.yml
+provider: Amazon Lex
+providerId: amazon-lex
+note: 'Amazon Lex has no MCP tool of its own, so this crosswalk records a shape the catalog should be
+  able to distinguish: EVERY one of the 113 published operations is rest_only, and the single binding
+  that reaches them is a generic AWS script executor. An agent cannot discover a Lex operation from the
+  MCP surface — it has to already know the boto3 client name and the operation name, then hand them to
+  aws___run_script. That is a real, working path and a materially weaker one than a named tool carrying
+  the operation''s inputSchema.'
+surfaces:
+  openapi:
+  - openapi/amazon-lex-models-v2-openapi.yml
+  - openapi/amazon-lex-runtime-v2-openapi.yml
+  smithy:
+  - smithy/amazon-lex-models-v2-2020-08-07.json
+  - smithy/amazon-lex-runtime-v2-2020-08-07.json
+  graphql: null
+  mcp: https://aws-mcp.us-east-1.api.aws/mcp
+  gated: MCP tools/list is anonymous (HTTP 200); every tool CALL and every Lex API call requires AWS SigV4/IAM
+    credentials.
+crosswalk:
+- tool: aws___run_script
+  category: generic-executor
+  rest:
+  - BatchCreateCustomVocabularyItem
+  - BatchDeleteCustomVocabularyItem
+  - BatchUpdateCustomVocabularyItem
+  - BuildBotLocale
+  - CreateBot
+  - CreateBotAlias
+  - CreateBotLocale
+  - CreateBotReplica
+  - CreateBotVersion
+  - CreateExport
+  - CreateIntent
+  - CreateResourcePolicy
+  - CreateResourcePolicyStatement
+  - CreateSlot
+  - CreateSlotType
+  - CreateTestSetDiscrepancyReport
+  - CreateUploadUrl
+  - DeleteBot
+  - DeleteBotAlias
+  - DeleteBotAnalyzerRecommendation
+  - DeleteBotLocale
+  - DeleteBotReplica
+  - DeleteBotVersion
+  - DeleteCustomVocabulary
+  - DeleteExport
+  - DeleteImport
+  - DeleteIntent
+  - DeleteResourcePolicy
+  - DeleteResourcePolicyStatement
+  - DeleteSession
+  - DeleteSlot
+  - DeleteSlotType
+  - DeleteTestSet
+  - DeleteUtterances
+  - DescribeBot
+  - DescribeBotAlias
+  - DescribeBotAnalyzerRecommendation
+  - DescribeBotLocale
+  - DescribeBotRecommendation
+  - DescribeBotReplica
+  - DescribeBotResourceGeneration
+  - DescribeBotVersion
+  - DescribeCustomVocabularyMetadata
+  - DescribeExport
+  - DescribeImport
+  - DescribeIntent
+  - DescribeResourcePolicy
+  - DescribeSlot
+  - DescribeSlotType
+  - DescribeTestExecution
+  - DescribeTestSet
+  - DescribeTestSetDiscrepancyReport
+  - DescribeTestSetGeneration
+  - GenerateBotElement
+  - GetSession
+  - GetTestExecutionArtifactsUrl
+  - ListAggregatedUtterances
+  - ListBotAliasReplicas
+  - ListBotAliases
+  - ListBotAnalyzerHistory
+  - ListBotLocales
+  - ListBotRecommendations
+  - ListBotReplicas
+  - ListBotResourceGenerations
+  - ListBotVersionReplicas
+  - ListBotVersions
+  - ListBots
+  - ListBuiltInIntents
+  - ListBuiltInSlotTypes
+  - ListCustomVocabularyItems
+  - ListExports
+  - ListImports
+  - ListIntentMetrics
+  - ListIntentPaths
+  - ListIntentStageMetrics
+  - ListIntents
+  - ListRecommendedIntents
+  - ListSessionAnalyticsData
+  - ListSessionMetrics
+  - ListSlotTypes
+  - ListSlots
+  - ListTagsForResource
+  - ListTestExecutionResultItems
+  - ListTestExecutions
+  - ListTestSetRecords
+  - ListTestSets
+  - ListUtteranceAnalyticsData
+  - ListUtteranceMetrics
+  - PutSession
+  - RecognizeText
+  - RecognizeUtterance
+  - SearchAssociatedTranscripts
+  - StartBotAnalyzer
+  - StartBotRecommendation
+  - StartBotResourceGeneration
+  - StartConversation
+  - StartImport
+  - StartTestExecution
+  - StartTestSetGeneration
+  - StopBotAnalyzer
+  - StopBotRecommendation
+  - TagResource
+  - UntagResource
+  - UpdateBot
+  - UpdateBotAlias
+  - UpdateBotLocale
+  - UpdateBotRecommendation
+  - UpdateExport
+  - UpdateIntent
+  - UpdateResourcePolicy
+  - UpdateSlot
+  - UpdateSlotType
+  - UpdateTestSet
+  binding: generic
+  confidence: high
+  note: Not a Lex tool. aws___run_script executes Python with call_boto3, so every Amazon Lex V2 operation
+    is reachable as a boto3 lexv2-models / lexv2-runtime call. The agent supplies the operation name and
+    parameters itself; there is no per-operation inputSchema, which is the practical difference between
+    this and a provider-authored MCP tool.
+- tool: aws___search_documentation
+  category: documentation
+  rest: []
+  binding: none
+  confidence: high
+  note: Returns Amazon Lex V2 Developer Guide and API Reference chunks. Reads about the API; does not
+    call it.
+- tool: aws___read_documentation
+  category: documentation
+  rest: []
+  binding: none
+  confidence: high
+  note: Fetches a named Amazon Lex documentation page as markdown.
+mcp_only:
+- tool: aws___get_presigned_url
+  reason: Generic S3 pre-signed URL helper with no Lex REST equivalent. Lex has its own CreateUploadUrl
+    operation for bot import archives; the two are not wired together.
+- tool: aws___get_tasks
+  reason: Polls the MCP server's own long-running task queue. Not an AWS API operation.
+- tool: aws___list_regions
+  reason: AWS account/region metadata; no Lex operation.
+- tool: aws___get_regional_availability
+  reason: AWS account/region metadata; no Lex operation.
+- tool: aws___retrieve_skill
+  reason: Returns AWS Agent SOPs; no Lex operation.
+rest_only:
+- operationId: BatchCreateCustomVocabularyItem
+  service: models-v2
+  method: PUT
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/customvocabulary/DEFAULT/batchcreate
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: BatchDeleteCustomVocabularyItem
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/customvocabulary/DEFAULT/batchdelete
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: BatchUpdateCustomVocabularyItem
+  service: models-v2
+  method: PUT
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/customvocabulary/DEFAULT/batchupdate
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: BuildBotLocale
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: CreateBot
+  service: models-v2
+  method: PUT
+  path: /bots
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: CreateBotAlias
+  service: models-v2
+  method: PUT
+  path: /bots/{botId}/botaliases
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: CreateBotLocale
+  service: models-v2
+  method: PUT
+  path: /bots/{botId}/botversions/{botVersion}/botlocales
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: CreateBotReplica
+  service: models-v2
+  method: PUT
+  path: /bots/{botId}/replicas
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: CreateBotVersion
+  service: models-v2
+  method: PUT
+  path: /bots/{botId}/botversions
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: CreateExport
+  service: models-v2
+  method: PUT
+  path: /exports
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: CreateIntent
+  service: models-v2
+  method: PUT
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/intents
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: CreateResourcePolicy
+  service: models-v2
+  method: POST
+  path: /policy/{resourceArn}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: CreateResourcePolicyStatement
+  service: models-v2
+  method: POST
+  path: /policy/{resourceArn}/statements
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: CreateSlot
+  service: models-v2
+  method: PUT
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/intents/{intentId}/slots
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: CreateSlotType
+  service: models-v2
+  method: PUT
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/slottypes
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: CreateTestSetDiscrepancyReport
+  service: models-v2
+  method: POST
+  path: /testsets/{testSetId}/testsetdiscrepancy
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: CreateUploadUrl
+  service: models-v2
+  method: POST
+  path: /createuploadurl
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DeleteBot
+  service: models-v2
+  method: DELETE
+  path: /bots/{botId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DeleteBotAlias
+  service: models-v2
+  method: DELETE
+  path: /bots/{botId}/botaliases/{botAliasId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DeleteBotAnalyzerRecommendation
+  service: models-v2
+  method: DELETE
+  path: /bots/{botId}/botanalyzer/{botAnalyzerRequestId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DeleteBotLocale
+  service: models-v2
+  method: DELETE
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DeleteBotReplica
+  service: models-v2
+  method: DELETE
+  path: /bots/{botId}/replicas/{replicaRegion}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DeleteBotVersion
+  service: models-v2
+  method: DELETE
+  path: /bots/{botId}/botversions/{botVersion}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DeleteCustomVocabulary
+  service: models-v2
+  method: DELETE
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/customvocabulary
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DeleteExport
+  service: models-v2
+  method: DELETE
+  path: /exports/{exportId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DeleteImport
+  service: models-v2
+  method: DELETE
+  path: /imports/{importId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DeleteIntent
+  service: models-v2
+  method: DELETE
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/intents/{intentId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DeleteResourcePolicy
+  service: models-v2
+  method: DELETE
+  path: /policy/{resourceArn}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DeleteResourcePolicyStatement
+  service: models-v2
+  method: DELETE
+  path: /policy/{resourceArn}/statements/{statementId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DeleteSession
+  service: runtime-v2
+  method: DELETE
+  path: /bots/{botId}/botAliases/{botAliasId}/botLocales/{localeId}/sessions/{sessionId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DeleteSlot
+  service: models-v2
+  method: DELETE
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/intents/{intentId}/slots/{slotId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DeleteSlotType
+  service: models-v2
+  method: DELETE
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/slottypes/{slotTypeId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DeleteTestSet
+  service: models-v2
+  method: DELETE
+  path: /testsets/{testSetId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DeleteUtterances
+  service: models-v2
+  method: DELETE
+  path: /bots/{botId}/utterances
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DescribeBot
+  service: models-v2
+  method: GET
+  path: /bots/{botId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DescribeBotAlias
+  service: models-v2
+  method: GET
+  path: /bots/{botId}/botaliases/{botAliasId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DescribeBotAnalyzerRecommendation
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/botanalyzer/describe/{botAnalyzerRequestId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DescribeBotLocale
+  service: models-v2
+  method: GET
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DescribeBotRecommendation
+  service: models-v2
+  method: GET
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/botrecommendations/{botRecommendationId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DescribeBotReplica
+  service: models-v2
+  method: GET
+  path: /bots/{botId}/replicas/{replicaRegion}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DescribeBotResourceGeneration
+  service: models-v2
+  method: GET
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/generations/{generationId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DescribeBotVersion
+  service: models-v2
+  method: GET
+  path: /bots/{botId}/botversions/{botVersion}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DescribeCustomVocabularyMetadata
+  service: models-v2
+  method: GET
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/customvocabulary/DEFAULT/metadata
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DescribeExport
+  service: models-v2
+  method: GET
+  path: /exports/{exportId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DescribeImport
+  service: models-v2
+  method: GET
+  path: /imports/{importId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DescribeIntent
+  service: models-v2
+  method: GET
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/intents/{intentId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DescribeResourcePolicy
+  service: models-v2
+  method: GET
+  path: /policy/{resourceArn}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DescribeSlot
+  service: models-v2
+  method: GET
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/intents/{intentId}/slots/{slotId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DescribeSlotType
+  service: models-v2
+  method: GET
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/slottypes/{slotTypeId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DescribeTestExecution
+  service: models-v2
+  method: GET
+  path: /testexecutions/{testExecutionId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DescribeTestSet
+  service: models-v2
+  method: GET
+  path: /testsets/{testSetId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DescribeTestSetDiscrepancyReport
+  service: models-v2
+  method: GET
+  path: /testsetdiscrepancy/{testSetDiscrepancyReportId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: DescribeTestSetGeneration
+  service: models-v2
+  method: GET
+  path: /testsetgenerations/{testSetGenerationId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: GenerateBotElement
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/generate
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: GetSession
+  service: runtime-v2
+  method: GET
+  path: /bots/{botId}/botAliases/{botAliasId}/botLocales/{localeId}/sessions/{sessionId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: GetTestExecutionArtifactsUrl
+  service: models-v2
+  method: GET
+  path: /testexecutions/{testExecutionId}/artifacturl
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListAggregatedUtterances
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/aggregatedutterances
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListBotAliasReplicas
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/replicas/{replicaRegion}/botaliases
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListBotAliases
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/botaliases
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListBotAnalyzerHistory
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/botanalyzer/history
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListBotLocales
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/botversions/{botVersion}/botlocales
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListBotRecommendations
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/botrecommendations
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListBotReplicas
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/replicas
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListBotResourceGenerations
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/generations
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListBotVersionReplicas
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/replicas/{replicaRegion}/botversions
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListBotVersions
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/botversions
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListBots
+  service: models-v2
+  method: POST
+  path: /bots
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListBuiltInIntents
+  service: models-v2
+  method: POST
+  path: /builtins/locales/{localeId}/intents
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListBuiltInSlotTypes
+  service: models-v2
+  method: POST
+  path: /builtins/locales/{localeId}/slottypes
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListCustomVocabularyItems
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/customvocabulary/DEFAULT/list
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListExports
+  service: models-v2
+  method: POST
+  path: /exports
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListImports
+  service: models-v2
+  method: POST
+  path: /imports
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListIntentMetrics
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/analytics/intentmetrics
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListIntentPaths
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/analytics/intentpaths
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListIntentStageMetrics
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/analytics/intentstagemetrics
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListIntents
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/intents
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListRecommendedIntents
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/botrecommendations/{botRecommendationId}/intents
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListSessionAnalyticsData
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/analytics/sessions
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListSessionMetrics
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/analytics/sessionmetrics
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListSlotTypes
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/slottypes
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListSlots
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/intents/{intentId}/slots
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListTagsForResource
+  service: models-v2
+  method: GET
+  path: /tags/{resourceARN}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListTestExecutionResultItems
+  service: models-v2
+  method: POST
+  path: /testexecutions/{testExecutionId}/results
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListTestExecutions
+  service: models-v2
+  method: POST
+  path: /testexecutions
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListTestSetRecords
+  service: models-v2
+  method: POST
+  path: /testsets/{testSetId}/records
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListTestSets
+  service: models-v2
+  method: POST
+  path: /testsets
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListUtteranceAnalyticsData
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/analytics/utterances
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: ListUtteranceMetrics
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/analytics/utterancemetrics
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: PutSession
+  service: runtime-v2
+  method: POST
+  path: /bots/{botId}/botAliases/{botAliasId}/botLocales/{localeId}/sessions/{sessionId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: RecognizeText
+  service: runtime-v2
+  method: POST
+  path: /bots/{botId}/botAliases/{botAliasId}/botLocales/{localeId}/sessions/{sessionId}/text
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: RecognizeUtterance
+  service: runtime-v2
+  method: POST
+  path: /bots/{botId}/botAliases/{botAliasId}/botLocales/{localeId}/sessions/{sessionId}/utterance
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: SearchAssociatedTranscripts
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/botrecommendations/{botRecommendationId}/associatedtranscripts
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: StartBotAnalyzer
+  service: models-v2
+  method: POST
+  path: /bots/{botId}/botanalyzer
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: StartBotRecommendation
+  service: models-v2
+  method: PUT
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/botrecommendations
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: StartBotResourceGeneration
+  service: models-v2
+  method: PUT
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/startgeneration
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: StartConversation
+  service: runtime-v2
+  method: POST
+  path: /bots/{botId}/botAliases/{botAliasId}/botLocales/{localeId}/sessions/{sessionId}/conversation
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: StartImport
+  service: models-v2
+  method: PUT
+  path: /imports
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: StartTestExecution
+  service: models-v2
+  method: POST
+  path: /testsets/{testSetId}/testexecutions
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: StartTestSetGeneration
+  service: models-v2
+  method: PUT
+  path: /testsetgenerations
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: StopBotAnalyzer
+  service: models-v2
+  method: PUT
+  path: /bots/{botId}/botanalyzer/{botAnalyzerRequestId}/stop
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: StopBotRecommendation
+  service: models-v2
+  method: PUT
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/botrecommendations/{botRecommendationId}/stopbotrecommendation
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: TagResource
+  service: models-v2
+  method: POST
+  path: /tags/{resourceARN}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: UntagResource
+  service: models-v2
+  method: DELETE
+  path: /tags/{resourceARN}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: UpdateBot
+  service: models-v2
+  method: PUT
+  path: /bots/{botId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: UpdateBotAlias
+  service: models-v2
+  method: PUT
+  path: /bots/{botId}/botaliases/{botAliasId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: UpdateBotLocale
+  service: models-v2
+  method: PUT
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: UpdateBotRecommendation
+  service: models-v2
+  method: PUT
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/botrecommendations/{botRecommendationId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: UpdateExport
+  service: models-v2
+  method: PUT
+  path: /exports/{exportId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: UpdateIntent
+  service: models-v2
+  method: PUT
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/intents/{intentId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: UpdateResourcePolicy
+  service: models-v2
+  method: PUT
+  path: /policy/{resourceArn}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: UpdateSlot
+  service: models-v2
+  method: PUT
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/intents/{intentId}/slots/{slotId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: UpdateSlotType
+  service: models-v2
+  method: PUT
+  path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/slottypes/{slotTypeId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+- operationId: UpdateTestSet
+  service: models-v2
+  method: PUT
+  path: /testsets/{testSetId}
+  reason: No named MCP tool. Reachable only through the generic aws___run_script executor.
+coverage:
+  operations_total: 113
+  operations_with_named_tool: 0
+  operations_reachable_via_generic_executor: 113
+  mcp_tools_total: 8
+  mcp_tools_bound_to_lex: 1
+  named_tool_coverage_pct: 0.0

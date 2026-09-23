@@ -1,0 +1,103 @@
+generated: '2026-09-17'
+method: probed
+source: live HTTP probes run 2026-09-17 against every host this record knows
+provider: Amazon Lex
+providerId: amazon-lex
+note: >-
+  Five named paths probed on five hosts: the registrable domain (aws.amazon.com), the docs host
+  (docs.aws.amazon.com), the console host (console.aws.amazon.com), and both Amazon Lex V2 API hosts
+  (models-v2-lex.us-east-1.amazonaws.com, runtime-v2-lex.us-east-1.amazonaws.com). One document is
+  served: RFC 9116 security.txt on aws.amazon.com, saved verbatim as amazon-lex-security.txt. Every
+  other 200-shaped response was an HTML shell or an AWS service error and is recorded as a miss —
+  aws.amazon.com returns its 322KB marketing 404 page for every unknown /.well-known/* path, the API
+  hosts answer SigV4 errors (403 "Unable to determine service/operation name to be authorized" on the
+  models endpoint, 404 UnknownOperationException on the runtime endpoint), and console.aws.amazon.com
+  answers an S3 NoSuchKey XML. No /.well-known/api-catalog, no OAuth or OIDC discovery document (Amazon
+  Lex authenticates with AWS SigV4/IAM, not OAuth — see authentication/), no ai-plugin.json, and no
+  A2A agent card at either the current or the legacy path on any host.
+hosts:
+- host: aws.amazon.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    file: amazon-lex-security.txt
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+- host: docs.aws.amazon.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+- host: console.aws.amazon.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: models-v2-lex.us-east-1.amazonaws.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+  - path: /.well-known/ai-plugin.json
+    status: 403
+  - path: /.well-known/agent-card.json
+    status: 403
+  - path: /.well-known/agent.json
+    status: 403
+- host: runtime-v2-lex.us-east-1.amazonaws.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404

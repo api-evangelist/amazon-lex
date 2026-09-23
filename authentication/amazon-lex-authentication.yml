@@ -1,16 +1,76 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/amazon-lex-openapi.yml
+generated: '2026-09-17'
+method: searched
+source: >-
+  https://docs.aws.amazon.com/lexv2/latest/dg/security_iam_service-with-iam.html,
+  https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html,
+  https://servicereference.us-east-1.amazonaws.com/v1/lex/lex.json (AWS Service Reference, fetched
+  2026-09-17) — cross-checked against the aws.auth#sigv4 trait in
+  smithy/amazon-lex-models-v2-2020-08-07.json and derived from
+  openapi/amazon-lex-models-v2-openapi.yml + openapi/amazon-lex-runtime-v2-openapi.yml
+provider: Amazon Lex
+providerId: amazon-lex
 summary:
   types:
-  - apiKey
+  - sigv4
   api_key_in:
   - header
+  oauth2: false
+  openid_connect: false
+  api_keys: false
+  mutual_tls: false
+model: >-
+  AWS Signature Version 4 over IAM credentials. There are no API keys, no OAuth flow, no bearer tokens
+  and no OIDC discovery document — /.well-known/openid-configuration and
+  /.well-known/oauth-authorization-server 404 on every host probed. The OpenAPI securityScheme is
+  typed apiKey/header only because OpenAPI has no native SigV4 type; the real mechanism is a signed
+  canonical request, and a caller cannot construct one from a static header value.
 schemes:
 - name: sigv4
   type: apiKey
   in: header
   parameter: Authorization
-  description: AWS Signature Version 4 authentication
+  signing_name: lex
+  signing_region: the calling AWS Region
+  description: >-
+    AWS Signature Version 4. The Authorization header carries the credential scope, signed headers and
+    signature; x-amz-date is required alongside it. Temporary credentials add x-amz-security-token.
+  spec: https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html
   sources:
-  - openapi/amazon-lex-openapi.yml
+  - smithy/amazon-lex-models-v2-2020-08-07.json
+  - openapi/amazon-lex-models-v2-openapi.yml
+  - openapi/amazon-lex-runtime-v2-openapi.yml
+authorization:
+  model: IAM identity-based policy plus optional resource-based policy
+  actions_reference: https://servicereference.us-east-1.amazonaws.com/v1/lex/lex.json
+  action_count: 152
+  action_breakdown:
+    write: 75
+    list: 39
+    tagging_only: 2
+    permission_management: 0
+  resource_types: [bot, bot alias, bot version, channel, intent version, slottype version, test set]
+  note: >-
+    Worth calling out as a discoverability fact: AWS publishes the full permission surface
+    machine-readably and anonymously. The Service Reference document gives all 152 `lex:*` actions with
+    per-action write/list/tagging annotations and the resource types each one touches — an agent can
+    compute the exact least-privilege policy for a planned call sequence without reading a docs page.
+  managed_policies:
+  - name: AmazonLexFullAccess
+  - name: AmazonLexReadOnly
+  - name: AmazonLexRunBotsOnly
+  - name: AmazonLexReplicationPolicy
+  managed_policies_docs: https://docs.aws.amazon.com/lexv2/latest/dg/security-iam-awsmanpol.html
+  resource_based:
+    supported: true
+    operations: [CreateResourcePolicy, DescribeResourcePolicy, UpdateResourcePolicy, DeleteResourcePolicy, CreateResourcePolicyStatement, DeleteResourcePolicyStatement]
+    note: Attachable to a bot or bot alias, for cross-account invocation.
+  service_role:
+    required: true
+    note: >-
+      CreateBot requires a roleArn — the IAM role Amazon Lex itself assumes to write conversation logs,
+      call Lambda code hooks and read S3 grammar files. This is a second, distinct identity from the
+      caller's, and a misconfigured one surfaces at runtime as DependencyFailedException (424), not as
+      an auth error at build time.
+docs: https://docs.aws.amazon.com/lexv2/latest/dg/security_iam_service-with-iam.html
+scopes_artifact: null
+scopes_note: No OAuth scopes exist. Authorization granularity is the 152 IAM actions above.

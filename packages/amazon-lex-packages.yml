@@ -1,0 +1,168 @@
+generated: '2026-09-17'
+method: searched
+source: >-
+  Registry metadata endpoints queried unauthenticated on 2026-09-17 (registry.npmjs.org, pypi.org,
+  rubygems.org, crates.io, api.nuget.org, repo1.maven.org, proxy.golang.org, repo.packagist.org),
+  cross-checked against https://aws.amazon.com/developer/tools/ and
+  https://docs.aws.amazon.com/lexv2/latest/dg/sdk-general-information-section.html
+provider: Amazon Lex
+providerId: amazon-lex
+note: >-
+  Amazon Lex ships no standalone SDK. Every first-party client is a per-service module inside the AWS SDK
+  for that language, released on the AWS SDK's own daily cadence — which is why every version below was
+  published within days of this probe. Two modules exist per language: the Model Building V2 client
+  (build and manage bots) and the Runtime V2 client (talk to a built bot). The aggregate SDKs (boto3,
+  aws-sdk-php, aws-sdk-java v1) carry Lex inside a single package rather than a per-service artifact.
+official_sdk_count: 12
+packages:
+- name: '@aws-sdk/client-lex-models-v2'
+  registry: npm
+  language: JavaScript/TypeScript
+  official: true
+  scope: Model Building V2
+  url: https://www.npmjs.com/package/@aws-sdk/client-lex-models-v2
+  repository: https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-lex-models-v2
+  install: npm install @aws-sdk/client-lex-models-v2
+  version: 3.1135.0
+  published: '2026-09-17'
+- name: '@aws-sdk/client-lex-runtime-v2'
+  registry: npm
+  language: JavaScript/TypeScript
+  official: true
+  scope: Runtime V2
+  url: https://www.npmjs.com/package/@aws-sdk/client-lex-runtime-v2
+  repository: https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-lex-runtime-v2
+  install: npm install @aws-sdk/client-lex-runtime-v2
+  version: 3.1135.0
+  published: '2026-09-17'
+- name: boto3
+  registry: pypi
+  language: Python
+  official: true
+  scope: Model Building V2 + Runtime V2 (aggregate AWS SDK; clients "lexv2-models" and "lexv2-runtime")
+  url: https://pypi.org/project/boto3/
+  repository: https://github.com/boto/boto3
+  install: pip install boto3
+  version: 1.43.97
+  published: '2026-09-17'
+- name: aws-sdk-lexmodelsv2
+  registry: rubygems
+  language: Ruby
+  official: true
+  scope: Model Building V2
+  url: https://rubygems.org/gems/aws-sdk-lexmodelsv2
+  repository: https://github.com/aws/aws-sdk-ruby/tree/version-3/gems/aws-sdk-lexmodelsv2
+  install: gem install aws-sdk-lexmodelsv2
+  version: 1.97.0
+  published: '2026-09-11'
+- name: aws-sdk-lexruntimev2
+  registry: rubygems
+  language: Ruby
+  official: true
+  scope: Runtime V2
+  url: https://rubygems.org/gems/aws-sdk-lexruntimev2
+  repository: https://github.com/aws/aws-sdk-ruby/tree/version-3/gems/aws-sdk-lexruntimev2
+  install: gem install aws-sdk-lexruntimev2
+  version: 1.73.0
+  published: '2026-09-11'
+- name: aws-sdk-lexmodelsv2
+  registry: crates.io
+  language: Rust
+  official: true
+  scope: Model Building V2
+  url: https://crates.io/crates/aws-sdk-lexmodelsv2
+  repository: https://github.com/awslabs/aws-sdk-rust
+  install: cargo add aws-sdk-lexmodelsv2
+  version: 1.123.0
+  published: '2026-09-16'
+- name: aws-sdk-lexruntimev2
+  registry: crates.io
+  language: Rust
+  official: true
+  scope: Runtime V2
+  url: https://crates.io/crates/aws-sdk-lexruntimev2
+  repository: https://github.com/awslabs/aws-sdk-rust
+  install: cargo add aws-sdk-lexruntimev2
+  version: 1.112.0
+  published: '2026-09-16'
+- name: AWSSDK.LexModelsV2
+  registry: nuget
+  language: .NET
+  official: true
+  scope: Model Building V2
+  url: https://www.nuget.org/packages/AWSSDK.LexModelsV2
+  repository: https://github.com/aws/aws-sdk-net
+  install: dotnet add package AWSSDK.LexModelsV2
+  version: 4.0.100.14
+  published: null
+  note: >-
+    Version read from the NuGet flat-container index (api.nuget.org/v3-flatcontainer/awssdk.lexmodelsv2/index.json).
+    The registration index is paged and the publish date was not retrieved on this pass; recorded null
+    rather than guessed.
+- name: AWSSDK.LexRuntimeV2
+  registry: nuget
+  language: .NET
+  official: true
+  scope: Runtime V2
+  url: https://www.nuget.org/packages/AWSSDK.LexRuntimeV2
+  repository: https://github.com/aws/aws-sdk-net
+  install: dotnet add package AWSSDK.LexRuntimeV2
+  version: 4.0.100.14
+  published: null
+  note: Publish date not retrieved from the paged NuGet registration index on this pass.
+- name: software.amazon.awssdk:lexmodelsv2
+  registry: maven
+  language: Java
+  official: true
+  scope: Model Building V2
+  url: https://central.sonatype.com/artifact/software.amazon.awssdk/lexmodelsv2
+  repository: https://github.com/aws/aws-sdk-java-v2
+  version: 2.55.0
+  published: '2026-09-17'
+  note: Date read from repo1.maven.org maven-metadata.xml lastUpdated (20260917210300).
+- name: software.amazon.awssdk:lexruntimev2
+  registry: maven
+  language: Java
+  official: true
+  scope: Runtime V2
+  url: https://central.sonatype.com/artifact/software.amazon.awssdk/lexruntimev2
+  repository: https://github.com/aws/aws-sdk-java-v2
+  version: 2.55.0
+  published: '2026-09-17'
+- name: github.com/aws/aws-sdk-go-v2/service/lexmodelsv2
+  registry: pkg.go.dev
+  language: Go
+  official: true
+  scope: Model Building V2
+  url: https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/lexmodelsv2
+  repository: https://github.com/aws/aws-sdk-go-v2
+  install: go get github.com/aws/aws-sdk-go-v2/service/lexmodelsv2
+  version: v1.70.0
+  published: '2026-09-09'
+- name: github.com/aws/aws-sdk-go-v2/service/lexruntimev2
+  registry: pkg.go.dev
+  language: Go
+  official: true
+  scope: Runtime V2
+  url: https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/lexruntimev2
+  repository: https://github.com/aws/aws-sdk-go-v2
+  install: go get github.com/aws/aws-sdk-go-v2/service/lexruntimev2
+  version: v1.44.1
+  published: '2026-09-15'
+- name: aws/aws-sdk-php
+  registry: packagist
+  language: PHP
+  official: true
+  scope: Model Building V2 + Runtime V2 (aggregate AWS SDK)
+  url: https://packagist.org/packages/aws/aws-sdk-php
+  repository: https://github.com/aws/aws-sdk-php
+  install: composer require aws/aws-sdk-php
+  version: 3.395.5
+  published: '2026-09-17'
+currency:
+  assessment: current
+  note: >-
+    Every per-service Lex module was republished within nine days of this probe. There is no abandonment
+    signal here — the AWS SDKs regenerate from the same Smithy models captured in smithy/ on a near-daily
+    release train, so an SDK version lag is not a usable signal of Lex API decay the way it is for a
+    single-product vendor.

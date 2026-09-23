@@ -1,0 +1,172 @@
+generated: '2026-09-17'
+method: searched
+source: https://docs.aws.amazon.com/lexv2/latest/dg/doc-history.html (fetched as markdown from https://docs.aws.amazon.com/lexv2/latest/dg/doc-history.md
+  on 2026-09-17)
+provider: Amazon Lex
+providerId: amazon-lex
+url: https://docs.aws.amazon.com/lexv2/latest/dg/doc-history.html
+feed: https://docs.aws.amazon.com/lexv2/latest/dg/amazon-lex-release-notes.rss
+scheme: dated document history; the API service version (2020-08-07) does not change
+current_version: '2020-08-07'
+latest_entry: '2025-10-27'
+note: Amazon Lex V2 has no separate API changelog — the developer guide Document History IS the change
+  record, and it mixes feature launches, AWS managed-policy updates, region expansions and documentation
+  edits in one dated table. No entry in the full history is marked breaking, and no operation in the service
+  model carries a deprecated trait. The most recent documented change is 2025-10-27; the window below
+  is the 25 most recent entries.
+entry_count_captured: 25
+entry_count_published: 72
+entries:
+- date: '2025-10-27'
+  type: Feature update
+  summary: 'Wait and continue is now available in additional locales: ca-ES, de-AT, de-DE, es-419, es-ES,
+    es-US, fr-CA, fr-FR, it-IT, ja-JP, ko-KR, pt-BR, pt-PT, zh-CN, zh-HK. For more information, see Enabling
+    the Amazon Lex V2 bot to wait for the user to provide more information during a pause.'
+  url: https://docs.aws.amazon.com/lexv2/latest/dg/wait-and-continue.html
+  breaking: false
+- date: '2025-08-18'
+  type: Feature update
+  summary: AMAZON.Currency and AMAZON.Confirmation built-in slot types now support all locales. For more
+    information, see Built-in slot types.
+  url: https://docs.aws.amazon.com/lexv2/latest/dg/building-slot-types-built-in.html
+  breaking: false
+- date: '2025-08-04'
+  type: Documentation update
+  summary: Updated documentation for Assisted NLU feature with improved examples and clarifications. For
+    more information, see Assisted NLU.
+  url: https://docs.aws.amazon.com/lexv2/latest/dg/assisted-nlu.html
+  breaking: false
+- date: '2025-07-03'
+  type: New feature
+  summary: You can use the AMAZON.BedrockAgentIntent built-in intent to connect your Amazon Lex V2 bot
+    with Amazon Bedrock Agents and Knowledge Bases. For more information, see AMAZON.BedrockAgentIntent
+    built-in intent.
+  url: https://docs.aws.amazon.com/lexv2/latest/dg/building-intents-built-in.html
+  breaking: false
+- date: '2025-06-24'
+  type: Update to AWS managed policy
+  summary: Amazon Lex V2 updated the policy to allow replication of tags and ResourceBasedPolicy when
+    using global resiliency see AmazonLexReplicationPolicy.
+  url: https://docs.aws.amazon.com/lexv2/latest/dg/security-iam-awsmanpol.html#security-iam-awsmanpol-AmazonLexReplicationPolicy
+  breaking: false
+- date: '2025-06-11'
+  type: New feature
+  summary: You can now use Assisted NLU to improve intent classification and slot resolution in Amazon
+    Lex V2. This feature uses Large Language Models (LLMs) to enhance accuracy while staying within your
+    bot's configured intents and slots. For more information, see Assisted NLU.
+  url: https://docs.aws.amazon.com/lexv2/latest/dg/assisted-nlu.html
+  breaking: false
+- date: '2025-06-03'
+  type: Update to feature (2025-06-03)
+  summary: You can use 17 new languages with your custom vocabularies in Amazon Lex V2. For more information,
+    see Custom vocabularies.
+  url: https://docs.aws.amazon.com/lexv2/latest/dg/vocab.html
+  breaking: false
+- date: '2024-12-01'
+  type: New feature (2024-12-01)
+  summary: You can use the QinConnect built-in intent to connect your Amazon Lex V2 bot with Amazon Connect.
+    For more information, see QinConnect built-in intent.
+  url: https://docs.aws.amazon.com/lexv2/latest/dg/building-intents-built-in.html
+  breaking: false
+- date: '2024-10-01'
+  type: New feature (2024-10-01)
+  summary: You can use AMAZON.Currency built-in slot for US and Spanish locales in Amazon Lex V2. For
+    more information, see AMAZON.Currency.
+  url: https://docs.aws.amazon.com/lexv2/latest/dg/built-in-slot-currency.html
+  breaking: false
+- date: '2024-07-26'
+  type: Update to feature (2024-07-26)
+  summary: The QnA built-in intent for generative AI now supports Bedrock Knowledge Base and Guardrails
+    in Amazon Lex V2. For more information, see AMAZON.QnAIntent.
+  url: https://docs.aws.amazon.com/lexv2/latest/dg/built-in-intent-qna.html
+  breaking: false
+- date: '2024-07-10'
+  type: Update to feature (2024-07-10)
+  summary: The QnA built-in intent for generative AI now supports Anthropic Claude 3 Haiku and Anthropic
+    Claude 3 Sonnet models in Amazon Lex V2. For more information, see Optimize bot creation and performance
+    with generative AI.
+  url: https://docs.aws.amazon.com/lexv2/latest/dg/generative-features.html
+  breaking: false
+- date: '2024-05-10'
+  type: Update to AWS managed policy (2024-05-10)
+  summary: Amazon Lex V2 added new permissions to the AmazonLexReadOnly managed policy to allow read access
+    to bot resources that have been replicated in other regions.
+  url: https://docs.aws.amazon.com/lexv2/latest/dg/security-iam-awsmanpol.html#security-iam-awsmanpol-AmazonLexReadOnly
+  breaking: false
+- date: '2024-04-15'
+  type: Update to AWS managed policy (2024-04-15)
+  summary: Amazon Lex V2 added new permissions to the AmazonLexFullAccess managed policy to allow updating
+    of replicated bot resources to other regions.
+  url: https://docs.aws.amazon.com/lexv2/latest/dg/security-iam-awsmanpol.html#security-iam-awsmanpol-AmazonLexFullAccess
+  breaking: false
+- date: '2024-03-22'
+  type: Region expansion
+  summary: Amazon Lex V2 is now available in AWS GovCloud (US-West) (us-gov-west-1).
+  url: https://docs.aws.amazon.com/general/latest/gr/lex.html
+  breaking: false
+- date: '2024-03-07'
+  type: Update to AWS managed policy (2024-03-07)
+  summary: Amazon Lex V2 added new permissions to the AmazonLexReplicationPolicy managed policy to allow
+    updating of replicated bot resources to other regions.
+  url: https://docs.aws.amazon.com/lexv2/latest/dg/security-iam-awsmanpol.html#security-iam-awsmanpol-AmazonLexReplicationPolicy
+  breaking: false
+- date: '2024-03-04'
+  type: New function
+  summary: You can use fn.LENGTH() function to determine the value length of a string value in Amazon
+    Lex V2. For more information, see Conditional branching - Functions.
+  url: https://docs.aws.amazon.com/lexv2/latest/dg/paths-branching.html#branching-function
+  breaking: false
+- date: '2024-02-28'
+  type: Update to feature (2024-02-28)
+  summary: The QnA built-in slot for generative AI capabilities in Amazon Lex V2 is now GA. For more information,
+    see Optimize bot creation and performance with generative AI.
+  url: https://docs.aws.amazon.com/lexv2/latest/dg/generative-features.html
+  breaking: false
+- date: '2024-02-08'
+  type: Update to AWS managed policy (2024-02-08)
+  summary: Amazon Lex V2 added new permissions to the AmazonLexFullAccess managed policy to allow replication
+    of bot resources to other regions.
+  url: https://docs.aws.amazon.com/lexv2/latest/dg/security-iam-awsmanpol.html#security-iam-awsmanpol-AmazonLexFullAccess
+  breaking: false
+- date: '2024-02-08'
+  type: New managed policy
+  summary: Amazon Lex V2 added a managed policy providing permissions to replicate bot resources in other
+    regions. For more information, see AmazonLexReplicationPolicy.
+  url: https://docs.aws.amazon.com/lexv2/latest/dg/security-iam-awsmanpol.html#security-iam-awsmanpol-updates
+  breaking: false
+- date: '2024-02-08'
+  type: New feature (2024-02-08)
+  summary: You can use Global resiliency to replicate your bot in a second AWS region in Amazon Lex V2.
+    For more information, see Global resiliency.
+  url: https://docs.aws.amazon.com/lexv2/latest/dg/global-resiliency.html
+  breaking: false
+- date: '2023-11-29'
+  type: New feature (2023-11-29)
+  summary: You can now take advantage of generative AI capabilities in Amazon Lex V2. For more information,
+    see Optimize bot creation and performance with generative AI.
+  url: https://docs.aws.amazon.com/lexv2/latest/dg/generative-features.html
+  breaking: false
+- date: '2023-11-08'
+  type: New feature (2023-11-08)
+  summary: Amazon Lex V2 can now use selective logging to capture text and/or audio at the intent or slot
+    level. For more information, see Selective logging.
+  url: https://docs.aws.amazon.com/lexv2/latest/dg/monitoring-selective-logging.html
+  breaking: false
+- date: '2023-08-17'
+  type: New feature (2023-08-17)
+  summary: Amazon Lex V2 can now use a built-in slot to determine Yes/No/Maybe/Don't know responses using
+    `AMAZON.Confirmation`. For more information, see Built-in Slot Types.
+  url: https://docs.aws.amazon.com/lexv2/latest/dg/built-in-slots.html
+  breaking: false
+- date: '2023-07-18'
+  type: New feature (2023-07-18)
+  summary: You can view the performance metrics of intents and slots, in addition to other conversational
+    metrics using the analytics dashboard. For more information, see Analytics.
+  url: https://docs.aws.amazon.com/lexv2/latest/dg/analytics.html
+  breaking: false
+- date: '2023-06-06'
+  type: New feature (2023-06-06)
+  summary: You can improve the accuracy and fulfillment success of your bot with the Test Workbench. For
+    more information, see Test Workbench.
+  url: https://docs.aws.amazon.com/lexv2/latest/dg/test-workbench.html
+  breaking: false

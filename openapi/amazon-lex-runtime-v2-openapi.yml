@@ -1,0 +1,1689 @@
+openapi: 3.1.0
+info:
+  title: Amazon Lex Runtime V2 API
+  description: Amazon Lex V2 Runtime operations send user input to a built bot and manage the conversation
+    session — RecognizeText, RecognizeUtterance, StartConversation, and session state. Derived mechanically
+    from the AWS-published Smithy 2.0 service model (aws/api-models-aws, models/lex-runtime-v2/service/2020-08-07).
+    Requests are signed with AWS Signature Version 4 using service name lex.
+  version: '2020-08-07'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/premiumsupport/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  x-generated-from: AWS Smithy 2.0 service model (https://github.com/aws/api-models-aws) — mechanical
+    transform, no hand-authored operations
+servers:
+- url: https://runtime-v2-lex.us-east-1.amazonaws.com
+  description: Amazon Lex V2 Runtime endpoint (us-east-1; one regional endpoint per AWS Region — see https://docs.aws.amazon.com/general/latest/gr/lex.html)
+tags:
+- name: bots
+security:
+- sigv4: []
+paths:
+  /bots/{botId}/botAliases/{botAliasId}/botLocales/{localeId}/sessions/{sessionId}:
+    delete:
+      operationId: DeleteSession
+      summary: Removes session information for a specified bot, alias, and user ID.
+      description: Removes session information for a specified bot, alias, and user ID. You can use this
+        operation to restart a conversation with a bot. When you remove a session, the entire history
+        of the session is removed so that you can start again. You don't need to delete a session. Sessions
+        have a time limit and will expire. Set the session time limit when you create the bot. The default
+        is 5 minutes, but you can specify anything between 1 minute and 24 hours. If you specify a bot
+        or alias ID that doesn't exist, you receive a BadRequestException. If the locale doesn't exist
+        in the bot, or if the locale hasn't been enables for the alias, you receive a BadRequestException.
+      tags:
+      - bots
+      parameters:
+      - name: botId
+        in: path
+        required: true
+        description: The identifier of the bot that contains the session data.
+        schema:
+          type: string
+          minLength: 10
+          maxLength: 10
+          pattern: ^[0-9a-zA-Z]+$
+      - name: botAliasId
+        in: path
+        required: true
+        description: The alias identifier in use for the bot that contains the session data.
+        schema:
+          type: string
+      - name: localeId
+        in: path
+        required: true
+        description: The locale where the session is in use.
+        schema:
+          type: string
+          minLength: 1
+      - name: sessionId
+        in: path
+        required: true
+        description: The identifier of the session to delete.
+        schema:
+          type: string
+          minLength: 2
+          maxLength: 100
+          pattern: ^[0-9a-zA-Z._:-]+$
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteSessionResponse'
+        '400':
+          description: ValidationException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationException'
+        '403':
+          description: AccessDeniedException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessDeniedException'
+        '404':
+          description: ResourceNotFoundException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundException'
+        '409':
+          description: ConflictException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConflictException'
+        '429':
+          description: ThrottlingException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrottlingException'
+        '500':
+          description: InternalServerException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerException'
+    get:
+      operationId: GetSession
+      summary: Returns session information for a specified bot, alias, and user.
+      description: Returns session information for a specified bot, alias, and user. For example, you
+        can use this operation to retrieve session information for a user that has left a long-running
+        session in use. If the bot, alias, or session identifier doesn't exist, Amazon Lex V2 returns
+        a BadRequestException. If the locale doesn't exist or is not enabled for the alias, you receive
+        a BadRequestException.
+      tags:
+      - bots
+      parameters:
+      - name: botId
+        in: path
+        required: true
+        description: The identifier of the bot that contains the session data.
+        schema:
+          type: string
+          minLength: 10
+          maxLength: 10
+          pattern: ^[0-9a-zA-Z]+$
+      - name: botAliasId
+        in: path
+        required: true
+        description: The alias identifier in use for the bot that contains the session data.
+        schema:
+          type: string
+      - name: localeId
+        in: path
+        required: true
+        description: The locale where the session is in use.
+        schema:
+          type: string
+          minLength: 1
+      - name: sessionId
+        in: path
+        required: true
+        description: The identifier of the session to return.
+        schema:
+          type: string
+          minLength: 2
+          maxLength: 100
+          pattern: ^[0-9a-zA-Z._:-]+$
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSessionResponse'
+        '400':
+          description: ValidationException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationException'
+        '403':
+          description: AccessDeniedException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessDeniedException'
+        '404':
+          description: ResourceNotFoundException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundException'
+        '429':
+          description: ThrottlingException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrottlingException'
+        '500':
+          description: InternalServerException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerException'
+    post:
+      operationId: PutSession
+      summary: Creates a new session or modifies an existing session with an Amazon Lex V2 bot.
+      description: Creates a new session or modifies an existing session with an Amazon Lex V2 bot. Use
+        this operation to enable your application to set the state of the bot.
+      tags:
+      - bots
+      parameters:
+      - name: botId
+        in: path
+        required: true
+        description: The identifier of the bot that receives the session data.
+        schema:
+          type: string
+          minLength: 10
+          maxLength: 10
+          pattern: ^[0-9a-zA-Z]+$
+      - name: botAliasId
+        in: path
+        required: true
+        description: The alias identifier of the bot that receives the session data.
+        schema:
+          type: string
+      - name: localeId
+        in: path
+        required: true
+        description: The locale where the session is in use.
+        schema:
+          type: string
+          minLength: 1
+      - name: sessionId
+        in: path
+        required: true
+        description: The identifier of the session that receives the session data.
+        schema:
+          type: string
+          minLength: 2
+          maxLength: 100
+          pattern: ^[0-9a-zA-Z._:-]+$
+      - name: ResponseContentType
+        in: header
+        required: false
+        description: The message that Amazon Lex V2 returns in the response can be either text or speech
+          depending on the value of this parameter. If the value is text/plain; charset=utf-8, Amazon
+          Lex V2 returns text in the response.
+        schema:
+          type: string
+          minLength: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                messages:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Message'
+                sessionState:
+                  $ref: '#/components/schemas/SessionState'
+                requestAttributes:
+                  type: object
+                  additionalProperties:
+                    type: string
+              required:
+              - sessionState
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PutSessionResponse'
+        '400':
+          description: ValidationException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationException'
+        '403':
+          description: AccessDeniedException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessDeniedException'
+        '404':
+          description: ResourceNotFoundException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundException'
+        '409':
+          description: ConflictException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConflictException'
+        '424':
+          description: DependencyFailedException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DependencyFailedException'
+        '429':
+          description: ThrottlingException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrottlingException'
+        '500':
+          description: InternalServerException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerException'
+        '502':
+          description: BadGatewayException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadGatewayException'
+  /bots/{botId}/botAliases/{botAliasId}/botLocales/{localeId}/sessions/{sessionId}/conversation:
+    post:
+      operationId: StartConversation
+      summary: Starts an HTTP/2 bidirectional event stream that enables you to send audio, text, or DTMF
+        input in real time.
+      description: 'Starts an HTTP/2 bidirectional event stream that enables you to send audio, text,
+        or DTMF input in real time. After your application starts a conversation, users send input to
+        Amazon Lex V2 as a stream of events. Amazon Lex V2 processes the incoming events and responds
+        with streaming text or audio events. Audio input must be in the following format: audio/lpcm sample-rate=8000
+        sample-size-bits=16 channel-count=1; is-big-endian=false. If the optional post-fulfillment response
+        is specified, the messages are returned as follows. For more information, see PostFulfillmentStatusSpecification.
+        Success message - Returned if the Lambda function completes successfully and the intent state
+        is fulfilled or ready fulfillment if the message is present. Failed message - The failed message
+        is returned if the Lambda function throws an exception or if the Lambda function returns a failed
+        intent state without a message. Timeout message - If you don''t configure a timeout message and
+        a timeout, and the Lambda function doesn''t return within 30 seconds, the timeout message is returned.
+        If you configure a timeout, the timeout message is returned when the period times out. For more
+        information, see Completion message. If the optional update message is configured, it is played
+        at the specified frequency while the Lambda function is running and the update message state is
+        active. If the fulfillment update message is not active, the Lambda function runs with a 30 second
+        timeout. For more information, see Update message The StartConversation operation is supported
+        only in the following SDKs: AWS SDK for C++ AWS SDK for Java V2 AWS SDK for Ruby V3'
+      tags:
+      - bots
+      parameters:
+      - name: botId
+        in: path
+        required: true
+        description: The identifier of the bot to process the request.
+        schema:
+          type: string
+          minLength: 10
+          maxLength: 10
+          pattern: ^[0-9a-zA-Z]+$
+      - name: botAliasId
+        in: path
+        required: true
+        description: The alias identifier in use for the bot that processes the request.
+        schema:
+          type: string
+      - name: localeId
+        in: path
+        required: true
+        description: The locale where the session is in use.
+        schema:
+          type: string
+          minLength: 1
+      - name: sessionId
+        in: path
+        required: true
+        description: The identifier of the user session that is having the conversation.
+        schema:
+          type: string
+          minLength: 2
+          maxLength: 100
+          pattern: ^[0-9a-zA-Z._:-]+$
+      - name: x-amz-lex-conversation-mode
+        in: header
+        required: false
+        description: The conversation type that you are using the Amazon Lex V2. If the conversation mode
+          is AUDIO you can send both audio and DTMF information. If the mode is TEXT you can only send
+          text.
+        schema:
+          type: string
+          enum:
+          - AUDIO
+          - TEXT
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartConversationRequestEventStream'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartConversationResponse'
+        '400':
+          description: ValidationException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationException'
+        '403':
+          description: AccessDeniedException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessDeniedException'
+        '429':
+          description: ThrottlingException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrottlingException'
+        '500':
+          description: InternalServerException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerException'
+  /bots/{botId}/botAliases/{botAliasId}/botLocales/{localeId}/sessions/{sessionId}/text:
+    post:
+      operationId: RecognizeText
+      summary: Sends user input to Amazon Lex V2.
+      description: Sends user input to Amazon Lex V2. Client applications use this API to send requests
+        to Amazon Lex V2 at runtime. Amazon Lex V2 then interprets the user input using the machine learning
+        model that it build for the bot. In response, Amazon Lex V2 returns the next message to convey
+        to the user and an optional response card to display. If the optional post-fulfillment response
+        is specified, the messages are returned as follows. For more information, see PostFulfillmentStatusSpecification.
+        Success message - Returned if the Lambda function completes successfully and the intent state
+        is fulfilled or ready fulfillment if the message is present. Failed message - The failed message
+        is returned if the Lambda function throws an exception or if the Lambda function returns a failed
+        intent state without a message. Timeout message - If you don't configure a timeout message and
+        a timeout, and the Lambda function doesn't return within 30 seconds, the timeout message is returned.
+        If you configure a timeout, the timeout message is returned when the period times out. For more
+        information, see Completion message.
+      tags:
+      - bots
+      parameters:
+      - name: botId
+        in: path
+        required: true
+        description: The identifier of the bot that processes the request.
+        schema:
+          type: string
+          minLength: 10
+          maxLength: 10
+          pattern: ^[0-9a-zA-Z]+$
+      - name: botAliasId
+        in: path
+        required: true
+        description: The alias identifier in use for the bot that processes the request.
+        schema:
+          type: string
+      - name: localeId
+        in: path
+        required: true
+        description: The locale where the session is in use.
+        schema:
+          type: string
+          minLength: 1
+      - name: sessionId
+        in: path
+        required: true
+        description: The identifier of the user session that is having the conversation.
+        schema:
+          type: string
+          minLength: 2
+          maxLength: 100
+          pattern: ^[0-9a-zA-Z._:-]+$
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                  minLength: 1
+                  maxLength: 1024
+                  description: The text that the user entered. Amazon Lex V2 interprets this text.
+                sessionState:
+                  $ref: '#/components/schemas/SessionState'
+                requestAttributes:
+                  type: object
+                  additionalProperties:
+                    type: string
+              required:
+              - text
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecognizeTextResponse'
+        '400':
+          description: ValidationException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationException'
+        '403':
+          description: AccessDeniedException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessDeniedException'
+        '404':
+          description: ResourceNotFoundException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundException'
+        '409':
+          description: ConflictException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConflictException'
+        '424':
+          description: DependencyFailedException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DependencyFailedException'
+        '429':
+          description: ThrottlingException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrottlingException'
+        '500':
+          description: InternalServerException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerException'
+        '502':
+          description: BadGatewayException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadGatewayException'
+  /bots/{botId}/botAliases/{botAliasId}/botLocales/{localeId}/sessions/{sessionId}/utterance:
+    post:
+      operationId: RecognizeUtterance
+      summary: Sends user input to Amazon Lex V2.
+      description: Sends user input to Amazon Lex V2. You can send text or speech. Clients use this API
+        to send text and audio requests to Amazon Lex V2 at runtime. Amazon Lex V2 interprets the user
+        input using the machine learning model built for the bot. The following request fields must be
+        compressed with gzip and then base64 encoded before you send them to Amazon Lex V2. requestAttributes
+        sessionState The following response fields are compressed using gzip and then base64 encoded by
+        Amazon Lex V2. Before you can use these fields, you must decode and decompress them. inputTranscript
+        interpretations messages requestAttributes sessionState The example contains a Java application
+        that compresses and encodes a Java object to send to Amazon Lex V2, and a second that decodes
+        and decompresses a response from Amazon Lex V2. If the optional post-fulfillment response is specified,
+        the messages are returned as follows. For more information, see PostFulfillmentStatusSpecification.
+        Success message - Returned if the Lambda function completes successfully and the intent state
+        is fulfilled or ready fulfillment if the message is present. Failed message - The failed message
+        is returned if the Lambda function throws an exception or if the Lambda function returns a failed
+        intent state without a message. Timeout message - If you don't configure a timeout message and
+        a timeout, and the Lambda function doesn't return within 30 seconds, the timeout message is returned.
+        If you configure a timeout, the timeout message is returned when the period times out. For more
+        information, see Completion message.
+      tags:
+      - bots
+      parameters:
+      - name: botId
+        in: path
+        required: true
+        description: The identifier of the bot that should receive the request.
+        schema:
+          type: string
+          minLength: 10
+          maxLength: 10
+          pattern: ^[0-9a-zA-Z]+$
+      - name: botAliasId
+        in: path
+        required: true
+        description: The alias identifier in use for the bot that should receive the request.
+        schema:
+          type: string
+      - name: localeId
+        in: path
+        required: true
+        description: The locale where the session is in use.
+        schema:
+          type: string
+          minLength: 1
+      - name: sessionId
+        in: path
+        required: true
+        description: The identifier of the session in use.
+        schema:
+          type: string
+          minLength: 2
+          maxLength: 100
+          pattern: ^[0-9a-zA-Z._:-]+$
+      - name: x-amz-lex-session-state
+        in: header
+        required: false
+        description: Sets the state of the session with the user. You can use this to set the current
+          intent, attributes, context, and dialog action. Use the dialog action to determine the next
+          step that Amazon Lex V2 should use in the conversation with the user. The sessionState field
+          must be compressed using gzip and then base64 encoded before sending to Amazon Lex V2.
+        schema:
+          type: string
+      - name: x-amz-lex-request-attributes
+        in: header
+        required: false
+        description: 'Request-specific information passed between the client application and Amazon Lex
+          V2 The namespace x-amz-lex: is reserved for special attributes. Don''t create any request attributes
+          for prefix x-amz-lex:. The requestAttributes field must be compressed using gzip and then base64
+          encoded before sending to Amazon Lex V2.'
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        required: true
+        description: 'Indicates the format for audio input or that the content is text. The header must
+          start with one of the following prefixes: PCM format, audio data must be in little-endian byte
+          order. audio/l16; rate=16000; channels=1 audio/x-l16; sample-rate=16000; channel-count=1 audio/lpcm;
+          sample-rate=8000; sample-size-bits=16; channel-count=1; is-big-endian=false Opus format audio/x-cbr-opus-with-preamble;preamble-size=0;bit-rate=256000;frame-size-milliseconds=4
+          Text format text/plain; charset=utf-8'
+        schema:
+          type: string
+          minLength: 1
+      - name: Response-Content-Type
+        in: header
+        required: false
+        description: 'The message that Amazon Lex V2 returns in the response can be either text or speech
+          based on the responseContentType value. If the value is text/plain;charset=utf-8, Amazon Lex
+          V2 returns text in the response. If the value begins with audio/, Amazon Lex V2 returns speech
+          in the response. Amazon Lex V2 uses Amazon Polly to generate the speech using the configuration
+          that you specified in the responseContentType parameter. For example, if you specify audio/mpeg
+          as the value, Amazon Lex V2 returns speech in the MPEG format. If the value is audio/pcm, the
+          speech returned is audio/pcm at 16 KHz in 16-bit, little-endian format. The following are the
+          accepted values: audio/mpeg audio/ogg audio/pcm (16 KHz) audio/* (defaults to mpeg) text/plain;
+          charset=utf-8'
+        schema:
+          type: string
+          minLength: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+              format: byte
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecognizeUtteranceResponse'
+        '400':
+          description: ValidationException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationException'
+        '403':
+          description: AccessDeniedException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessDeniedException'
+        '404':
+          description: ResourceNotFoundException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundException'
+        '409':
+          description: ConflictException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConflictException'
+        '424':
+          description: DependencyFailedException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DependencyFailedException'
+        '429':
+          description: ThrottlingException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrottlingException'
+        '500':
+          description: InternalServerException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerException'
+        '502':
+          description: BadGatewayException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadGatewayException'
+components:
+  securitySchemes:
+    sigv4:
+      type: apiKey
+      name: Authorization
+      in: header
+      x-amazon-apigateway-authtype: awsSigv4
+      description: AWS Signature Version 4. Sign requests with SigV4 using service name `lex` and the
+        calling region.
+  schemas:
+    AccessDeniedException:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+      - message
+    ActiveContext:
+      type: object
+      description: Contains information about the contexts that a user is using in a session. You can
+        configure Amazon Lex V2 to set a context when an intent is fulfilled, or you can set a context
+        using the , , or operations. Use a context to indicate to Amazon Lex V2 intents that should be
+        used as follow-up intents. For example, if the active context is order-fulfilled, only intents
+        that have order-fulfilled configured as a trigger are considered for follow up.
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+          pattern: ^([A-Za-z0-9]_?)+$
+          description: The name of the context.
+        timeToLive:
+          $ref: '#/components/schemas/ActiveContextTimeToLive'
+        contextAttributes:
+          type: object
+          additionalProperties:
+            type: string
+            minLength: 1
+            maxLength: 1024
+      required:
+      - name
+      - timeToLive
+      - contextAttributes
+    ActiveContextTimeToLive:
+      type: object
+      description: The time that a context is active. You can specify the time to live in seconds or in
+        conversation turns.
+      properties:
+        timeToLiveInSeconds:
+          type: integer
+          minimum: 5
+          maximum: 86400
+          description: The number of seconds that the context is active. You can specify between 5 and
+            86400 seconds (24 hours).
+        turnsToLive:
+          type: integer
+          minimum: 1
+          maximum: 20
+          description: The number of turns that the context is active. You can specify up to 20 turns.
+            Each request and response from the bot is a turn.
+      required:
+      - timeToLiveInSeconds
+      - turnsToLive
+    AudioInputEvent:
+      type: object
+      description: Represents a chunk of audio sent from the client application to Amazon Lex V2. The
+        audio is all or part of an utterance from the user. Amazon Lex V2 accumulates audio chunks until
+        it recognizes a natural pause in speech before processing the input.
+      properties:
+        audioChunk:
+          type: string
+          format: byte
+          description: An encoded stream of audio.
+        contentType:
+          type: string
+          minLength: 1
+          description: 'The encoding used for the audio chunk. You must use 8 KHz PCM 16-bit mono-channel
+            little-endian format. The value of the field should be: audio/lpcm; sample-rate=8000; sample-size-bits=16;
+            channel-count=1; is-big-endian=false'
+        eventId:
+          type: string
+          minLength: 2
+          maxLength: 100
+          pattern: ^[0-9a-zA-Z._:-]+$
+          description: A unique identifier that your application assigns to the event. You can use this
+            to identify events in logs.
+        clientTimestampMillis:
+          type: integer
+          format: int64
+          description: A timestamp set by the client of the date and time that the event was sent to Amazon
+            Lex V2.
+      required:
+      - contentType
+    AudioResponseEvent:
+      type: object
+      description: An event sent from Amazon Lex V2 to your client application containing audio to play
+        to the user.
+      properties:
+        audioChunk:
+          type: string
+          format: byte
+          description: A chunk of the audio to play.
+        contentType:
+          type: string
+          minLength: 1
+          description: The encoding of the audio chunk. This is the same as the encoding configure in
+            the contentType field of the ConfigurationEvent.
+        eventId:
+          type: string
+          minLength: 2
+          maxLength: 100
+          pattern: ^[0-9a-zA-Z._:-]+$
+          description: A unique identifier of the event sent by Amazon Lex V2. The identifier is in the
+            form RESPONSE-N, where N is a number starting with one and incremented for each event sent
+            by Amazon Lex V2 in the current session.
+    BadGatewayException:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+      - message
+    Button:
+      type: object
+      description: A button that appears on a response card show to the user.
+      properties:
+        text:
+          type: string
+          minLength: 1
+          maxLength: 50
+          description: The text that is displayed on the button.
+        value:
+          type: string
+          minLength: 1
+          maxLength: 50
+          description: The value returned to Amazon Lex V2 when a user chooses the button.
+      required:
+      - text
+      - value
+    ConfidenceScore:
+      type: object
+      description: Provides a score that indicates the confidence that Amazon Lex V2 has that an intent
+        is the one that satisfies the user's intent.
+      properties:
+        score:
+          type: number
+          format: double
+          description: A score that indicates how confident Amazon Lex V2 is that an intent satisfies
+            the user's intent. Ranges between 0.00 and 1.00. Higher scores indicate higher confidence.
+    ConfigurationEvent:
+      type: object
+      description: The initial event sent from the application to Amazon Lex V2 to configure the conversation,
+        including session and request attributes and the response content type.
+      properties:
+        requestAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        responseContentType:
+          type: string
+          minLength: 1
+          description: 'The message that Amazon Lex V2 returns in the response can be either text or speech
+            based on the responseContentType value. If the value is text/plain;charset=utf-8, Amazon Lex
+            V2 returns text in the response. If the value begins with audio/, Amazon Lex V2 returns speech
+            in the response. Amazon Lex V2 uses Amazon Polly to generate the speech using the configuration
+            that you specified in the requestContentType parameter. For example, if you specify audio/mpeg
+            as the value, Amazon Lex V2 returns speech in the MPEG format. If the value is audio/pcm,
+            the speech returned is audio/pcm in 16-bit, little-endian format. The following are the accepted
+            values: audio/mpeg audio/ogg audio/pcm audio/* (defaults to mpeg) text/plain; charset=utf-8'
+        sessionState:
+          $ref: '#/components/schemas/SessionState'
+        welcomeMessages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        disablePlayback:
+          type: boolean
+          description: Determines whether Amazon Lex V2 should send audio responses to the client application.
+            Set this field to false when the client is operating in a playback mode where audio responses
+            are played to the user. If the client isn't operating in playback mode, such as a text chat
+            application, set this to true so that Amazon Lex V2 doesn't wait for the prompt to finish
+            playing on the client.
+        eventId:
+          type: string
+          minLength: 2
+          maxLength: 100
+          pattern: ^[0-9a-zA-Z._:-]+$
+          description: A unique identifier that your application assigns to the event. You can use this
+            to identify events in logs.
+        clientTimestampMillis:
+          type: integer
+          format: int64
+          description: A timestamp set by the client of the date and time that the event was sent to Amazon
+            Lex V2.
+      required:
+      - responseContentType
+    ConflictException:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+      - message
+    DTMFInputEvent:
+      type: object
+      description: A DTMF character sent from the client application. DTMF characters are typically sent
+        from a phone keypad to represent numbers. For example, you can have Amazon Lex V2 process a credit
+        card number input from a phone.
+      properties:
+        inputCharacter:
+          type: string
+          minLength: 1
+          maxLength: 1
+          pattern: ^[A-D0-9#*]{1}$
+          description: 'The DTMF character that the user pressed. The allowed characters are A - D, 0
+            - 9, # and *.'
+        eventId:
+          type: string
+          minLength: 2
+          maxLength: 100
+          pattern: ^[0-9a-zA-Z._:-]+$
+          description: A unique identifier that your application assigns to the event. You can use this
+            to identify events in logs.
+        clientTimestampMillis:
+          type: integer
+          format: int64
+          description: A timestamp set by the client of the date and time that the event was sent to Amazon
+            Lex V2.
+      required:
+      - inputCharacter
+    DeleteSessionResponse:
+      type: object
+      properties:
+        botId:
+          type: string
+          minLength: 10
+          maxLength: 10
+          pattern: ^[0-9a-zA-Z]+$
+          description: The identifier of the bot that contained the session data.
+        botAliasId:
+          type: string
+          description: The alias identifier in use for the bot that contained the session data.
+        localeId:
+          type: string
+          minLength: 1
+          description: The locale where the session was used.
+        sessionId:
+          type: string
+          minLength: 2
+          maxLength: 100
+          pattern: ^[0-9a-zA-Z._:-]+$
+          description: The identifier of the deleted session.
+    DependencyFailedException:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+      - message
+    DialogAction:
+      type: object
+      description: The next action that Amazon Lex V2 should take.
+      properties:
+        type:
+          type: string
+          enum:
+          - Close
+          - ConfirmIntent
+          - Delegate
+          - ElicitIntent
+          - ElicitSlot
+          - None
+          description: 'The next action that the bot should take in its interaction with the user. The
+            following values are possible: Close – Indicates that there will not be a response from the
+            user. For example, the statement "Your order has been placed" does not require a response.
+            ConfirmIntent – The next action is asking the user if the intent is complete and ready to
+            be fulfilled. This is a yes/no question such as "Place the order?" Delegate – The next action
+            is determined by Amazon Lex V2. ElicitIntent – The next action is to elicit an intent from
+            the user. ElicitSlot – The next action is to elicit a slot value from the user.'
+        slotToElicit:
+          type: string
+          minLength: 1
+          description: The name of the slot that should be elicited from the user.
+        slotElicitationStyle:
+          type: string
+          enum:
+          - Default
+          - SpellByLetter
+          - SpellByWord
+          description: Configures the slot to use spell-by-letter or spell-by-word style. When you use
+            a style on a slot, users can spell out their input to make it clear to your bot. Spell by
+            letter - "b" "o" "b" Spell by word - "b as in boy" "o as in oscar" "b as in boy" For more
+            information, see Using spelling to enter slot values .
+        subSlotToElicit:
+          $ref: '#/components/schemas/ElicitSubSlot'
+      required:
+      - type
+    DisconnectionEvent:
+      type: object
+      description: A notification from the client that it is disconnecting from Amazon Lex V2. Sending
+        a DisconnectionEvent event is optional, but can help identify a conversation in logs.
+      properties:
+        eventId:
+          type: string
+          minLength: 2
+          maxLength: 100
+          pattern: ^[0-9a-zA-Z._:-]+$
+          description: A unique identifier that your application assigns to the event. You can use this
+            to identify events in logs.
+        clientTimestampMillis:
+          type: integer
+          format: int64
+          description: A timestamp set by the client of the date and time that the event was sent to Amazon
+            Lex V2.
+    ElicitSubSlot:
+      type: object
+      description: The specific constituent sub slot of the composite slot to elicit in dialog action.
+      properties:
+        name:
+          type: string
+          minLength: 1
+          description: The name of the slot that should be elicited from the user.
+        subSlotToElicit:
+          $ref: '#/components/schemas/ElicitSubSlot'
+      required:
+      - name
+    GetSessionResponse:
+      type: object
+      properties:
+        sessionId:
+          type: string
+          minLength: 1
+          description: The identifier of the returned session.
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        interpretations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Interpretation'
+        sessionState:
+          $ref: '#/components/schemas/SessionState'
+    HeartbeatEvent:
+      type: object
+      description: Event that Amazon Lex V2 sends to indicate that the stream is still open between the
+        client application and Amazon Lex V2
+      properties:
+        eventId:
+          type: string
+          minLength: 2
+          maxLength: 100
+          pattern: ^[0-9a-zA-Z._:-]+$
+          description: A unique identifier of the event sent by Amazon Lex V2. The identifier is in the
+            form RESPONSE-N, where N is a number starting with one and incremented for each event sent
+            by Amazon Lex V2 in the current session.
+    ImageResponseCard:
+      type: object
+      description: A card that is shown to the user by a messaging platform. You define the contents of
+        the card, the card is displayed by the platform. When you use a response card, the response from
+        the user is constrained to the text associated with a button on the card.
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 250
+          description: The title to display on the response card. The format of the title is determined
+            by the platform displaying the response card.
+        subtitle:
+          type: string
+          minLength: 1
+          maxLength: 250
+          description: The subtitle to display on the response card. The format of the subtitle is determined
+            by the platform displaying the response card.
+        imageUrl:
+          type: string
+          minLength: 1
+          maxLength: 250
+          description: The URL of an image to display on the response card. The image URL must be publicly
+            available so that the platform displaying the response card has access to the image.
+        buttons:
+          type: array
+          items:
+            $ref: '#/components/schemas/Button'
+      required:
+      - title
+    Intent:
+      type: object
+      description: The current intent that Amazon Lex V2 is attempting to fulfill.
+      properties:
+        name:
+          type: string
+          minLength: 1
+          description: The name of the intent.
+        slots:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Slot'
+        state:
+          type: string
+          enum:
+          - Failed
+          - Fulfilled
+          - InProgress
+          - ReadyForFulfillment
+          - Waiting
+          - FulfillmentInProgress
+          description: 'Indicates the fulfillment state for the intent. The meanings of each value are
+            as follows: Failed – The bot failed to fulfill the intent. Fulfilled – The bot has completed
+            fulfillment of the intent. FulfillmentInProgress – The bot is in the middle of fulfilling
+            the intent. InProgress – The bot is in the middle of eliciting the slot values that are necessary
+            to fulfill the intent. ReadyForFulfillment – The bot has elicited all the slot values for
+            the intent and is ready to fulfill the intent. Waiting – The bot is waiting for a response
+            from the user (limited to streaming conversations).'
+        confirmationState:
+          type: string
+          enum:
+          - Confirmed
+          - Denied
+          - None
+          description: Indicates whether the intent has been Confirmed, Denied, or None if the confirmation
+            stage has not yet been reached.
+      required:
+      - name
+    IntentResultEvent:
+      type: object
+      description: Contains the current state of the conversation between the client application and Amazon
+        Lex V2.
+      properties:
+        inputMode:
+          type: string
+          enum:
+          - Text
+          - Speech
+          - DTMF
+          description: Indicates whether the input to the operation was text, speech, or from a touch-tone
+            keypad.
+        interpretations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Interpretation'
+        sessionState:
+          $ref: '#/components/schemas/SessionState'
+        requestAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        sessionId:
+          type: string
+          minLength: 2
+          maxLength: 100
+          pattern: ^[0-9a-zA-Z._:-]+$
+          description: The identifier of the session in use.
+        eventId:
+          type: string
+          minLength: 2
+          maxLength: 100
+          pattern: ^[0-9a-zA-Z._:-]+$
+          description: A unique identifier of the event sent by Amazon Lex V2. The identifier is in the
+            form RESPONSE-N, where N is a number starting with one and incremented for each event sent
+            by Amazon Lex V2 in the current session.
+        recognizedBotMember:
+          $ref: '#/components/schemas/RecognizedBotMember'
+    InternalServerException:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+      - message
+    Interpretation:
+      type: object
+      description: An object containing information about an intent that Amazon Lex V2 determined might
+        satisfy the user's utterance. The intents are ordered by the confidence score.
+      properties:
+        nluConfidence:
+          $ref: '#/components/schemas/ConfidenceScore'
+        sentimentResponse:
+          $ref: '#/components/schemas/SentimentResponse'
+        intent:
+          $ref: '#/components/schemas/Intent'
+        interpretationSource:
+          type: string
+          enum:
+          - Bedrock
+          - Lex
+          description: Specifies the service that interpreted the input.
+    Message:
+      type: object
+      description: Container for text that is returned to the customer..
+      properties:
+        content:
+          type: string
+          minLength: 1
+          maxLength: 1024
+          description: The text of the message.
+        contentType:
+          type: string
+          enum:
+          - CustomPayload
+          - ImageResponseCard
+          - PlainText
+          - SSML
+          description: Indicates the type of response.
+        imageResponseCard:
+          $ref: '#/components/schemas/ImageResponseCard'
+      required:
+      - contentType
+    PlaybackCompletionEvent:
+      type: object
+      description: Event sent from the client application to Amazon Lex V2 to indicate that playback of
+        audio is complete and that Amazon Lex V2 should start processing the user's input.
+      properties:
+        eventId:
+          type: string
+          minLength: 2
+          maxLength: 100
+          pattern: ^[0-9a-zA-Z._:-]+$
+          description: A unique identifier that your application assigns to the event. You can use this
+            to identify events in logs.
+        clientTimestampMillis:
+          type: integer
+          format: int64
+          description: A timestamp set by the client of the date and time that the event was sent to Amazon
+            Lex V2.
+    PlaybackInterruptionEvent:
+      type: object
+      description: Event sent from Amazon Lex V2 to indicate to the client application should stop playback
+        of audio. For example, if the client is playing a prompt that asks for the user's telephone number,
+        the user might start to say the phone number before the prompt is complete. Amazon Lex V2 sends
+        this event to the client application to indicate that the user is responding and that Amazon Lex
+        V2 is processing their input.
+      properties:
+        eventReason:
+          type: string
+          enum:
+          - DTMF_START_DETECTED
+          - TEXT_DETECTED
+          - VOICE_START_DETECTED
+          description: Indicates the type of user input that Amazon Lex V2 detected.
+        causedByEventId:
+          type: string
+          minLength: 2
+          maxLength: 100
+          pattern: ^[0-9a-zA-Z._:-]+$
+          description: The identifier of the event that contained the audio, DTMF, or text that caused
+            the interruption.
+        eventId:
+          type: string
+          minLength: 2
+          maxLength: 100
+          pattern: ^[0-9a-zA-Z._:-]+$
+          description: A unique identifier of the event sent by Amazon Lex V2. The identifier is in the
+            form RESPONSE-N, where N is a number starting with one and incremented for each event sent
+            by Amazon Lex V2 in the current session.
+    PutSessionResponse:
+      type: object
+      properties:
+        contentType:
+          type: string
+          minLength: 1
+          description: The type of response. Same as the type specified in the responseContentType field
+            in the request.
+        messages:
+          type: string
+          minLength: 1
+          description: A list of messages that were last sent to the user. The messages are ordered based
+            on how you return the messages from you Lambda function or the order that the messages are
+            defined in the bot.
+        sessionState:
+          type: string
+          minLength: 1
+          description: A base-64-encoded gzipped field that represents the current state of the dialog
+            between the user and the bot. Use this to determine the progress of the conversation and what
+            the next action may be.
+        requestAttributes:
+          type: string
+          minLength: 1
+          description: A base-64-encoded gzipped field that provides request-specific information passed
+            between the client application and Amazon Lex V2. These are the same as the requestAttribute
+            parameter in the call to the PutSession operation.
+        sessionId:
+          type: string
+          minLength: 2
+          maxLength: 100
+          pattern: ^[0-9a-zA-Z._:-]+$
+          description: The identifier of the session that received the data.
+        audioStream:
+          type: string
+          format: byte
+          description: If the requested content type was audio, the audio version of the message to convey
+            to the user.
+    RecognizeTextResponse:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        sessionState:
+          $ref: '#/components/schemas/SessionState'
+        interpretations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Interpretation'
+        requestAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        sessionId:
+          type: string
+          minLength: 2
+          maxLength: 100
+          pattern: ^[0-9a-zA-Z._:-]+$
+          description: The identifier of the session in use.
+        recognizedBotMember:
+          $ref: '#/components/schemas/RecognizedBotMember'
+    RecognizeUtteranceResponse:
+      type: object
+      properties:
+        inputMode:
+          type: string
+          minLength: 1
+          description: Indicates whether the input mode to the operation was text, speech, or from a touch-tone
+            keypad.
+        contentType:
+          type: string
+          minLength: 1
+          description: Content type as specified in the responseContentType in the request.
+        messages:
+          type: string
+          minLength: 1
+          description: A list of messages that were last sent to the user. The messages are ordered based
+            on the order that you returned the messages from your Lambda function or the order that the
+            messages are defined in the bot. The messages field is compressed with gzip and then base64
+            encoded. Before you can use the contents of the field, you must decode and decompress the
+            contents. See the example for a simple function to decode and decompress the contents.
+        interpretations:
+          type: string
+          minLength: 1
+          description: A list of intents that Amazon Lex V2 determined might satisfy the user's utterance.
+            Each interpretation includes the intent, a score that indicates how confident Amazon Lex V2
+            is that the interpretation is the correct one, and an optional sentiment response that indicates
+            the sentiment expressed in the utterance. The interpretations field is compressed with gzip
+            and then base64 encoded. Before you can use the contents of the field, you must decode and
+            decompress the contents. See the example for a simple function to decode and decompress the
+            contents.
+        sessionState:
+          type: string
+          minLength: 1
+          description: Represents the current state of the dialog between the user and the bot. Use this
+            to determine the progress of the conversation and what the next action might be. The sessionState
+            field is compressed with gzip and then base64 encoded. Before you can use the contents of
+            the field, you must decode and decompress the contents. See the example for a simple function
+            to decode and decompress the contents.
+        requestAttributes:
+          type: string
+          minLength: 1
+          description: The attributes sent in the request. The requestAttributes field is compressed with
+            gzip and then base64 encoded. Before you can use the contents of the field, you must decode
+            and decompress the contents.
+        sessionId:
+          type: string
+          minLength: 2
+          maxLength: 100
+          pattern: ^[0-9a-zA-Z._:-]+$
+          description: The identifier of the session in use.
+        inputTranscript:
+          type: string
+          minLength: 1
+          description: The text used to process the request. If the input was an audio stream, the inputTranscript
+            field contains the text extracted from the audio stream. This is the text that is actually
+            processed to recognize intents and slot values. You can use this information to determine
+            if Amazon Lex V2 is correctly processing the audio that you send. The inputTranscript field
+            is compressed with gzip and then base64 encoded. Before you can use the contents of the field,
+            you must decode and decompress the contents. See the example for a simple function to decode
+            and decompress the contents.
+        audioStream:
+          type: string
+          format: byte
+          description: 'The prompt or statement to send to the user. This is based on the bot configuration
+            and context. For example, if Amazon Lex V2 did not understand the user intent, it sends the
+            clarificationPrompt configured for the bot. If the intent requires confirmation before taking
+            the fulfillment action, it sends the confirmationPrompt. Another example: Suppose that the
+            Lambda function successfully fulfilled the intent, and sent a message to convey to the user.
+            Then Amazon Lex V2 sends that message in the response.'
+        recognizedBotMember:
+          type: string
+          minLength: 1
+          description: The bot member that recognized the utterance.
+    RecognizedBotMember:
+      type: object
+      description: The bot member that processes the request.
+      properties:
+        botId:
+          type: string
+          minLength: 10
+          maxLength: 10
+          pattern: ^[0-9a-zA-Z]+$
+          description: The identifier of the bot member that processes the request.
+        botName:
+          type: string
+          minLength: 1
+          maxLength: 100
+          pattern: ^([0-9a-zA-Z][_-]?)+$
+          description: The name of the bot member that processes the request.
+      required:
+      - botId
+    ResourceNotFoundException:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+      - message
+    RuntimeHintDetails:
+      type: object
+      description: Provides an array of phrases that should be given preference when resolving values
+        for a slot.
+      properties:
+        runtimeHintValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuntimeHintValue'
+        subSlotHints:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/RuntimeHintDetails'
+    RuntimeHintValue:
+      type: object
+      description: Provides the phrase that Amazon Lex V2 should look for in the user's input to the bot.
+      properties:
+        phrase:
+          type: string
+          minLength: 1
+          maxLength: 140
+          description: The phrase that Amazon Lex V2 should look for in the user's input to the bot.
+      required:
+      - phrase
+    RuntimeHints:
+      type: object
+      description: You can provide Amazon Lex V2 with hints to the phrases that a customer is likely to
+        use for a slot. When a slot with hints is resolved, the phrases in the runtime hints are preferred
+        in the resolution. You can provide hints for a maximum of 100 intents. You can provide a maximum
+        of 100 slots. Before you can use runtime hints with an existing bot, you must first rebuild the
+        bot. For more information, see Using runtime hints to improve recognition of slot values.
+      properties:
+        slotHints:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties:
+              $ref: '#/components/schemas/RuntimeHintDetails'
+    SentimentResponse:
+      type: object
+      description: Provides information about the sentiment expressed in a user's response in a conversation.
+        Sentiments are determined using Amazon Comprehend. Sentiments are only returned if they are enabled
+        for the bot. For more information, see Determine Sentiment in the Amazon Comprehend developer
+        guide.
+      properties:
+        sentiment:
+          type: string
+          enum:
+          - MIXED
+          - NEGATIVE
+          - NEUTRAL
+          - POSITIVE
+          description: The overall sentiment expressed in the user's response. This is the sentiment most
+            likely expressed by the user based on the analysis by Amazon Comprehend.
+        sentimentScore:
+          $ref: '#/components/schemas/SentimentScore'
+    SentimentScore:
+      type: object
+      description: The individual sentiment responses for the utterance.
+      properties:
+        positive:
+          type: number
+          format: double
+          description: The level of confidence that Amazon Comprehend has in the accuracy of its detection
+            of the POSITIVE sentiment.
+        negative:
+          type: number
+          format: double
+          description: The level of confidence that Amazon Comprehend has in the accuracy of its detection
+            of the NEGATIVE sentiment.
+        neutral:
+          type: number
+          format: double
+          description: The level of confidence that Amazon Comprehend has in the accuracy of its detection
+            of the NEUTRAL sentiment.
+        mixed:
+          type: number
+          format: double
+          description: The level of confidence that Amazon Comprehend has in the accuracy of its detection
+            of the MIXED sentiment.
+    SessionState:
+      type: object
+      description: The state of the user's session with Amazon Lex V2.
+      properties:
+        dialogAction:
+          $ref: '#/components/schemas/DialogAction'
+        intent:
+          $ref: '#/components/schemas/Intent'
+        activeContexts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActiveContext'
+        sessionAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        originatingRequestId:
+          type: string
+          minLength: 1
+          description: A unique identifier for a specific request.
+        runtimeHints:
+          $ref: '#/components/schemas/RuntimeHints'
+    Slot:
+      type: object
+      description: A value that Amazon Lex V2 uses to fulfill an intent.
+      properties:
+        value:
+          $ref: '#/components/schemas/Value'
+        shape:
+          type: string
+          enum:
+          - Scalar
+          - List
+          - Composite
+          description: When the shape value is List, it indicates that the values field contains a list
+            of slot values. When the value is Scalar, it indicates that the value field contains a single
+            value.
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/Slot'
+        subSlots:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Slot'
+    StartConversationRequestEventStream:
+      type: object
+      description: Represents a stream of events between your application and Amazon Lex V2.
+      properties:
+        ConfigurationEvent:
+          $ref: '#/components/schemas/ConfigurationEvent'
+        AudioInputEvent:
+          $ref: '#/components/schemas/AudioInputEvent'
+        DTMFInputEvent:
+          $ref: '#/components/schemas/DTMFInputEvent'
+        TextInputEvent:
+          $ref: '#/components/schemas/TextInputEvent'
+        PlaybackCompletionEvent:
+          $ref: '#/components/schemas/PlaybackCompletionEvent'
+        DisconnectionEvent:
+          $ref: '#/components/schemas/DisconnectionEvent'
+    StartConversationResponse:
+      type: object
+      properties:
+        responseEventStream:
+          $ref: '#/components/schemas/StartConversationResponseEventStream'
+    StartConversationResponseEventStream:
+      type: object
+      description: Represents a stream of events between Amazon Lex V2 and your application.
+      properties:
+        PlaybackInterruptionEvent:
+          $ref: '#/components/schemas/PlaybackInterruptionEvent'
+        TranscriptEvent:
+          $ref: '#/components/schemas/TranscriptEvent'
+        IntentResultEvent:
+          $ref: '#/components/schemas/IntentResultEvent'
+        TextResponseEvent:
+          $ref: '#/components/schemas/TextResponseEvent'
+        AudioResponseEvent:
+          $ref: '#/components/schemas/AudioResponseEvent'
+        HeartbeatEvent:
+          $ref: '#/components/schemas/HeartbeatEvent'
+        AccessDeniedException:
+          $ref: '#/components/schemas/AccessDeniedException'
+        ResourceNotFoundException:
+          $ref: '#/components/schemas/ResourceNotFoundException'
+        ValidationException:
+          $ref: '#/components/schemas/ValidationException'
+        ThrottlingException:
+          $ref: '#/components/schemas/ThrottlingException'
+        InternalServerException:
+          $ref: '#/components/schemas/InternalServerException'
+        ConflictException:
+          $ref: '#/components/schemas/ConflictException'
+        DependencyFailedException:
+          $ref: '#/components/schemas/DependencyFailedException'
+        BadGatewayException:
+          $ref: '#/components/schemas/BadGatewayException'
+    TextInputEvent:
+      type: object
+      description: The event sent from your client application to Amazon Lex V2 with text input from the
+        user.
+      properties:
+        text:
+          type: string
+          minLength: 1
+          maxLength: 1024
+          description: The text from the user. Amazon Lex V2 processes this as a complete statement.
+        eventId:
+          type: string
+          minLength: 2
+          maxLength: 100
+          pattern: ^[0-9a-zA-Z._:-]+$
+          description: A unique identifier that your application assigns to the event. You can use this
+            to identify events in logs.
+        clientTimestampMillis:
+          type: integer
+          format: int64
+          description: A timestamp set by the client of the date and time that the event was sent to Amazon
+            Lex V2.
+      required:
+      - text
+    TextResponseEvent:
+      type: object
+      description: The event sent from Amazon Lex V2 to your application with text to present to the user.
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        eventId:
+          type: string
+          minLength: 2
+          maxLength: 100
+          pattern: ^[0-9a-zA-Z._:-]+$
+          description: A unique identifier of the event sent by Amazon Lex V2. The identifier is in the
+            form RESPONSE-N, where N is a number starting with one and incremented for each event sent
+            by Amazon Lex V2 in the current session.
+    ThrottlingException:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+      - message
+    TranscriptEvent:
+      type: object
+      description: Event sent from Amazon Lex V2 to your client application that contains a transcript
+        of voice audio.
+      properties:
+        transcript:
+          type: string
+          description: The transcript of the voice audio from the user.
+        eventId:
+          type: string
+          minLength: 2
+          maxLength: 100
+          pattern: ^[0-9a-zA-Z._:-]+$
+          description: A unique identifier of the event sent by Amazon Lex V2. The identifier is in the
+            form RESPONSE-N, where N is a number starting with one and incremented for each event sent
+            by Amazon Lex V2 in the current session.
+    ValidationException:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+      - message
+    Value:
+      type: object
+      description: Information about the value provided for a slot and Amazon Lex V2's interpretation.
+      properties:
+        originalValue:
+          type: string
+          minLength: 1
+          description: The part of the user's response to the slot elicitation that Amazon Lex V2 determines
+            is relevant to the slot value.
+        interpretedValue:
+          type: string
+          minLength: 1
+          description: The value that Amazon Lex V2 determines for the slot, given the user input. The
+            actual value depends on the setting of the value selection strategy for the bot. You can choose
+            to use the value entered by the user, or you can have Amazon Lex V2 choose the first value
+            in the resolvedValues list.
+        resolvedValues:
+          type: array
+          items:
+            type: string
+            minLength: 1
+      required:
+      - interpretedValue

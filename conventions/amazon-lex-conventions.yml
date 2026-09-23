@@ -1,0 +1,151 @@
+generated: '2026-09-17'
+method: searched
+source: >-
+  https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html,
+  https://docs.aws.amazon.com/lexv2/latest/dg/quotas.html,
+  https://docs.aws.amazon.com/general/latest/gr/lex.html and
+  https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html — cross-checked field by field
+  against smithy/amazon-lex-models-v2-2020-08-07.json and smithy/amazon-lex-runtime-v2-2020-08-07.json
+provider: Amazon Lex
+providerId: amazon-lex
+auth:
+  style: AWS Signature Version 4 (SigV4) over IAM credentials
+  header: Authorization
+  detail: >-
+    Signed with service name `lex` and the calling region. There are no API keys, no OAuth flow and no
+    bearer tokens. Authorization is IAM policy on 152 `lex:*` actions, published machine-readably at
+    https://servicereference.us-east-1.amazonaws.com/v1/lex/lex.json. Resource-based policies are also
+    supported on bots and bot aliases via CreateResourcePolicy / CreateResourcePolicyStatement.
+  cross_link: authentication/amazon-lex-authentication.yml
+content_type:
+  request: application/x-amz-json-1.1
+  note: >-
+    The API Reference is explicit: a custom HTTP client that does not set Content-Type to
+    application/x-amz-json-1.1 receives HTTP 404 UnknownOperationException. Verified against the live
+    runtime host on 2026-09-17, which answered exactly that to an unsigned GET.
+idempotency:
+  coverage: none
+  supported: false
+  header: null
+  scope: []
+  evidence: >-
+    Neither AWS-published Smithy service model declares a single `smithy.api#idempotencyToken` member —
+    checked across all 113 operations and every input shape in
+    smithy/amazon-lex-models-v2-2020-08-07.json and smithy/amazon-lex-runtime-v2-2020-08-07.json on
+    2026-09-17. There is no Idempotency-Key header, no clientToken/clientRequestToken parameter and no
+    documented replay window. A retried CreateBot, CreateIntent or CreateSlot creates a second resource;
+    the only protection is that names are unique within their parent, so the duplicate fails with
+    ConflictException rather than silently succeeding twice. Runtime V2 is worse-behaved for an agent:
+    a retried RecognizeText replays the user turn into the live session and advances dialog state.
+  agent_guidance: >-
+    Do not retry a Lex mutation blindly. For build-time writes, treat ConflictException (409) as
+    "already exists" and follow with the matching Describe* call rather than retrying the Create*. For
+    runtime turns, use the session id as the deduplication key on your side — Lex will not do it for you.
+pagination:
+  style: cursor
+  request_params:
+  - name: maxResults
+    description: Page size.
+  - name: nextToken
+    description: Opaque cursor returned by the previous page.
+  response_fields:
+  - name: nextToken
+    description: Present when more results exist; absent on the last page.
+  sorting:
+    param: sortBy
+    note: List operations take a structured sortBy (attribute + asc/desc) and a filters[] block.
+  evidence: 'Derived from the List* input/output shapes in the Smithy models (e.g. ListBotsRequest: sortBy, filters, maxResults, nextToken).'
+field_expansion:
+  supported: false
+  note: No sparse-fieldset or expand parameter. Describe* returns the full resource.
+metadata:
+  supported: true
+  mechanism: AWS resource tags
+  operations: [TagResource, UntagResource, ListTagsForResource]
+  note: Tags are key/value AWS resource tags on bots and bot aliases, not arbitrary API metadata.
+request_id_tracing:
+  header: x-amzn-RequestId
+  note: Returned on every response including errors; quote it to AWS Support.
+versioning:
+  style: dated API version in the service model
+  current: '2020-08-07'
+  note: >-
+    The version is baked into the endpoint's service model rather than a URL path segment or a header.
+    Amazon Lex V2 paths carry no /v2/ prefix; the generation is selected by the HOST
+    (models-v2-lex.<region>.amazonaws.com vs the V1 models.lex.<region>.amazonaws.com).
+  cross_link: lifecycle/amazon-lex-lifecycle.yml
+error_envelope:
+  format: aws-json
+  note: Not RFC 9457. Discriminator in the x-amzn-ErrorType header; message in the body `message` field.
+  cross_link: errors/amazon-lex-problem-types.yml
+rate_limit_signaling:
+  headers: []
+  status_on_exhaustion: 429
+  exception: ThrottlingException
+  note: >-
+    Amazon Lex V2 publishes no RateLimit-* or X-RateLimit-* response headers — an agent gets no advance
+    warning of a limit, only the 429 after the fact. Quotas are account/region scoped and visible only
+    out-of-band through the Service Quotas console and API.
+  cross_link: rate-limits/amazon-lex-rate-limits.yml
+dry_run_mode:
+  supported: partial
+  note: >-
+    No per-operation dryRun flag. Lex does ship a genuine rehearsal surface, but it is a separate
+    workflow rather than a request modifier: the Test Workbench (CreateTestSet, StartTestExecution,
+    CreateTestSetDiscrepancyReport, ListTestExecutionResultItems) runs a bot against a recorded test set
+    and reports discrepancies, and the TestBotAlias gives a live draft alias with its own lower runtime
+    quotas. Neither lets an agent rehearse an arbitrary write.
+reversibility:
+  grade: documented
+  coverage: partial
+  note: >-
+    Amazon Lex V2 publishes NO undo, restore, rollback or reverse operation, and no recovery window is
+    stated anywhere in the developer guide or API reference. Deletes are permanent by the service
+    model's own words — DeleteBot "deletes all versions of a bot, including the Draft version". The two
+    genuine reversal paths below cancel long-running JOBS, not writes. What Lex offers instead is
+    forward recovery the caller has to have set up in advance: immutable bot versions (CreateBotVersion)
+    and full bot export/import archives (CreateExport / StartImport). Those are backups, not reversals —
+    an agent that deletes a bot with no prior version or export cannot get it back.
+  reversal_paths:
+  - write: StartBotRecommendation
+    reversal: StopBotRecommendation
+    operationId: StopBotRecommendation
+    window: null
+    window_note: Cancels an in-flight Automated Chatbot Designer job. The docs state no time window; the job simply must still be running.
+    docs: https://docs.aws.amazon.com/lexv2/latest/APIReference/API_StopBotRecommendation.html
+  - write: StartBotAnalyzer
+    reversal: StopBotAnalyzer
+    operationId: StopBotAnalyzer
+    window: null
+    window_note: Cancels an in-flight bot analyzer job. No stated window.
+    docs: https://docs.aws.amazon.com/lexv2/latest/APIReference/API_StopBotAnalyzer.html
+  - write: CreateBotReplica
+    reversal: DeleteBotReplica
+    operationId: DeleteBotReplica
+    window: null
+    window_note: >-
+      Compensating action, not a reversal — it removes the replica created in the secondary region. No
+      window is stated.
+    docs: https://docs.aws.amazon.com/lexv2/latest/dg/global-resiliency.html
+  irreversible_writes:
+  - DeleteBot
+  - DeleteBotAlias
+  - DeleteBotLocale
+  - DeleteBotVersion
+  - DeleteIntent
+  - DeleteSlot
+  - DeleteSlotType
+  - DeleteCustomVocabulary
+  - DeleteTestSet
+  - DeleteUtterances
+  - DeleteResourcePolicy
+  forward_recovery:
+  - mechanism: Immutable bot versions
+    operationId: CreateBotVersion
+    note: A numbered snapshot of a bot's resources. Must exist BEFORE the destructive change.
+  - mechanism: Bot export / import archive
+    operationIds: [CreateExport, StartImport]
+    note: Zip archive of a bot or bot locale, round-trippable. Must be taken BEFORE the destructive change.
+  agent_guidance: >-
+    Before any Delete* or a destructive Update* on a bot an agent did not create, call CreateBotVersion
+    or CreateExport first. There is no take-backs path afterwards.

@@ -1,0 +1,33 @@
+generated: '2026-09-17'
+method: generated
+source: >-
+  openapi/amazon-lex-models-v2-openapi.yml and openapi/amazon-lex-runtime-v2-openapi.yml (every
+  operationId below was grepped out of those specs) + conventions/amazon-lex-conventions.yml +
+  errors/amazon-lex-problem-types.yml + rate-limits/amazon-lex-rate-limits.yml +
+  plans/amazon-lex-plans-pricing.yml
+provider: Amazon Lex
+providerId: amazon-lex
+note: >-
+  Both specs are mechanical projections of the AWS-published Smithy service models in smithy/, so every
+  operationId, path and HTTP method quoted in these skills traces back to AWS's own contract. The
+  behavioural rules — no idempotency key, no rate-limit headers, no undo, the 2-concurrency cap on
+  TSTALIASID — are the findings of this enrichment pass and are each evidenced in the artifact named
+  in `source`. Nothing here is invented.
+searched_for_provider_published_skills:
+  result: none
+  checked:
+  - https://github.com/awslabs/mcp (aws___retrieve_skill returns AWS Agent SOPs, none Lex-specific)
+  - https://docs.aws.amazon.com/lexv2/latest/dg/ (no AGENTS.md, no skills directory)
+skills:
+- file: amazon-lex-build-and-ship-a-bot.md
+  name: Build and ship an Amazon Lex V2 bot
+  api: openapi/amazon-lex-models-v2-openapi.yml
+  operations: [CreateBot, DescribeBot, CreateBotLocale, DescribeBotLocale, CreateIntent, CreateSlotType, CreateSlot, BuildBotLocale, CreateBotVersion, DescribeBotVersion, CreateBotAlias, UpdateBotAlias, ListBots]
+- file: amazon-lex-converse-with-a-bot.md
+  name: Converse with an Amazon Lex V2 bot
+  api: openapi/amazon-lex-runtime-v2-openapi.yml
+  operations: [RecognizeText, RecognizeUtterance, StartConversation, GetSession, PutSession, DeleteSession]
+- file: amazon-lex-snapshot-before-you-destroy.md
+  name: Snapshot an Amazon Lex bot before you destroy anything
+  api: openapi/amazon-lex-models-v2-openapi.yml
+  operations: [CreateBotVersion, DescribeBotVersion, CreateExport, DescribeExport, CreateUploadUrl, StartImport, DescribeImport, DeleteBot, DeleteBotLocale, DeleteIntent, DeleteSlot, DeleteSlotType]
