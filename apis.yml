@@ -50,17 +50,14 @@ apis:
 - aid: amazon-lex:amazon-lex-bots-api
   name: Amazon Lex Bots API
   description: Lex bot management
-  baseURL: https://models-v2-lex.us-east-1.amazonaws.com
   humanURL: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
-  image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
+  baseURL: https://models-v2-lex.us-east-1.amazonaws.com
   tags:
   - Bots
   properties:
   - type: OpenAPI
-    name: OpenAPI (derived from the AWS Smithy service model, 107 operations)
-    url: openapi/amazon-lex-models-v2-openapi.yml
+    url: openapi/amazon-lex-bots-api-openapi.yml
   - type: Smithy
-    name: AWS Amazon Lex Model Building V2 Smithy 2.0 model (107 operations)
     url: smithy/amazon-lex-models-v2-2020-08-07.json
   - type: Documentation
     url: https://docs.aws.amazon.com/lexv2/latest/dg/what-is.html
@@ -76,8 +73,6 @@ apis:
     url: https://aws.amazon.com/lex/faqs/
   - type: APIReference
     url: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
-  - type: Overlay
-    url: overlays/amazon-lex-models-v2-overlay.yaml
   - type: DataModel
     url: data-model/amazon-lex-data-model.yml
   - type: JSONSchema
@@ -86,36 +81,428 @@ apis:
     url: json-schema/amazon-lex-intent-schema.json
   - type: JSONLD
     url: json-ld/amazon-lex-context.jsonld
-- aid: amazon-lex:amazon-lex-runtime-v2-api
-  name: Amazon Lex Runtime V2 API
-  description: >-
-    Send user input to a built Amazon Lex V2 bot and manage the conversation session. Six operations:
-    RecognizeText (text turn), RecognizeUtterance (audio or text turn), StartConversation (bidirectional
-    HTTP/2 streaming with barge-in), and PutSession / GetSession / DeleteSession for session state.
-  baseURL: https://runtime-v2-lex.us-east-1.amazonaws.com
-  humanURL: https://docs.aws.amazon.com/lexv2/latest/APIReference/API_Operations_Amazon_Lex_Runtime_V2.html
-  image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-  tags:
-  - Conversational AI
-  - Runtime
-  - Speech Recognition
-  - Sessions
-  properties:
-  - type: OpenAPI
-    name: OpenAPI (derived from the AWS Smithy service model, 6 operations)
-    url: openapi/amazon-lex-runtime-v2-openapi.yml
   - type: Smithy
-    name: AWS Amazon Lex Runtime V2 Smithy 2.0 model
     url: smithy/amazon-lex-runtime-v2-2020-08-07.json
-  - type: Overlay
-    url: overlays/amazon-lex-runtime-v2-overlay.yaml
   - type: Documentation
     url: https://docs.aws.amazon.com/lexv2/latest/dg/how-it-works.html
   - type: APIReference
-    url: https://docs.aws.amazon.com/lexv2/latest/APIReference/API_Operations_Amazon_Lex_Runtime_V2.html
+    url: >-
+      https://docs.aws.amazon.com/lexv2/latest/APIReference/API_Operations_Amazon_Lex_Runtime_V2.html
+- aid: amazon-lex:amazon-lex-builtins-api
+  name: Amazon Lex Builtins API
+  description: The builtins API from Amazon Lex — 2 operation(s) for builtins.
+  humanURL: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
+  baseURL: https://models-v2-lex.us-east-1.amazonaws.com
+  tags:
+  - builtins
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-lex-builtins-api-openapi.yml
+  - type: Smithy
+    url: smithy/amazon-lex-models-v2-2020-08-07.json
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lexv2/latest/dg/what-is.html
+  - type: JSONSchema
+    url: json-schema/json-schema.yml
+  - type: JSONLD
+    url: json-ld/json-ld.yml
   - type: Pricing
     url: https://aws.amazon.com/lex/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/lex/getting-started/
+  - type: FAQ
+    url: https://aws.amazon.com/lex/faqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
+  - type: DataModel
+    url: data-model/amazon-lex-data-model.yml
+  - type: JSONSchema
+    url: json-schema/amazon-lex-bot-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-lex-intent-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-lex-context.jsonld
+  - type: Smithy
+    url: smithy/amazon-lex-runtime-v2-2020-08-07.json
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lexv2/latest/dg/how-it-works.html
+  - type: APIReference
+    url: >-
+      https://docs.aws.amazon.com/lexv2/latest/APIReference/API_Operations_Amazon_Lex_Runtime_V2.html
+- aid: amazon-lex:amazon-lex-createuploadurl-api
+  name: Amazon Lex Createuploadurl API
+  description: The createuploadurl API from Amazon Lex — 1 operation(s) for createuploadurl.
+  humanURL: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
+  baseURL: https://models-v2-lex.us-east-1.amazonaws.com
+  tags:
+  - createuploadurl
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-lex-createuploadurl-api-openapi.yml
+  - type: Smithy
+    url: smithy/amazon-lex-models-v2-2020-08-07.json
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lexv2/latest/dg/what-is.html
+  - type: JSONSchema
+    url: json-schema/json-schema.yml
+  - type: JSONLD
+    url: json-ld/json-ld.yml
+  - type: Pricing
+    url: https://aws.amazon.com/lex/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/lex/getting-started/
+  - type: FAQ
+    url: https://aws.amazon.com/lex/faqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
+  - type: DataModel
+    url: data-model/amazon-lex-data-model.yml
+  - type: JSONSchema
+    url: json-schema/amazon-lex-bot-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-lex-intent-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-lex-context.jsonld
+  - type: Smithy
+    url: smithy/amazon-lex-runtime-v2-2020-08-07.json
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lexv2/latest/dg/how-it-works.html
+  - type: APIReference
+    url: >-
+      https://docs.aws.amazon.com/lexv2/latest/APIReference/API_Operations_Amazon_Lex_Runtime_V2.html
+- aid: amazon-lex:amazon-lex-exports-api
+  name: Amazon Lex Exports API
+  description: The exports API from Amazon Lex — 2 operation(s) for exports.
+  humanURL: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
+  baseURL: https://models-v2-lex.us-east-1.amazonaws.com
+  tags:
+  - exports
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-lex-exports-api-openapi.yml
+  - type: Smithy
+    url: smithy/amazon-lex-models-v2-2020-08-07.json
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lexv2/latest/dg/what-is.html
+  - type: JSONSchema
+    url: json-schema/json-schema.yml
+  - type: JSONLD
+    url: json-ld/json-ld.yml
+  - type: Pricing
+    url: https://aws.amazon.com/lex/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/lex/getting-started/
+  - type: FAQ
+    url: https://aws.amazon.com/lex/faqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
+  - type: DataModel
+    url: data-model/amazon-lex-data-model.yml
+  - type: JSONSchema
+    url: json-schema/amazon-lex-bot-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-lex-intent-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-lex-context.jsonld
+  - type: Smithy
+    url: smithy/amazon-lex-runtime-v2-2020-08-07.json
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lexv2/latest/dg/how-it-works.html
+  - type: APIReference
+    url: >-
+      https://docs.aws.amazon.com/lexv2/latest/APIReference/API_Operations_Amazon_Lex_Runtime_V2.html
+- aid: amazon-lex:amazon-lex-imports-api
+  name: Amazon Lex Imports API
+  description: The imports API from Amazon Lex — 2 operation(s) for imports.
+  humanURL: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
+  baseURL: https://models-v2-lex.us-east-1.amazonaws.com
+  tags:
+  - imports
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-lex-imports-api-openapi.yml
+  - type: Smithy
+    url: smithy/amazon-lex-models-v2-2020-08-07.json
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lexv2/latest/dg/what-is.html
+  - type: JSONSchema
+    url: json-schema/json-schema.yml
+  - type: JSONLD
+    url: json-ld/json-ld.yml
+  - type: Pricing
+    url: https://aws.amazon.com/lex/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/lex/getting-started/
+  - type: FAQ
+    url: https://aws.amazon.com/lex/faqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
+  - type: DataModel
+    url: data-model/amazon-lex-data-model.yml
+  - type: JSONSchema
+    url: json-schema/amazon-lex-bot-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-lex-intent-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-lex-context.jsonld
+  - type: Smithy
+    url: smithy/amazon-lex-runtime-v2-2020-08-07.json
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lexv2/latest/dg/how-it-works.html
+  - type: APIReference
+    url: >-
+      https://docs.aws.amazon.com/lexv2/latest/APIReference/API_Operations_Amazon_Lex_Runtime_V2.html
+- aid: amazon-lex:amazon-lex-policy-api
+  name: Amazon Lex Policy API
+  description: The policy API from Amazon Lex — 3 operation(s) for policy.
+  humanURL: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
+  baseURL: https://models-v2-lex.us-east-1.amazonaws.com
+  tags:
+  - policy
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-lex-policy-api-openapi.yml
+  - type: Smithy
+    url: smithy/amazon-lex-models-v2-2020-08-07.json
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lexv2/latest/dg/what-is.html
+  - type: JSONSchema
+    url: json-schema/json-schema.yml
+  - type: JSONLD
+    url: json-ld/json-ld.yml
+  - type: Pricing
+    url: https://aws.amazon.com/lex/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/lex/getting-started/
+  - type: FAQ
+    url: https://aws.amazon.com/lex/faqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
+  - type: DataModel
+    url: data-model/amazon-lex-data-model.yml
+  - type: JSONSchema
+    url: json-schema/amazon-lex-bot-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-lex-intent-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-lex-context.jsonld
+  - type: Smithy
+    url: smithy/amazon-lex-runtime-v2-2020-08-07.json
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lexv2/latest/dg/how-it-works.html
+  - type: APIReference
+    url: >-
+      https://docs.aws.amazon.com/lexv2/latest/APIReference/API_Operations_Amazon_Lex_Runtime_V2.html
+- aid: amazon-lex:amazon-lex-tags-api
+  name: Amazon Lex Tags API
+  description: The tags API from Amazon Lex — 1 operation(s) for tags.
+  humanURL: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
+  baseURL: https://models-v2-lex.us-east-1.amazonaws.com
+  tags:
+  - tags
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-lex-tags-api-openapi.yml
+  - type: Smithy
+    url: smithy/amazon-lex-models-v2-2020-08-07.json
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lexv2/latest/dg/what-is.html
+  - type: JSONSchema
+    url: json-schema/json-schema.yml
+  - type: JSONLD
+    url: json-ld/json-ld.yml
+  - type: Pricing
+    url: https://aws.amazon.com/lex/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/lex/getting-started/
+  - type: FAQ
+    url: https://aws.amazon.com/lex/faqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
+  - type: DataModel
+    url: data-model/amazon-lex-data-model.yml
+  - type: JSONSchema
+    url: json-schema/amazon-lex-bot-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-lex-intent-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-lex-context.jsonld
+  - type: Smithy
+    url: smithy/amazon-lex-runtime-v2-2020-08-07.json
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lexv2/latest/dg/how-it-works.html
+  - type: APIReference
+    url: >-
+      https://docs.aws.amazon.com/lexv2/latest/APIReference/API_Operations_Amazon_Lex_Runtime_V2.html
+- aid: amazon-lex:amazon-lex-testexecutions-api
+  name: Amazon Lex Testexecutions API
+  description: The testexecutions API from Amazon Lex — 4 operation(s) for testexecutions.
+  humanURL: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
+  baseURL: https://models-v2-lex.us-east-1.amazonaws.com
+  tags:
+  - testexecutions
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-lex-testexecutions-api-openapi.yml
+  - type: Smithy
+    url: smithy/amazon-lex-models-v2-2020-08-07.json
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lexv2/latest/dg/what-is.html
+  - type: JSONSchema
+    url: json-schema/json-schema.yml
+  - type: JSONLD
+    url: json-ld/json-ld.yml
+  - type: Pricing
+    url: https://aws.amazon.com/lex/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/lex/getting-started/
+  - type: FAQ
+    url: https://aws.amazon.com/lex/faqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
+  - type: DataModel
+    url: data-model/amazon-lex-data-model.yml
+  - type: JSONSchema
+    url: json-schema/amazon-lex-bot-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-lex-intent-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-lex-context.jsonld
+  - type: Smithy
+    url: smithy/amazon-lex-runtime-v2-2020-08-07.json
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lexv2/latest/dg/how-it-works.html
+  - type: APIReference
+    url: >-
+      https://docs.aws.amazon.com/lexv2/latest/APIReference/API_Operations_Amazon_Lex_Runtime_V2.html
+- aid: amazon-lex:amazon-lex-testsetdiscrepancy-api
+  name: Amazon Lex Testsetdiscrepancy API
+  description: The testsetdiscrepancy API from Amazon Lex — 1 operation(s) for testsetdiscrepancy.
+  humanURL: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
+  baseURL: https://models-v2-lex.us-east-1.amazonaws.com
+  tags:
+  - testsetdiscrepancy
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-lex-testsetdiscrepancy-api-openapi.yml
+  - type: Smithy
+    url: smithy/amazon-lex-models-v2-2020-08-07.json
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lexv2/latest/dg/what-is.html
+  - type: JSONSchema
+    url: json-schema/json-schema.yml
+  - type: JSONLD
+    url: json-ld/json-ld.yml
+  - type: Pricing
+    url: https://aws.amazon.com/lex/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/lex/getting-started/
+  - type: FAQ
+    url: https://aws.amazon.com/lex/faqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
+  - type: DataModel
+    url: data-model/amazon-lex-data-model.yml
+  - type: JSONSchema
+    url: json-schema/amazon-lex-bot-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-lex-intent-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-lex-context.jsonld
+  - type: Smithy
+    url: smithy/amazon-lex-runtime-v2-2020-08-07.json
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lexv2/latest/dg/how-it-works.html
+  - type: APIReference
+    url: >-
+      https://docs.aws.amazon.com/lexv2/latest/APIReference/API_Operations_Amazon_Lex_Runtime_V2.html
+- aid: amazon-lex:amazon-lex-testsetgenerations-api
+  name: Amazon Lex Testsetgenerations API
+  description: The testsetgenerations API from Amazon Lex — 2 operation(s) for testsetgenerations.
+  humanURL: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
+  baseURL: https://models-v2-lex.us-east-1.amazonaws.com
+  tags:
+  - testsetgenerations
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-lex-testsetgenerations-api-openapi.yml
+  - type: Smithy
+    url: smithy/amazon-lex-models-v2-2020-08-07.json
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lexv2/latest/dg/what-is.html
+  - type: JSONSchema
+    url: json-schema/json-schema.yml
+  - type: JSONLD
+    url: json-ld/json-ld.yml
+  - type: Pricing
+    url: https://aws.amazon.com/lex/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/lex/getting-started/
+  - type: FAQ
+    url: https://aws.amazon.com/lex/faqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
+  - type: DataModel
+    url: data-model/amazon-lex-data-model.yml
+  - type: JSONSchema
+    url: json-schema/amazon-lex-bot-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-lex-intent-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-lex-context.jsonld
+  - type: Smithy
+    url: smithy/amazon-lex-runtime-v2-2020-08-07.json
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lexv2/latest/dg/how-it-works.html
+  - type: APIReference
+    url: >-
+      https://docs.aws.amazon.com/lexv2/latest/APIReference/API_Operations_Amazon_Lex_Runtime_V2.html
+- aid: amazon-lex:amazon-lex-testsets-api
+  name: Amazon Lex Testsets API
+  description: The testsets API from Amazon Lex — 5 operation(s) for testsets.
+  humanURL: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
+  baseURL: https://models-v2-lex.us-east-1.amazonaws.com
+  tags:
+  - testsets
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-lex-testsets-api-openapi.yml
+  - type: Smithy
+    url: smithy/amazon-lex-models-v2-2020-08-07.json
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lexv2/latest/dg/what-is.html
+  - type: JSONSchema
+    url: json-schema/json-schema.yml
+  - type: JSONLD
+    url: json-ld/json-ld.yml
+  - type: Pricing
+    url: https://aws.amazon.com/lex/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/lex/getting-started/
+  - type: FAQ
+    url: https://aws.amazon.com/lex/faqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
+  - type: DataModel
+    url: data-model/amazon-lex-data-model.yml
+  - type: JSONSchema
+    url: json-schema/amazon-lex-bot-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-lex-intent-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-lex-context.jsonld
+  - type: Smithy
+    url: smithy/amazon-lex-runtime-v2-2020-08-07.json
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lexv2/latest/dg/how-it-works.html
+  - type: APIReference
+    url: >-
+      https://docs.aws.amazon.com/lexv2/latest/APIReference/API_Operations_Amazon_Lex_Runtime_V2.html
 common:
+  - type: Overlay
+    url: overlays/amazon-lex-models-v2-overlay.yaml
+  - type: Overlay
+    url: overlays/amazon-lex-runtime-v2-overlay.yaml
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/amazon-lex/overview
   - type: AgenticAccess
@@ -256,7 +643,7 @@ common:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
-x-parent: aws
+x-parent: amazon-web-services
 x-relationship: product
 x-enrichment:
   date: '2026-09-17'

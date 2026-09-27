@@ -1,0 +1,704 @@
+openapi: 3.2.0
+info:
+  title: Amazon Lex Model Building V2 Exports API
+  description: Amazon Lex V2 Model Building operations let you build and manage conversational bots — bots, aliases, locales, intents, slots, slot types, custom vocabularies, imports/exports, test sets and analytics. Derived mechanically from the AWS-published Smithy 2.0 service model (aws/api-models-aws, models/lex-models-v2/service/2020-08-07). Requests are signed with AWS Signature Version 4 using service name lex.
+  version: '2020-08-07'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/premiumsupport/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  x-generated-from: AWS Smithy 2.0 service model (https://github.com/aws/api-models-aws) — mechanical transform, no hand-authored operations
+servers:
+- url: https://models-v2-lex.us-east-1.amazonaws.com
+  description: Amazon Lex V2 Model Building endpoint (us-east-1; one regional endpoint per AWS Region — see https://docs.aws.amazon.com/general/latest/gr/lex.html)
+security:
+- sigv4: []
+tags:
+- name: Exports
+paths:
+  /exports:
+    put:
+      operationId: CreateExport
+      summary: Creates a zip archive containing the contents of a bot or a bot locale
+      description: Creates a zip archive containing the contents of a bot or a bot locale. The archive contains a directory structure that contains JSON files that define the bot. You can create an archive that contains the complete definition of a bot, or you can specify that the archive contain only the definition of a single bot locale. For more information about exporting bots, and about the structure of the export archive, see Importing and exporting bots
+      tags:
+      - Exports
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                resourceSpecification:
+                  $ref: '#/components/schemas/ExportResourceSpecification'
+                fileFormat:
+                  type: string
+                  enum:
+                  - LexJson
+                  - TSV
+                  - CSV
+                  description: The file format of the bot or bot locale definition files.
+                filePassword:
+                  type: string
+                  minLength: 1
+                  maxLength: 1024
+                  description: An password to use to encrypt the exported archive. Using a password is optional, but you should encrypt the archive to protect the data in transit between Amazon Lex and your local computer.
+              required:
+              - resourceSpecification
+              - fileFormat
+      responses:
+        '202':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateExportResponse'
+        '400':
+          description: ValidationException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationException'
+        '402':
+          description: ServiceQuotaExceededException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceQuotaExceededException'
+        '404':
+          description: ResourceNotFoundException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundException'
+        '409':
+          description: ConflictException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConflictException'
+        '429':
+          description: ThrottlingException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrottlingException'
+        '500':
+          description: InternalServerException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerException'
+    post:
+      operationId: ListExports
+      summary: Lists the exports for a bot, bot locale, or custom vocabulary
+      description: Lists the exports for a bot, bot locale, or custom vocabulary. Exports are kept in the list for 7 days.
+      tags:
+      - Exports
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                botId:
+                  type: string
+                  minLength: 10
+                  maxLength: 10
+                  pattern: ^[0-9a-zA-Z]+$
+                  description: The unique identifier that Amazon Lex assigned to the bot.
+                botVersion:
+                  type: string
+                  minLength: 1
+                  maxLength: 5
+                  pattern: ^(DRAFT|[0-9]+)$
+                  description: The version of the bot to list exports for.
+                sortBy:
+                  $ref: '#/components/schemas/ExportSortBy'
+                filters:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ExportFilter'
+                maxResults:
+                  type: integer
+                  minimum: 1
+                  maximum: 1000
+                  description: The maximum number of exports to return in each page of results. If there are fewer results than the max page size, only the actual number of results are returned.
+                nextToken:
+                  type: string
+                  description: If the response from the ListExports operation contains more results that specified in the maxResults parameter, a token is returned in the response. Use the returned token in the nextToken parameter of a ListExports request to return the next page of results. For a complete set of results, call the ListExports operation until the nextToken returned in the response is null.
+                localeId:
+                  type: string
+                  description: Specifies the resources that should be exported. If you don't specify a resource type in the filters parameter, both bot locales and custom vocabularies are exported.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListExportsResponse'
+        '400':
+          description: ValidationException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationException'
+        '429':
+          description: ThrottlingException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrottlingException'
+        '500':
+          description: InternalServerException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerException'
+  /exports/{exportId}:
+    delete:
+      operationId: DeleteExport
+      summary: Removes a previous export and the associated files stored in an S3 bucket
+      description: Removes a previous export and the associated files stored in an S3 bucket.
+      tags:
+      - Exports
+      parameters:
+      - name: exportId
+        in: path
+        required: true
+        description: The unique identifier of the export to delete.
+        schema:
+          type: string
+          minLength: 10
+          maxLength: 10
+          pattern: ^[0-9a-zA-Z]+$
+      responses:
+        '202':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteExportResponse'
+        '400':
+          description: ValidationException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationException'
+        '402':
+          description: ServiceQuotaExceededException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceQuotaExceededException'
+        '412':
+          description: PreconditionFailedException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreconditionFailedException'
+        '429':
+          description: ThrottlingException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrottlingException'
+        '500':
+          description: InternalServerException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerException'
+    get:
+      operationId: DescribeExport
+      summary: Gets information about a specific export
+      description: Gets information about a specific export.
+      tags:
+      - Exports
+      parameters:
+      - name: exportId
+        in: path
+        required: true
+        description: The unique identifier of the export to describe.
+        schema:
+          type: string
+          minLength: 10
+          maxLength: 10
+          pattern: ^[0-9a-zA-Z]+$
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeExportResponse'
+        '400':
+          description: ValidationException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationException'
+        '404':
+          description: ResourceNotFoundException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundException'
+        '429':
+          description: ThrottlingException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrottlingException'
+        '500':
+          description: InternalServerException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerException'
+    put:
+      operationId: UpdateExport
+      summary: Updates the password used to protect an export zip archive
+      description: Updates the password used to protect an export zip archive. The password is not required. If you don't supply a password, Amazon Lex generates a zip file that is not protected by a password. This is the archive that is available at the pre-signed S3 URL provided by the DescribeExport operation.
+      tags:
+      - Exports
+      parameters:
+      - name: exportId
+        in: path
+        required: true
+        description: The unique identifier Amazon Lex assigned to the export.
+        schema:
+          type: string
+          minLength: 10
+          maxLength: 10
+          pattern: ^[0-9a-zA-Z]+$
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filePassword:
+                  type: string
+                  minLength: 1
+                  maxLength: 1024
+                  description: The new password to use to encrypt the export zip archive.
+      responses:
+        '202':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateExportResponse'
+        '400':
+          description: ValidationException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationException'
+        '402':
+          description: ServiceQuotaExceededException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceQuotaExceededException'
+        '404':
+          description: ResourceNotFoundException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundException'
+        '409':
+          description: ConflictException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConflictException'
+        '429':
+          description: ThrottlingException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrottlingException'
+        '500':
+          description: InternalServerException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerException'
+components:
+  schemas:
+    CustomVocabularyExportSpecification:
+      type: object
+      description: Provides the parameters required for exporting a custom vocabulary.
+      properties:
+        botId:
+          type: string
+          minLength: 10
+          maxLength: 10
+          pattern: ^[0-9a-zA-Z]+$
+          description: The identifier of the bot that contains the custom vocabulary to export.
+        botVersion:
+          type: string
+          minLength: 1
+          maxLength: 5
+          pattern: ^(DRAFT|[0-9]+)$
+          description: The version of the bot that contains the custom vocabulary to export.
+        localeId:
+          type: string
+          description: The locale of the bot that contains the custom vocabulary to export.
+      required:
+      - botId
+      - botVersion
+      - localeId
+    ExportFilter:
+      type: object
+      description: Filters the response form the ListExports operation
+      properties:
+        name:
+          type: string
+          enum:
+          - ExportResourceType
+          description: The name of the field to use for filtering.
+        values:
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 100
+            pattern: ^[0-9a-zA-Z_()\s-]+$
+        operator:
+          type: string
+          enum:
+          - CO
+          - EQ
+          description: The operator to use for the filter. Specify EQ when the ListExports operation should return only resource types that equal the specified value. Specify CO when the ListExports operation should return resource types that contain the specified value.
+      required:
+      - name
+      - values
+      - operator
+    TestSetExportSpecification:
+      type: object
+      description: Contains information about the test set that is exported.
+      properties:
+        testSetId:
+          type: string
+          minLength: 10
+          maxLength: 10
+          pattern: ^[0-9a-zA-Z]+$
+          description: The unique identifier of the test set.
+      required:
+      - testSetId
+    ExportSummary:
+      type: object
+      description: Provides summary information about an export in an export list.
+      properties:
+        exportId:
+          type: string
+          minLength: 10
+          maxLength: 10
+          pattern: ^[0-9a-zA-Z]+$
+          description: The unique identifier that Amazon Lex assigned to the export.
+        resourceSpecification:
+          $ref: '#/components/schemas/ExportResourceSpecification'
+        fileFormat:
+          type: string
+          enum:
+          - LexJson
+          - TSV
+          - CSV
+          description: The file format used in the export files.
+        exportStatus:
+          type: string
+          enum:
+          - InProgress
+          - Completed
+          - Failed
+          - Deleting
+          description: The status of the export. When the status is Completed the export is ready to download.
+        creationDateTime:
+          type: string
+          format: date-time
+          description: The date and time that the export was created.
+        lastUpdatedDateTime:
+          type: string
+          format: date-time
+          description: The date and time that the export was last updated.
+    ListExportsResponse:
+      type: object
+      properties:
+        botId:
+          type: string
+          minLength: 10
+          maxLength: 10
+          pattern: ^[0-9a-zA-Z]+$
+          description: The unique identifier assigned to the bot by Amazon Lex.
+        botVersion:
+          type: string
+          minLength: 1
+          maxLength: 5
+          pattern: ^(DRAFT|[0-9]+)$
+          description: The version of the bot that was exported.
+        exportSummaries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportSummary'
+        nextToken:
+          type: string
+          description: A token that indicates whether there are more results to return in a response to the ListExports operation. If the nextToken field is present, you send the contents as the nextToken parameter of a ListExports operation request to get the next page of results.
+        localeId:
+          type: string
+          description: The locale specified in the request.
+    ServiceQuotaExceededException:
+      type: object
+      description: You have reached a quota for your bot.
+      properties:
+        message:
+          type: string
+    InternalServerException:
+      type: object
+      description: The service encountered an unexpected condition. Try your request again.
+      properties:
+        message:
+          type: string
+    DescribeExportResponse:
+      type: object
+      properties:
+        exportId:
+          type: string
+          minLength: 10
+          maxLength: 10
+          pattern: ^[0-9a-zA-Z]+$
+          description: The unique identifier of the described export.
+        resourceSpecification:
+          $ref: '#/components/schemas/ExportResourceSpecification'
+        fileFormat:
+          type: string
+          enum:
+          - LexJson
+          - TSV
+          - CSV
+          description: The file format used in the files that describe the resource.
+        exportStatus:
+          type: string
+          enum:
+          - InProgress
+          - Completed
+          - Failed
+          - Deleting
+          description: The status of the export. When the status is Complete the export archive file is available for download.
+        failureReasons:
+          type: array
+          items:
+            type: string
+        downloadUrl:
+          type: string
+          minLength: 1
+          maxLength: 1024
+          description: A pre-signed S3 URL that points to the bot or bot locale archive. The URL is only available for 5 minutes after calling the DescribeExport operation.
+        creationDateTime:
+          type: string
+          format: date-time
+          description: The date and time that the export was created.
+        lastUpdatedDateTime:
+          type: string
+          format: date-time
+          description: The last date and time that the export was updated.
+    UpdateExportResponse:
+      type: object
+      properties:
+        exportId:
+          type: string
+          minLength: 10
+          maxLength: 10
+          pattern: ^[0-9a-zA-Z]+$
+          description: The unique identifier Amazon Lex assigned to the export.
+        resourceSpecification:
+          $ref: '#/components/schemas/ExportResourceSpecification'
+        fileFormat:
+          type: string
+          enum:
+          - LexJson
+          - TSV
+          - CSV
+          description: The file format used for the files that define the resource. The TSV format is required to export a custom vocabulary only; otherwise use LexJson format.
+        exportStatus:
+          type: string
+          enum:
+          - InProgress
+          - Completed
+          - Failed
+          - Deleting
+          description: The status of the export. When the status is Completed the export archive is available for download.
+        creationDateTime:
+          type: string
+          format: date-time
+          description: The date and time that the export was created.
+        lastUpdatedDateTime:
+          type: string
+          format: date-time
+          description: The date and time that the export was last updated.
+    DeleteExportResponse:
+      type: object
+      properties:
+        exportId:
+          type: string
+          minLength: 10
+          maxLength: 10
+          pattern: ^[0-9a-zA-Z]+$
+          description: The unique identifier of the deleted export.
+        exportStatus:
+          type: string
+          enum:
+          - InProgress
+          - Completed
+          - Failed
+          - Deleting
+          description: The current status of the deletion. When the deletion is complete, the export will no longer be returned by the ListExports operation and calls to the DescribeExport operation with the export identifier will fail.
+    BotExportSpecification:
+      type: object
+      description: Provides the identity of a the bot that was exported.
+      properties:
+        botId:
+          type: string
+          minLength: 10
+          maxLength: 10
+          pattern: ^[0-9a-zA-Z]+$
+          description: The identifier of the bot assigned by Amazon Lex.
+        botVersion:
+          type: string
+          minLength: 1
+          maxLength: 5
+          pattern: ^(DRAFT|[0-9]+)$
+          description: The version of the bot that was exported. This will be either DRAFT or the version number.
+      required:
+      - botId
+      - botVersion
+    CreateExportResponse:
+      type: object
+      properties:
+        exportId:
+          type: string
+          minLength: 10
+          maxLength: 10
+          pattern: ^[0-9a-zA-Z]+$
+          description: An identifier for a specific request to create an export.
+        resourceSpecification:
+          $ref: '#/components/schemas/ExportResourceSpecification'
+        fileFormat:
+          type: string
+          enum:
+          - LexJson
+          - TSV
+          - CSV
+          description: The file format used for the bot or bot locale definition files.
+        exportStatus:
+          type: string
+          enum:
+          - InProgress
+          - Completed
+          - Failed
+          - Deleting
+          description: The status of the export. When the status is Completed, you can use the DescribeExport operation to get the pre-signed S3 URL link to your exported bot or bot locale.
+        creationDateTime:
+          type: string
+          format: date-time
+          description: The date and time that the request to export a bot was created.
+    PreconditionFailedException:
+      type: object
+      description: Your request couldn't be completed because one or more request fields aren't valid. Check the fields in your request and try again.
+      properties:
+        message:
+          type: string
+    ResourceNotFoundException:
+      type: object
+      description: You asked to describe a resource that doesn't exist. Check the resource that you are requesting and try again.
+      properties:
+        message:
+          type: string
+    ExportSortBy:
+      type: object
+      description: Provides information about sorting a list of exports.
+      properties:
+        attribute:
+          type: string
+          enum:
+          - LastUpdatedDateTime
+          description: The export field to use for sorting.
+        order:
+          type: string
+          enum:
+          - Ascending
+          - Descending
+          description: The order to sort the list.
+      required:
+      - attribute
+      - order
+    ThrottlingException:
+      type: object
+      description: Your request rate is too high. Reduce the frequency of requests.
+      properties:
+        retryAfterSeconds:
+          type: integer
+          description: The number of seconds after which the user can invoke the API again.
+        message:
+          type: string
+    BotLocaleExportSpecification:
+      type: object
+      description: Provides the bot locale parameters required for exporting a bot locale.
+      properties:
+        botId:
+          type: string
+          minLength: 10
+          maxLength: 10
+          pattern: ^[0-9a-zA-Z]+$
+          description: The identifier of the bot to create the locale for.
+        botVersion:
+          type: string
+          minLength: 1
+          maxLength: 5
+          pattern: ^(DRAFT|[0-9]+)$
+          description: The version of the bot to export.
+        localeId:
+          type: string
+          description: The identifier of the language and locale to export. The string must match one of the locales in the bot.
+      required:
+      - botId
+      - botVersion
+      - localeId
+    ValidationException:
+      type: object
+      description: One of the input parameters in your request isn't valid. Check the parameters and try your request again.
+      properties:
+        message:
+          type: string
+    ExportResourceSpecification:
+      type: object
+      description: Provides information about the bot or bot locale that you want to export. You can specify the botExportSpecification or the botLocaleExportSpecification, but not both.
+      properties:
+        botExportSpecification:
+          $ref: '#/components/schemas/BotExportSpecification'
+        botLocaleExportSpecification:
+          $ref: '#/components/schemas/BotLocaleExportSpecification'
+        customVocabularyExportSpecification:
+          $ref: '#/components/schemas/CustomVocabularyExportSpecification'
+        testSetExportSpecification:
+          $ref: '#/components/schemas/TestSetExportSpecification'
+    ConflictException:
+      type: object
+      description: The action that you tried to perform couldn't be completed because the resource is in a conflicting state. For example, deleting a bot that is in the CREATING state. Try your request again.
+      properties:
+        message:
+          type: string
+  securitySchemes:
+    sigv4:
+      type: apiKey
+      name: Authorization
+      in: header
+      x-amazon-apigateway-authtype: awsSigv4
+      description: AWS Signature Version 4. Sign requests with SigV4 using service name `lex` and the calling region.

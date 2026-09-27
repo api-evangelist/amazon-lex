@@ -1,0 +1,266 @@
+openapi: 3.2.0
+info:
+  title: Amazon Lex Model Building V2 Builtins API
+  description: Amazon Lex V2 Model Building operations let you build and manage conversational bots — bots, aliases, locales, intents, slots, slot types, custom vocabularies, imports/exports, test sets and analytics. Derived mechanically from the AWS-published Smithy 2.0 service model (aws/api-models-aws, models/lex-models-v2/service/2020-08-07). Requests are signed with AWS Signature Version 4 using service name lex.
+  version: '2020-08-07'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/premiumsupport/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  x-generated-from: AWS Smithy 2.0 service model (https://github.com/aws/api-models-aws) — mechanical transform, no hand-authored operations
+servers:
+- url: https://models-v2-lex.us-east-1.amazonaws.com
+  description: Amazon Lex V2 Model Building endpoint (us-east-1; one regional endpoint per AWS Region — see https://docs.aws.amazon.com/general/latest/gr/lex.html)
+security:
+- sigv4: []
+tags:
+- name: builtins
+paths:
+  /builtins/locales/{localeId}/intents:
+    post:
+      operationId: ListBuiltInIntents
+      summary: Gets a list of built-in intents provided by Amazon Lex that you can use in your…
+      description: Gets a list of built-in intents provided by Amazon Lex that you can use in your bot. To use a built-in intent as a the base for your own intent, include the built-in intent signature in the parentIntentSignature parameter when you call the CreateIntent operation. For more information, see CreateIntent.
+      tags:
+      - builtins
+      parameters:
+      - name: localeId
+        in: path
+        required: true
+        description: The identifier of the language and locale of the intents to list. The string must match one of the supported locales. For more information, see Supported languages.
+        schema:
+          type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sortBy:
+                  $ref: '#/components/schemas/BuiltInIntentSortBy'
+                maxResults:
+                  type: integer
+                  minimum: 20
+                  maximum: 20
+                  description: The maximum number of built-in intents to return in each page of results. If there are fewer results than the max page size, only the actual number of results are returned.
+                nextToken:
+                  type: string
+                  description: If the response from the ListBuiltInIntents operation contains more results than specified in the maxResults parameter, a token is returned in the response. Use that token in the nextToken parameter to return the next page of results.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListBuiltInIntentsResponse'
+        '400':
+          description: ValidationException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationException'
+        '402':
+          description: ServiceQuotaExceededException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceQuotaExceededException'
+        '429':
+          description: ThrottlingException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrottlingException'
+        '500':
+          description: InternalServerException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerException'
+  /builtins/locales/{localeId}/slottypes:
+    post:
+      operationId: ListBuiltInSlotTypes
+      summary: Gets a list of built-in slot types that meet the specified criteria
+      description: Gets a list of built-in slot types that meet the specified criteria.
+      tags:
+      - builtins
+      parameters:
+      - name: localeId
+        in: path
+        required: true
+        description: The identifier of the language and locale of the slot types to list. The string must match one of the supported locales. For more information, see Supported languages.
+        schema:
+          type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sortBy:
+                  $ref: '#/components/schemas/BuiltInSlotTypeSortBy'
+                maxResults:
+                  type: integer
+                  minimum: 20
+                  maximum: 20
+                  description: The maximum number of built-in slot types to return in each page of results. If there are fewer results than the max page size, only the actual number of results are returned.
+                nextToken:
+                  type: string
+                  description: If the response from the ListBuiltInSlotTypes operation contains more results than specified in the maxResults parameter, a token is returned in the response. Use that token in the nextToken parameter to return the next page of results.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListBuiltInSlotTypesResponse'
+        '400':
+          description: ValidationException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationException'
+        '402':
+          description: ServiceQuotaExceededException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceQuotaExceededException'
+        '429':
+          description: ThrottlingException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrottlingException'
+        '500':
+          description: InternalServerException
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerException'
+components:
+  schemas:
+    BuiltInIntentSortBy:
+      type: object
+      description: Specifies attributes for sorting a list of built-in intents.
+      properties:
+        attribute:
+          type: string
+          enum:
+          - IntentSignature
+          description: The attribute to use to sort the list of built-in intents.
+        order:
+          type: string
+          enum:
+          - Ascending
+          - Descending
+          description: The order to sort the list. You can specify ascending or descending order.
+      required:
+      - attribute
+      - order
+    ListBuiltInSlotTypesResponse:
+      type: object
+      properties:
+        builtInSlotTypeSummaries:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuiltInSlotTypeSummary'
+        nextToken:
+          type: string
+          description: A token that indicates whether there are more results to return in a response to the ListBuiltInSlotTypes operation. If the nextToken field is present, you send the contents as the nextToken parameter of a LIstBuiltInSlotTypes operation request to get the next page of results.
+        localeId:
+          type: string
+          description: The language and locale of the slot types in the list.
+    ThrottlingException:
+      type: object
+      description: Your request rate is too high. Reduce the frequency of requests.
+      properties:
+        retryAfterSeconds:
+          type: integer
+          description: The number of seconds after which the user can invoke the API again.
+        message:
+          type: string
+    ServiceQuotaExceededException:
+      type: object
+      description: You have reached a quota for your bot.
+      properties:
+        message:
+          type: string
+    BuiltInSlotTypeSummary:
+      type: object
+      description: Provides summary information about a built-in slot type for the ListBuiltInSlotTypes operation.
+      properties:
+        slotTypeSignature:
+          type: string
+          description: The signature of the built-in slot type. Use this to specify the parent slot type of a derived slot type.
+        description:
+          type: string
+          minLength: 0
+          maxLength: 2000
+          description: The description of the built-in slot type.
+    InternalServerException:
+      type: object
+      description: The service encountered an unexpected condition. Try your request again.
+      properties:
+        message:
+          type: string
+    ValidationException:
+      type: object
+      description: One of the input parameters in your request isn't valid. Check the parameters and try your request again.
+      properties:
+        message:
+          type: string
+    BuiltInSlotTypeSortBy:
+      type: object
+      description: Specifies attributes for sorting a list of built-in slot types.
+      properties:
+        attribute:
+          type: string
+          enum:
+          - SlotTypeSignature
+          description: The attribute to use to sort the list of built-in intents.
+        order:
+          type: string
+          enum:
+          - Ascending
+          - Descending
+          description: The order to sort the list. You can choose ascending or descending.
+      required:
+      - attribute
+      - order
+    ListBuiltInIntentsResponse:
+      type: object
+      properties:
+        builtInIntentSummaries:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuiltInIntentSummary'
+        nextToken:
+          type: string
+          description: A token that indicates whether there are more results to return in a response to the ListBuiltInIntents operation. If the nextToken field is present, you send the contents as the nextToken parameter of a ListBotAliases operation request to get the next page of results.
+        localeId:
+          type: string
+          description: The language and locale of the intents in the list.
+    BuiltInIntentSummary:
+      type: object
+      description: Provides summary information about a built-in intent for the ListBuiltInIntents operation.
+      properties:
+        intentSignature:
+          type: string
+          description: The signature of the built-in intent. Use this to specify the parent intent of a derived intent.
+        description:
+          type: string
+          minLength: 0
+          maxLength: 2000
+          description: The description of the intent.
+  securitySchemes:
+    sigv4:
+      type: apiKey
+      name: Authorization
+      in: header
+      x-amazon-apigateway-authtype: awsSigv4
+      description: AWS Signature Version 4. Sign requests with SigV4 using service name `lex` and the calling region.

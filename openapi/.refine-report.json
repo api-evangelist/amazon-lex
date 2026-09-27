@@ -2,21 +2,37 @@
   "provider": "amazon-lex",
   "sources": [
     "_original/amazon-lex-openapi.yml",
-    "_original/openapi.yml"
+    "_original/openapi.yml",
+    "amazon-lex-models-v2-openapi.yml",
+    "amazon-lex-runtime-v2-openapi.yml"
   ],
   "outputs": [
-    "amazon-lex-bots-api-openapi.yml"
+    "amazon-lex-bots-api-openapi.yml",
+    "amazon-lex-builtins-api-openapi.yml",
+    "amazon-lex-createuploadurl-api-openapi.yml",
+    "amazon-lex-exports-api-openapi.yml",
+    "amazon-lex-imports-api-openapi.yml",
+    "amazon-lex-policy-api-openapi.yml",
+    "amazon-lex-tags-api-openapi.yml",
+    "amazon-lex-testexecutions-api-openapi.yml",
+    "amazon-lex-testsetdiscrepancy-api-openapi.yml",
+    "amazon-lex-testsetgenerations-api-openapi.yml",
+    "amazon-lex-testsets-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "archived openapi/amazon-lex-models-v2-openapi.yml",
+    "archived openapi/amazon-lex-runtime-v2-openapi.yml"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "amazon-lex-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "amazon-lex-models-v2-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "amazon-lex-runtime-v2-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "tag 'Bots' spans 3 source specs (amazon-lex-openapi.yml, amazon-lex-models-v2-openapi.yml, amazon-lex-runtime-v2-openapi.yml): per-path servers applied",
+    "apis.yml register: written (+11 apis, 11 total)"
   ],
-  "skipped": [
-    "amazon-lex-bots-api-openapi.yml: previously refined output, superseded by openapi/_original/"
-  ]
+  "skipped": []
 }
