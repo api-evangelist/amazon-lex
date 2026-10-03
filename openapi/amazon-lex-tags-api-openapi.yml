@@ -176,6 +176,15 @@ paths:
                 $ref: '#/components/schemas/InternalServerException'
 components:
   schemas:
+    ListTagsForResourceResponse:
+      type: object
+      properties:
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+            minLength: 0
+            maxLength: 256
     ThrottlingException:
       type: object
       description: Your request rate is too high. Reduce the frequency of requests.
@@ -191,27 +200,18 @@ components:
       properties:
         message:
           type: string
-    ResourceNotFoundException:
-      type: object
-      description: You asked to describe a resource that doesn't exist. Check the resource that you are requesting and try again.
-      properties:
-        message:
-          type: string
     InternalServerException:
       type: object
       description: The service encountered an unexpected condition. Try your request again.
       properties:
         message:
           type: string
-    ListTagsForResourceResponse:
+    ResourceNotFoundException:
       type: object
+      description: You asked to describe a resource that doesn't exist. Check the resource that you are requesting and try again.
       properties:
-        tags:
-          type: object
-          additionalProperties:
-            type: string
-            minLength: 0
-            maxLength: 256
+        message:
+          type: string
   securitySchemes:
     sigv4:
       type: apiKey
