@@ -94,6 +94,8 @@ apis:
   humanURL: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
   baseURL: https://models-v2-lex.us-east-1.amazonaws.com
   tags:
+  - Builtins
+  tags_raw:
   - builtins
   properties:
   - type: OpenAPI
@@ -135,6 +137,8 @@ apis:
   humanURL: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
   baseURL: https://models-v2-lex.us-east-1.amazonaws.com
   tags:
+  - Createuploadurl
+  tags_raw:
   - createuploadurl
   properties:
   - type: OpenAPI
@@ -176,6 +180,8 @@ apis:
   humanURL: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
   baseURL: https://models-v2-lex.us-east-1.amazonaws.com
   tags:
+  - Export
+  tags_raw:
   - exports
   properties:
   - type: OpenAPI
@@ -217,6 +223,8 @@ apis:
   humanURL: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
   baseURL: https://models-v2-lex.us-east-1.amazonaws.com
   tags:
+  - Import
+  tags_raw:
   - imports
   properties:
   - type: OpenAPI
@@ -258,6 +266,8 @@ apis:
   humanURL: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
   baseURL: https://models-v2-lex.us-east-1.amazonaws.com
   tags:
+  - Policy
+  tags_raw:
   - policy
   properties:
   - type: OpenAPI
@@ -299,6 +309,8 @@ apis:
   humanURL: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
   baseURL: https://models-v2-lex.us-east-1.amazonaws.com
   tags:
+  - Tags
+  tags_raw:
   - tags
   properties:
   - type: OpenAPI
@@ -340,6 +352,8 @@ apis:
   humanURL: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
   baseURL: https://models-v2-lex.us-east-1.amazonaws.com
   tags:
+  - Test Executions
+  tags_raw:
   - testexecutions
   properties:
   - type: OpenAPI
@@ -381,6 +395,8 @@ apis:
   humanURL: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
   baseURL: https://models-v2-lex.us-east-1.amazonaws.com
   tags:
+  - Testsetdiscrepancy
+  tags_raw:
   - testsetdiscrepancy
   properties:
   - type: OpenAPI
@@ -422,6 +438,8 @@ apis:
   humanURL: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
   baseURL: https://models-v2-lex.us-east-1.amazonaws.com
   tags:
+  - Testsetgenerations
+  tags_raw:
   - testsetgenerations
   properties:
   - type: OpenAPI
@@ -463,6 +481,8 @@ apis:
   humanURL: https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html
   baseURL: https://models-v2-lex.us-east-1.amazonaws.com
   tags:
+  - Testsets
+  tags_raw:
   - testsets
   properties:
   - type: OpenAPI
@@ -499,6 +519,9 @@ apis:
     url: >-
       https://docs.aws.amazon.com/lexv2/latest/APIReference/API_Operations_Amazon_Lex_Runtime_V2.html
 common:
+  - type: CapabilityMap
+    url: capabilities/amazon-lex-capability-edges.yml
+    name: Amazon Lex Business Capability Map
   - type: Overlay
     url: overlays/amazon-lex-models-v2-overlay.yaml
   - type: Overlay
