@@ -256,6 +256,34 @@ paths:
                 $ref: '#/components/schemas/InternalServerException'
 components:
   schemas:
+    IntentClassificationTestResultItemCounts:
+      type: object
+      description: The number of items in the intent classification test.
+      properties:
+        totalResultCount:
+          type: integer
+          description: The total number of results in the intent classification test.
+        speechTranscriptionResultCounts:
+          type: object
+          additionalProperties:
+            type: integer
+        intentMatchResultCounts:
+          type: object
+          additionalProperties:
+            type: integer
+      required:
+      - totalResultCount
+      - intentMatchResultCounts
+    ListTestExecutionsResponse:
+      type: object
+      properties:
+        testExecutions:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestExecutionSummary'
+        nextToken:
+          type: string
+          description: A token that indicates whether there are more results to return in a response to the ListTestExecutions operation. If the nextToken field is present, you send the contents as the nextToken parameter of a ListTestExecutions operation request to get the next page of results.
     SlotResolutionTestResultItemCounts:
       type: object
       description: Information about the counts for a slot resolution in the results of a test execution.
@@ -274,46 +302,51 @@ components:
       required:
       - totalResultCount
       - slotMatchResultCounts
-    ConversationLevelResultDetail:
+    UserTurnResult:
       type: object
-      description: The conversation level details of the conversation used in the test set.
+      description: Contains the results for the user turn by the test execution.
       properties:
+        input:
+          $ref: '#/components/schemas/UserTurnInputSpecification'
+        expectedOutput:
+          $ref: '#/components/schemas/UserTurnOutputSpecification'
+        actualOutput:
+          $ref: '#/components/schemas/UserTurnOutputSpecification'
+        errorDetails:
+          $ref: '#/components/schemas/ExecutionErrorDetails'
         endToEndResult:
           type: string
           enum:
           - Matched
           - Mismatched
           - ExecutionError
-          description: The success or failure of the streaming of the conversation.
+          description: Specifies whether the expected and actual outputs match or not, or if there is an error in execution.
+        intentMatchResult:
+          type: string
+          enum:
+          - Matched
+          - Mismatched
+          - ExecutionError
+          description: Specifies whether the expected and actual intents match or not.
+        slotMatchResult:
+          type: string
+          enum:
+          - Matched
+          - Mismatched
+          - ExecutionError
+          description: Specifies whether the expected and actual slots match or not.
         speechTranscriptionResult:
           type: string
           enum:
           - Matched
           - Mismatched
           - ExecutionError
-          description: The speech transcription success or failure details of the conversation.
+          description: Specifies whether the expected and actual speech transcriptions match or not, or if there is an error in execution.
+        conversationLevelResult:
+          $ref: '#/components/schemas/ConversationLevelResultDetail'
       required:
-      - endToEndResult
-    ConversationLevelIntentClassificationResultItem:
-      type: object
-      description: The item listing the evaluation of intent level success or failure.
-      properties:
-        intentName:
-          type: string
-          minLength: 1
-          maxLength: 100
-          pattern: ^([0-9a-zA-Z][_-]?){1,100}$
-          description: The intent name used in the evaluation of intent level success or failure.
-        matchResult:
-          type: string
-          enum:
-          - Matched
-          - Mismatched
-          - ExecutionError
-          description: The number of times the specific intent is used in the evaluation of intent level success or failure.
-      required:
-      - intentName
-      - matchResult
+      - input
+      - expectedOutput
     GetTestExecutionArtifactsUrlResponse:
       type: object
       properties:
@@ -328,126 +361,6 @@ components:
           minLength: 1
           maxLength: 1024
           description: The pre-signed Amazon S3 URL to download completed test execution.
-    UtteranceInputSpecification:
-      type: object
-      description: Contains information about input of an utterance.
-      properties:
-        textInput:
-          type: string
-          minLength: 1
-          maxLength: 1024
-          description: A text input transcription of the utterance. It is only applicable for test-sets containing text data.
-        audioInput:
-          $ref: '#/components/schemas/UtteranceAudioInputSpecification'
-    RuntimeHints:
-      type: object
-      description: You can provide Amazon Lex with hints to the phrases that a customer is likely to use for a slot. When a slot with hints is resolved, the phrases in the runtime hints are preferred in the resolution. You can provide hints for a maximum of 100 intents. You can provide a maximum of 100 slots. Before you can use runtime hints with an existing bot, you must first rebuild the bot. For more information, see Using runtime hints to improve recognition of slot values.
-      properties:
-        slotHints:
-          type: object
-          additionalProperties:
-            type: object
-            additionalProperties:
-              $ref: '#/components/schemas/RuntimeHintDetails'
-    RuntimeHintDetails:
-      type: object
-      description: Provides an array of phrases that should be given preference when resolving values for a slot.
-      properties:
-        runtimeHintValues:
-          type: array
-          items:
-            $ref: '#/components/schemas/RuntimeHintValue'
-        subSlotHints:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/RuntimeHintDetails'
-    ThrottlingException:
-      type: object
-      description: Your request rate is too high. Reduce the frequency of requests.
-      properties:
-        retryAfterSeconds:
-          type: integer
-          description: The number of seconds after which the user can invoke the API again.
-        message:
-          type: string
-    TestExecutionTarget:
-      type: object
-      description: Contains information about the bot used for the test execution.
-      properties:
-        botAliasTarget:
-          $ref: '#/components/schemas/BotAliasTestExecutionTarget'
-    InternalServerException:
-      type: object
-      description: The service encountered an unexpected condition. Try your request again.
-      properties:
-        message:
-          type: string
-    TestSetTurnResult:
-      type: object
-      description: Contains information about the results of the analysis of a turn in the test set.
-      properties:
-        agent:
-          $ref: '#/components/schemas/AgentTurnResult'
-        user:
-          $ref: '#/components/schemas/UserTurnResult'
-    ConversationLevelTestResultItem:
-      type: object
-      description: The test result evaluation item at the conversation level.
-      properties:
-        conversationId:
-          type: string
-          minLength: 1
-          maxLength: 50
-          pattern: ^([0-9a-zA-Z][_-]?)+$
-          description: The conversation Id of the test result evaluation item.
-        endToEndResult:
-          type: string
-          enum:
-          - Matched
-          - Mismatched
-          - ExecutionError
-          description: The end-to-end success or failure of the test result evaluation item.
-        speechTranscriptionResult:
-          type: string
-          enum:
-          - Matched
-          - Mismatched
-          - ExecutionError
-          description: The speech transcription success or failure of the test result evaluation item.
-        intentClassificationResults:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConversationLevelIntentClassificationResultItem'
-        slotResolutionResults:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConversationLevelSlotResolutionResultItem'
-      required:
-      - conversationId
-      - endToEndResult
-      - intentClassificationResults
-      - slotResolutionResults
-    IntentLevelSlotResolutionTestResultItem:
-      type: object
-      description: Information about intent-level slot resolution in a test result.
-      properties:
-        intentName:
-          type: string
-          minLength: 1
-          maxLength: 100
-          pattern: ^([0-9a-zA-Z][_-]?){1,100}$
-          description: The name of the intent that was recognized.
-        multiTurnConversation:
-          type: boolean
-          description: Indicates whether the conversation involves multiple turns or not.
-        slotResolutionResults:
-          type: array
-          items:
-            $ref: '#/components/schemas/SlotResolutionTestResultItem'
-      required:
-      - intentName
-      - multiTurnConversation
-      - slotResolutionResults
     BotAliasTestExecutionTarget:
       type: object
       description: The target Amazon S3 location for the test set execution using a bot alias.
@@ -471,6 +384,100 @@ components:
       - botId
       - botAliasId
       - localeId
+    TestExecutionSortBy:
+      type: object
+      description: Contains information about the method by which to sort the instances of test executions you have carried out.
+      properties:
+        attribute:
+          type: string
+          enum:
+          - TestSetName
+          - CreationDateTime
+          description: Specifies whether to sort the test set executions by the date and time at which the test sets were created.
+        order:
+          type: string
+          enum:
+          - Ascending
+          - Descending
+          description: Specifies whether to sort in ascending or descending order.
+      required:
+      - attribute
+      - order
+    RuntimeHints:
+      type: object
+      description: You can provide Amazon Lex with hints to the phrases that a customer is likely to use for a slot. When a slot with hints is resolved, the phrases in the runtime hints are preferred in the resolution. You can provide hints for a maximum of 100 intents. You can provide a maximum of 100 slots. Before you can use runtime hints with an existing bot, you must first rebuild the bot. For more information, see Using runtime hints to improve recognition of slot values.
+      properties:
+        slotHints:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties:
+              $ref: '#/components/schemas/RuntimeHintDetails'
+    ServiceQuotaExceededException:
+      type: object
+      description: You have reached a quota for your bot.
+      properties:
+        message:
+          type: string
+    TestExecutionResultFilterBy:
+      type: object
+      description: Contains information about the method by which to filter the results of the test execution.
+      properties:
+        resultTypeFilter:
+          type: string
+          enum:
+          - OverallTestResults
+          - ConversationLevelTestResults
+          - IntentClassificationTestResults
+          - SlotResolutionTestResults
+          - UtteranceLevelResults
+          description: Specifies which results to filter. See Test result details">Test results details for details about different types of results.
+        conversationLevelTestResultsFilterBy:
+          $ref: '#/components/schemas/ConversationLevelTestResultsFilterBy'
+      required:
+      - resultTypeFilter
+    RuntimeHintDetails:
+      type: object
+      description: Provides an array of phrases that should be given preference when resolving values for a slot.
+      properties:
+        runtimeHintValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuntimeHintValue'
+        subSlotHints:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/RuntimeHintDetails'
+    UserTurnSlotOutput:
+      type: object
+      description: Contains information about a slot output by the test set execution.
+      properties:
+        value:
+          type: string
+          minLength: 1
+          description: The value output by the slot recognition.
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserTurnSlotOutput'
+        subSlots:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/UserTurnSlotOutput'
+    TestSetTurnResult:
+      type: object
+      description: Contains information about the results of the analysis of a turn in the test set.
+      properties:
+        agent:
+          $ref: '#/components/schemas/AgentTurnResult'
+        user:
+          $ref: '#/components/schemas/UserTurnResult'
+    InternalServerException:
+      type: object
+      description: The service encountered an unexpected condition. Try your request again.
+      properties:
+        message:
+          type: string
     UtteranceLevelTestResultItem:
       type: object
       description: Contains information about multiple utterances in the results of a test set execution.
@@ -492,173 +499,27 @@ components:
       required:
       - recordNumber
       - turnResult
-    ConversationLevelTestResultsFilterBy:
+    SlotResolutionTestResultItem:
       type: object
-      description: The selection to filter the test set results data at the conversation level.
+      description: Information about the success and failure rate of slot resolution in the results of a test execution.
       properties:
-        endToEndResult:
-          type: string
-          enum:
-          - Matched
-          - Mismatched
-          - ExecutionError
-          description: The selection of matched or mismatched end-to-end status to filter test set results data at the conversation level.
-    UserTurnOutputSpecification:
-      type: object
-      description: Contains results that are output for the user turn by the test execution.
-      properties:
-        intent:
-          $ref: '#/components/schemas/UserTurnIntentOutput'
-        activeContexts:
-          type: array
-          items:
-            $ref: '#/components/schemas/ActiveContext'
-        transcript:
-          type: string
-          minLength: 1
-          maxLength: 1024
-          description: The transcript that is output for the user turn by the test execution.
-      required:
-      - intent
-    TestExecutionResultFilterBy:
-      type: object
-      description: Contains information about the method by which to filter the results of the test execution.
-      properties:
-        resultTypeFilter:
-          type: string
-          enum:
-          - OverallTestResults
-          - ConversationLevelTestResults
-          - IntentClassificationTestResults
-          - SlotResolutionTestResults
-          - UtteranceLevelResults
-          description: Specifies which results to filter. See Test result details">Test results details for details about different types of results.
-        conversationLevelTestResultsFilterBy:
-          $ref: '#/components/schemas/ConversationLevelTestResultsFilterBy'
-      required:
-      - resultTypeFilter
-    OverallTestResults:
-      type: object
-      description: Information about the overall test results.
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/OverallTestResultItem'
-      required:
-      - items
-    ConversationLevelSlotResolutionResultItem:
-      type: object
-      description: The slots used for the slot resolution in the conversation.
-      properties:
-        intentName:
-          type: string
-          minLength: 1
-          maxLength: 100
-          pattern: ^([0-9a-zA-Z][_-]?){1,100}$
-          description: The intents used in the slots list for the slot resolution details.
         slotName:
           type: string
           minLength: 1
           maxLength: 100
           pattern: ^([0-9a-zA-Z][_.-]?)+$
-          description: The slot name in the slots list for the slot resolution details.
-        matchResult:
-          type: string
-          enum:
-          - Matched
-          - Mismatched
-          - ExecutionError
-          description: The number of matching slots used in the slots listings for the slot resolution evaluation.
+          description: The name of the slot.
+        resultCounts:
+          $ref: '#/components/schemas/SlotResolutionTestResultItemCounts'
       required:
-      - intentName
       - slotName
-      - matchResult
-    ListTestExecutionsResponse:
+      - resultCounts
+    ValidationException:
       type: object
+      description: One of the input parameters in your request isn't valid. Check the parameters and try your request again.
       properties:
-        testExecutions:
-          type: array
-          items:
-            $ref: '#/components/schemas/TestExecutionSummary'
-        nextToken:
+        message:
           type: string
-          description: A token that indicates whether there are more results to return in a response to the ListTestExecutions operation. If the nextToken field is present, you send the contents as the nextToken parameter of a ListTestExecutions operation request to get the next page of results.
-    OverallTestResultItem:
-      type: object
-      description: Information about the overall results for a test execution result.
-      properties:
-        multiTurnConversation:
-          type: boolean
-          description: Indicates whether the conversation contains multiple turns or not.
-        totalResultCount:
-          type: integer
-          description: The total number of overall results in the result of the test execution.
-        speechTranscriptionResultCounts:
-          type: object
-          additionalProperties:
-            type: integer
-        endToEndResultCounts:
-          type: object
-          additionalProperties:
-            type: integer
-      required:
-      - multiTurnConversation
-      - totalResultCount
-      - endToEndResultCounts
-    UserTurnSlotOutput:
-      type: object
-      description: Contains information about a slot output by the test set execution.
-      properties:
-        value:
-          type: string
-          minLength: 1
-          description: The value output by the slot recognition.
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserTurnSlotOutput'
-        subSlots:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/UserTurnSlotOutput'
-    ExecutionErrorDetails:
-      type: object
-      description: Details about an error in an execution of a test set.
-      properties:
-        errorCode:
-          type: string
-          minLength: 1
-          description: The error code for the error.
-        errorMessage:
-          type: string
-          minLength: 1
-          description: The message describing the error.
-      required:
-      - errorCode
-      - errorMessage
-    UtteranceAudioInputSpecification:
-      type: object
-      description: Contains information about the audio for an utterance.
-      properties:
-        audioFileS3Location:
-          type: string
-          minLength: 1
-          maxLength: 1024
-          pattern: ^s3://([a-z0-9\\.-]+)/(.+)$
-          description: Amazon S3 file pointing to the audio.
-      required:
-      - audioFileS3Location
-    ConversationLevelTestResults:
-      type: object
-      description: The test set results data at the conversation level.
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConversationLevelTestResultItem'
-      required:
-      - items
     UserTurnIntentOutput:
       type: object
       description: Contains information about the intent that is output for the turn by the test execution.
@@ -675,74 +536,6 @@ components:
             $ref: '#/components/schemas/UserTurnSlotOutput'
       required:
       - name
-    TestExecutionResultItems:
-      type: object
-      description: Contains the results of the test execution, grouped by type of results. See Test result details">Test results details for details about different types of results.
-      properties:
-        overallTestResults:
-          $ref: '#/components/schemas/OverallTestResults'
-        conversationLevelTestResults:
-          $ref: '#/components/schemas/ConversationLevelTestResults'
-        intentClassificationTestResults:
-          $ref: '#/components/schemas/IntentClassificationTestResults'
-        intentLevelSlotResolutionTestResults:
-          $ref: '#/components/schemas/IntentLevelSlotResolutionTestResults'
-        utteranceLevelTestResults:
-          $ref: '#/components/schemas/UtteranceLevelTestResults'
-    IntentClassificationTestResultItemCounts:
-      type: object
-      description: The number of items in the intent classification test.
-      properties:
-        totalResultCount:
-          type: integer
-          description: The total number of results in the intent classification test.
-        speechTranscriptionResultCounts:
-          type: object
-          additionalProperties:
-            type: integer
-        intentMatchResultCounts:
-          type: object
-          additionalProperties:
-            type: integer
-      required:
-      - totalResultCount
-      - intentMatchResultCounts
-    AgentTurnResult:
-      type: object
-      description: The information about the agent turn in a test set execution.
-      properties:
-        expectedAgentPrompt:
-          type: string
-          minLength: 1
-          maxLength: 1024
-          description: The expected agent prompt for the agent turn in a test set execution.
-        actualAgentPrompt:
-          type: string
-          minLength: 1
-          maxLength: 1024
-          description: The actual agent prompt for the agent turn in a test set execution.
-        errorDetails:
-          $ref: '#/components/schemas/ExecutionErrorDetails'
-        actualElicitedSlot:
-          type: string
-          minLength: 1
-          maxLength: 100
-          pattern: ^([0-9a-zA-Z][_.-]?)+$
-          description: The actual elicited slot for the agent turn in a test set execution.
-        actualIntent:
-          type: string
-          minLength: 1
-          maxLength: 100
-          pattern: ^([0-9a-zA-Z][_-]?){1,100}$
-          description: The actual intent for the agent turn in a test set execution.
-      required:
-      - expectedAgentPrompt
-    ValidationException:
-      type: object
-      description: One of the input parameters in your request isn't valid. Check the parameters and try your request again.
-      properties:
-        message:
-          type: string
     DescribeTestExecutionResponse:
       type: object
       properties:
@@ -801,62 +594,197 @@ components:
           type: array
           items:
             type: string
-    IntentClassificationTestResultItem:
+    TestExecutionResultItems:
       type: object
-      description: Information for an intent that is classified by the test workbench.
+      description: Contains the results of the test execution, grouped by type of results. See Test result details">Test results details for details about different types of results.
+      properties:
+        overallTestResults:
+          $ref: '#/components/schemas/OverallTestResults'
+        conversationLevelTestResults:
+          $ref: '#/components/schemas/ConversationLevelTestResults'
+        intentClassificationTestResults:
+          $ref: '#/components/schemas/IntentClassificationTestResults'
+        intentLevelSlotResolutionTestResults:
+          $ref: '#/components/schemas/IntentLevelSlotResolutionTestResults'
+        utteranceLevelTestResults:
+          $ref: '#/components/schemas/UtteranceLevelTestResults'
+    ActiveContext:
+      type: object
+      description: The active context used in the test execution.
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+          pattern: ^([A-Za-z]_?)+$
+          description: The name of active context.
+      required:
+      - name
+    InputSessionStateSpecification:
+      type: object
+      description: Specifications for the current state of the dialog between the user and the bot in the test set.
+      properties:
+        sessionAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        activeContexts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActiveContext'
+        runtimeHints:
+          $ref: '#/components/schemas/RuntimeHints'
+    RuntimeHintValue:
+      type: object
+      description: Provides the phrase that Amazon Lex should look for in the user's input to the bot.
+      properties:
+        phrase:
+          type: string
+          minLength: 1
+          maxLength: 140
+          description: The phrase that Amazon Lex should look for in the user's input to the bot.
+      required:
+      - phrase
+    ExecutionErrorDetails:
+      type: object
+      description: Details about an error in an execution of a test set.
+      properties:
+        errorCode:
+          type: string
+          minLength: 1
+          description: The error code for the error.
+        errorMessage:
+          type: string
+          minLength: 1
+          description: The message describing the error.
+      required:
+      - errorCode
+      - errorMessage
+    ThrottlingException:
+      type: object
+      description: Your request rate is too high. Reduce the frequency of requests.
+      properties:
+        retryAfterSeconds:
+          type: integer
+          description: The number of seconds after which the user can invoke the API again.
+        message:
+          type: string
+    ResourceNotFoundException:
+      type: object
+      description: You asked to describe a resource that doesn't exist. Check the resource that you are requesting and try again.
+      properties:
+        message:
+          type: string
+    IntentLevelSlotResolutionTestResultItem:
+      type: object
+      description: Information about intent-level slot resolution in a test result.
       properties:
         intentName:
           type: string
           minLength: 1
           maxLength: 100
           pattern: ^([0-9a-zA-Z][_-]?){1,100}$
-          description: The name of the intent.
+          description: The name of the intent that was recognized.
         multiTurnConversation:
           type: boolean
           description: Indicates whether the conversation involves multiple turns or not.
-        resultCounts:
-          $ref: '#/components/schemas/IntentClassificationTestResultItemCounts'
+        slotResolutionResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/SlotResolutionTestResultItem'
       required:
       - intentName
       - multiTurnConversation
-      - resultCounts
-    ListTestExecutionResultItemsResponse:
+      - slotResolutionResults
+    OverallTestResultItem:
       type: object
+      description: Information about the overall results for a test execution result.
       properties:
-        testExecutionResults:
-          $ref: '#/components/schemas/TestExecutionResultItems'
-        nextToken:
-          type: string
-          description: A token that indicates whether there are more results to return in a response to the ListTestExecutionResultItems operation. If the nextToken field is present, you send the contents as the nextToken parameter of a ListTestExecutionResultItems operation request to get the next page of results.
-    TestExecutionSortBy:
-      type: object
-      description: Contains information about the method by which to sort the instances of test executions you have carried out.
-      properties:
-        attribute:
-          type: string
-          enum:
-          - TestSetName
-          - CreationDateTime
-          description: Specifies whether to sort the test set executions by the date and time at which the test sets were created.
-        order:
-          type: string
-          enum:
-          - Ascending
-          - Descending
-          description: Specifies whether to sort in ascending or descending order.
+        multiTurnConversation:
+          type: boolean
+          description: Indicates whether the conversation contains multiple turns or not.
+        totalResultCount:
+          type: integer
+          description: The total number of overall results in the result of the test execution.
+        speechTranscriptionResultCounts:
+          type: object
+          additionalProperties:
+            type: integer
+        endToEndResultCounts:
+          type: object
+          additionalProperties:
+            type: integer
       required:
-      - attribute
-      - order
-    IntentClassificationTestResults:
+      - multiTurnConversation
+      - totalResultCount
+      - endToEndResultCounts
+    UtteranceLevelTestResults:
       type: object
-      description: Information for the results of the intent classification test.
+      description: Contains information about the utterances in the results of the test set execution.
       properties:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/IntentClassificationTestResultItem'
+            $ref: '#/components/schemas/UtteranceLevelTestResultItem'
       required:
       - items
+    ConversationLevelTestResults:
+      type: object
+      description: The test set results data at the conversation level.
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConversationLevelTestResultItem'
+      required:
+      - items
+    UserTurnOutputSpecification:
+      type: object
+      description: Contains results that are output for the user turn by the test execution.
+      properties:
+        intent:
+          $ref: '#/components/schemas/UserTurnIntentOutput'
+        activeContexts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActiveContext'
+        transcript:
+          type: string
+          minLength: 1
+          maxLength: 1024
+          description: The transcript that is output for the user turn by the test execution.
+      required:
+      - intent
+    AgentTurnResult:
+      type: object
+      description: The information about the agent turn in a test set execution.
+      properties:
+        expectedAgentPrompt:
+          type: string
+          minLength: 1
+          maxLength: 1024
+          description: The expected agent prompt for the agent turn in a test set execution.
+        actualAgentPrompt:
+          type: string
+          minLength: 1
+          maxLength: 1024
+          description: The actual agent prompt for the agent turn in a test set execution.
+        errorDetails:
+          $ref: '#/components/schemas/ExecutionErrorDetails'
+        actualElicitedSlot:
+          type: string
+          minLength: 1
+          maxLength: 100
+          pattern: ^([0-9a-zA-Z][_.-]?)+$
+          description: The actual elicited slot for the agent turn in a test set execution.
+        actualIntent:
+          type: string
+          minLength: 1
+          maxLength: 100
+          pattern: ^([0-9a-zA-Z][_-]?){1,100}$
+          description: The actual intent for the agent turn in a test set execution.
+      required:
+      - expectedAgentPrompt
     TestExecutionSummary:
       type: object
       description: Summarizes metadata about the test execution.
@@ -912,135 +840,24 @@ components:
           - Text
           - Audio
           description: Specifies whether the data used for the test execution is written or spoken.
-    SlotResolutionTestResultItem:
+    IntentClassificationTestResults:
       type: object
-      description: Information about the success and failure rate of slot resolution in the results of a test execution.
-      properties:
-        slotName:
-          type: string
-          minLength: 1
-          maxLength: 100
-          pattern: ^([0-9a-zA-Z][_.-]?)+$
-          description: The name of the slot.
-        resultCounts:
-          $ref: '#/components/schemas/SlotResolutionTestResultItemCounts'
-      required:
-      - slotName
-      - resultCounts
-    IntentLevelSlotResolutionTestResults:
-      type: object
-      description: Indicates the success or failure of slots at the intent level.
+      description: Information for the results of the intent classification test.
       properties:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/IntentLevelSlotResolutionTestResultItem'
+            $ref: '#/components/schemas/IntentClassificationTestResultItem'
       required:
       - items
-    ActiveContext:
+    ListTestExecutionResultItemsResponse:
       type: object
-      description: The active context used in the test execution.
       properties:
-        name:
+        testExecutionResults:
+          $ref: '#/components/schemas/TestExecutionResultItems'
+        nextToken:
           type: string
-          minLength: 1
-          maxLength: 100
-          pattern: ^([A-Za-z]_?)+$
-          description: The name of active context.
-      required:
-      - name
-    RuntimeHintValue:
-      type: object
-      description: Provides the phrase that Amazon Lex should look for in the user's input to the bot.
-      properties:
-        phrase:
-          type: string
-          minLength: 1
-          maxLength: 140
-          description: The phrase that Amazon Lex should look for in the user's input to the bot.
-      required:
-      - phrase
-    ServiceQuotaExceededException:
-      type: object
-      description: You have reached a quota for your bot.
-      properties:
-        message:
-          type: string
-    InputSessionStateSpecification:
-      type: object
-      description: Specifications for the current state of the dialog between the user and the bot in the test set.
-      properties:
-        sessionAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        activeContexts:
-          type: array
-          items:
-            $ref: '#/components/schemas/ActiveContext'
-        runtimeHints:
-          $ref: '#/components/schemas/RuntimeHints'
-    UserTurnResult:
-      type: object
-      description: Contains the results for the user turn by the test execution.
-      properties:
-        input:
-          $ref: '#/components/schemas/UserTurnInputSpecification'
-        expectedOutput:
-          $ref: '#/components/schemas/UserTurnOutputSpecification'
-        actualOutput:
-          $ref: '#/components/schemas/UserTurnOutputSpecification'
-        errorDetails:
-          $ref: '#/components/schemas/ExecutionErrorDetails'
-        endToEndResult:
-          type: string
-          enum:
-          - Matched
-          - Mismatched
-          - ExecutionError
-          description: Specifies whether the expected and actual outputs match or not, or if there is an error in execution.
-        intentMatchResult:
-          type: string
-          enum:
-          - Matched
-          - Mismatched
-          - ExecutionError
-          description: Specifies whether the expected and actual intents match or not.
-        slotMatchResult:
-          type: string
-          enum:
-          - Matched
-          - Mismatched
-          - ExecutionError
-          description: Specifies whether the expected and actual slots match or not.
-        speechTranscriptionResult:
-          type: string
-          enum:
-          - Matched
-          - Mismatched
-          - ExecutionError
-          description: Specifies whether the expected and actual speech transcriptions match or not, or if there is an error in execution.
-        conversationLevelResult:
-          $ref: '#/components/schemas/ConversationLevelResultDetail'
-      required:
-      - input
-      - expectedOutput
-    UtteranceLevelTestResults:
-      type: object
-      description: Contains information about the utterances in the results of the test set execution.
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/UtteranceLevelTestResultItem'
-      required:
-      - items
-    ResourceNotFoundException:
-      type: object
-      description: You asked to describe a resource that doesn't exist. Check the resource that you are requesting and try again.
-      properties:
-        message:
-          type: string
+          description: A token that indicates whether there are more results to return in a response to the ListTestExecutionResultItems operation. If the nextToken field is present, you send the contents as the nextToken parameter of a ListTestExecutionResultItems operation request to get the next page of results.
     UserTurnInputSpecification:
       type: object
       description: Contains information about the user messages in the turn in the input.
@@ -1055,6 +872,189 @@ components:
           $ref: '#/components/schemas/InputSessionStateSpecification'
       required:
       - utteranceInput
+    OverallTestResults:
+      type: object
+      description: Information about the overall test results.
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OverallTestResultItem'
+      required:
+      - items
+    IntentClassificationTestResultItem:
+      type: object
+      description: Information for an intent that is classified by the test workbench.
+      properties:
+        intentName:
+          type: string
+          minLength: 1
+          maxLength: 100
+          pattern: ^([0-9a-zA-Z][_-]?){1,100}$
+          description: The name of the intent.
+        multiTurnConversation:
+          type: boolean
+          description: Indicates whether the conversation involves multiple turns or not.
+        resultCounts:
+          $ref: '#/components/schemas/IntentClassificationTestResultItemCounts'
+      required:
+      - intentName
+      - multiTurnConversation
+      - resultCounts
+    ConversationLevelTestResultItem:
+      type: object
+      description: The test result evaluation item at the conversation level.
+      properties:
+        conversationId:
+          type: string
+          minLength: 1
+          maxLength: 50
+          pattern: ^([0-9a-zA-Z][_-]?)+$
+          description: The conversation Id of the test result evaluation item.
+        endToEndResult:
+          type: string
+          enum:
+          - Matched
+          - Mismatched
+          - ExecutionError
+          description: The end-to-end success or failure of the test result evaluation item.
+        speechTranscriptionResult:
+          type: string
+          enum:
+          - Matched
+          - Mismatched
+          - ExecutionError
+          description: The speech transcription success or failure of the test result evaluation item.
+        intentClassificationResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConversationLevelIntentClassificationResultItem'
+        slotResolutionResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConversationLevelSlotResolutionResultItem'
+      required:
+      - conversationId
+      - endToEndResult
+      - intentClassificationResults
+      - slotResolutionResults
+    IntentLevelSlotResolutionTestResults:
+      type: object
+      description: Indicates the success or failure of slots at the intent level.
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/IntentLevelSlotResolutionTestResultItem'
+      required:
+      - items
+    ConversationLevelIntentClassificationResultItem:
+      type: object
+      description: The item listing the evaluation of intent level success or failure.
+      properties:
+        intentName:
+          type: string
+          minLength: 1
+          maxLength: 100
+          pattern: ^([0-9a-zA-Z][_-]?){1,100}$
+          description: The intent name used in the evaluation of intent level success or failure.
+        matchResult:
+          type: string
+          enum:
+          - Matched
+          - Mismatched
+          - ExecutionError
+          description: The number of times the specific intent is used in the evaluation of intent level success or failure.
+      required:
+      - intentName
+      - matchResult
+    TestExecutionTarget:
+      type: object
+      description: Contains information about the bot used for the test execution.
+      properties:
+        botAliasTarget:
+          $ref: '#/components/schemas/BotAliasTestExecutionTarget'
+    UtteranceAudioInputSpecification:
+      type: object
+      description: Contains information about the audio for an utterance.
+      properties:
+        audioFileS3Location:
+          type: string
+          minLength: 1
+          maxLength: 1024
+          pattern: ^s3://([a-z0-9\\.-]+)/(.+)$
+          description: Amazon S3 file pointing to the audio.
+      required:
+      - audioFileS3Location
+    UtteranceInputSpecification:
+      type: object
+      description: Contains information about input of an utterance.
+      properties:
+        textInput:
+          type: string
+          minLength: 1
+          maxLength: 1024
+          description: A text input transcription of the utterance. It is only applicable for test-sets containing text data.
+        audioInput:
+          $ref: '#/components/schemas/UtteranceAudioInputSpecification'
+    ConversationLevelTestResultsFilterBy:
+      type: object
+      description: The selection to filter the test set results data at the conversation level.
+      properties:
+        endToEndResult:
+          type: string
+          enum:
+          - Matched
+          - Mismatched
+          - ExecutionError
+          description: The selection of matched or mismatched end-to-end status to filter test set results data at the conversation level.
+    ConversationLevelSlotResolutionResultItem:
+      type: object
+      description: The slots used for the slot resolution in the conversation.
+      properties:
+        intentName:
+          type: string
+          minLength: 1
+          maxLength: 100
+          pattern: ^([0-9a-zA-Z][_-]?){1,100}$
+          description: The intents used in the slots list for the slot resolution details.
+        slotName:
+          type: string
+          minLength: 1
+          maxLength: 100
+          pattern: ^([0-9a-zA-Z][_.-]?)+$
+          description: The slot name in the slots list for the slot resolution details.
+        matchResult:
+          type: string
+          enum:
+          - Matched
+          - Mismatched
+          - ExecutionError
+          description: The number of matching slots used in the slots listings for the slot resolution evaluation.
+      required:
+      - intentName
+      - slotName
+      - matchResult
+    ConversationLevelResultDetail:
+      type: object
+      description: The conversation level details of the conversation used in the test set.
+      properties:
+        endToEndResult:
+          type: string
+          enum:
+          - Matched
+          - Mismatched
+          - ExecutionError
+          description: The success or failure of the streaming of the conversation.
+        speechTranscriptionResult:
+          type: string
+          enum:
+          - Matched
+          - Mismatched
+          - ExecutionError
+          description: The speech transcription success or failure details of the conversation.
+      required:
+      - endToEndResult
   securitySchemes:
     sigv4:
       type: apiKey

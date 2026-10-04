@@ -269,156 +269,19 @@ paths:
                 $ref: '#/components/schemas/InternalServerException'
 components:
   schemas:
-    CustomVocabularyImportSpecification:
+    SpeechRecognitionSettings:
       type: object
-      description: Provides the parameters required for importing a custom vocabulary.
+      description: Settings that control how Amazon Lex processes and recognizes speech input from users.
       properties:
-        botId:
-          type: string
-          minLength: 10
-          maxLength: 10
-          pattern: ^[0-9a-zA-Z]+$
-          description: The identifier of the bot to import the custom vocabulary to.
-        botVersion:
-          type: string
-          minLength: 5
-          maxLength: 5
-          pattern: ^DRAFT$
-          description: The version of the bot to import the custom vocabulary to.
-        localeId:
-          type: string
-          description: The identifier of the local to import the custom vocabulary to. The value must be en_GB.
-      required:
-      - botId
-      - botVersion
-      - localeId
-    ThrottlingException:
-      type: object
-      description: Your request rate is too high. Reduce the frequency of requests.
-      properties:
-        retryAfterSeconds:
-          type: integer
-          description: The number of seconds after which the user can invoke the API again.
-        message:
-          type: string
-    BotImportSpecification:
-      type: object
-      description: Provides the bot parameters required for importing a bot.
-      properties:
-        botName:
-          type: string
-          minLength: 1
-          maxLength: 100
-          pattern: ^([0-9a-zA-Z][_-]?){1,100}$
-          description: The name that Amazon Lex should use for the bot.
-        roleArn:
-          type: string
-          minLength: 32
-          maxLength: 2048
-          pattern: ^arn:aws:iam::[0-9]{12}:role/.*$
-          description: The Amazon Resource Name (ARN) of the IAM role used to build and run the bot.
-        dataPrivacy:
-          $ref: '#/components/schemas/DataPrivacy'
-        errorLogSettings:
-          $ref: '#/components/schemas/ErrorLogSettings'
-        idleSessionTTLInSeconds:
-          type: integer
-          minimum: 60
-          maximum: 86400
-          description: The time, in seconds, that Amazon Lex should keep information about a user's conversation with the bot. A user interaction remains active for the amount of time specified. If no conversation occurs during this time, the session expires and Amazon Lex deletes any data provided before the timeout. You can specify between 60 (1 minute) and 86,400 (24 hours) seconds.
-        botTags:
-          type: object
-          additionalProperties:
-            type: string
-            minLength: 0
-            maxLength: 256
-        testBotAliasTags:
-          type: object
-          additionalProperties:
-            type: string
-            minLength: 0
-            maxLength: 256
-      required:
-      - botName
-      - roleArn
-      - dataPrivacy
-    ImportResourceSpecification:
-      type: object
-      description: Provides information about the bot or bot locale that you want to import. You can specify the botImportSpecification or the botLocaleImportSpecification, but not both.
-      properties:
-        botImportSpecification:
-          $ref: '#/components/schemas/BotImportSpecification'
-        botLocaleImportSpecification:
-          $ref: '#/components/schemas/BotLocaleImportSpecification'
-        customVocabularyImportSpecification:
-          $ref: '#/components/schemas/CustomVocabularyImportSpecification'
-        testSetImportResourceSpecification:
-          $ref: '#/components/schemas/TestSetImportResourceSpecification'
-    DeepgramSpeechModelConfig:
-      type: object
-      description: Configuration settings for integrating Deepgram speech-to-text models with Amazon Lex.
-      properties:
-        apiTokenSecretArn:
-          type: string
-          minLength: 20
-          maxLength: 2048
-          pattern: ^arn:aws[A-Za-z-]*:secretsmanager:[a-z0-9-]{1,20}:[0-9]{12}:secret:[A-Za-z0-9/_+=.@-]{1,512}-[A-Za-z0-9]{6}$
-          description: The Amazon Resource Name (ARN) of the Secrets Manager secret that contains the Deepgram API token.
-        modelId:
-          type: string
-          minLength: 1
-          maxLength: 32
-          pattern: ^[A-Za-z0-9-_]+$
-          description: The identifier of the Deepgram speech-to-text model to use for processing speech input.
-      required:
-      - apiTokenSecretArn
-    InternalServerException:
-      type: object
-      description: The service encountered an unexpected condition. Try your request again.
-      properties:
-        message:
-          type: string
-    ImportFilter:
-      type: object
-      description: Filters the response from the ListImports operation.
-      properties:
-        name:
+        speechModelPreference:
           type: string
           enum:
-          - ImportResourceType
-          description: The name of the field to use for filtering.
-        values:
-          type: array
-          items:
-            type: string
-            minLength: 1
-            maxLength: 100
-            pattern: ^[0-9a-zA-Z_()\s-]+$
-        operator:
-          type: string
-          enum:
-          - CO
-          - EQ
-          description: The operator to use for the filter. Specify EQ when the ListImports operation should return only resource types that equal the specified value. Specify CO when the ListImports operation should return resource types that contain the specified value.
-      required:
-      - name
-      - values
-      - operator
-    DataPrivacy:
-      type: object
-      description: By default, data stored by Amazon Lex is encrypted. The DataPrivacy structure provides settings that determine how Amazon Lex handles special cases of securing the data for your bot.
-      properties:
-        childDirected:
-          type: boolean
-          description: For each Amazon Lex bot created with the Amazon Lex Model Building Service, you must specify whether your use of Amazon Lex is related to a website, program, or other application that is directed or targeted, in whole or in part, to children under age 13 and subject to the Children's Online Privacy Protection Act (COPPA) by specifying true or false in the childDirected field. By specifying true in the childDirected field, you confirm that your use of Amazon Lex is related to a website, program, or other application that is directed or targeted, in whole or in part, to children under age 13 and subject to COPPA. By specifying false in the childDirected field, you confirm that your use of Amazon Lex is not related to a website, program, or other application that is directed or targeted, in whole or in part, to children under age 13 and subject to COPPA. You may not specify a default value for the childDirected field that does not accurately reflect whether your use of Amazon Lex is related to a website, program, or other application that is directed or targeted, in whole or in part, to children under age 13 and subject to COPPA. If your use of Amazon Lex relates to a website, program, or other application that is directed in whole or in part, to children under age 13, you must obtain any required verifiable parental consent under COPPA. For information regarding the use of Amazon Lex in connection with websites, programs, or other applications that are directed or targeted, in whole or in part, to children under age 13, see the Amazon Lex FAQ.
-      required:
-      - childDirected
-    ResourceNotFoundException:
-      type: object
-      description: You asked to describe a resource that doesn't exist. Check the resource that you are requesting and try again.
-      properties:
-        message:
-          type: string
+          - Standard
+          - Neural
+          - Deepgram
+          description: The speech-to-text model to use.
+        speechModelConfig:
+          $ref: '#/components/schemas/SpeechModelConfig'
     ListImportsResponse:
       type: object
       properties:
@@ -444,6 +307,12 @@ components:
         localeId:
           type: string
           description: The locale specified in the request.
+    ConflictException:
+      type: object
+      description: The action that you tried to perform couldn't be completed because the resource is in a conflicting state. For example, deleting a bot that is in the CREATING state. Try your request again.
+      properties:
+        message:
+          type: string
     AudioFillerSettings:
       type: object
       description: Configuration that plays background filler audio during speech-to-speech interactions to mask processing delays and improve the perceived responsiveness of the bot. Audio filler requires unifiedSpeechSettings (speech-to-speech) to be enabled on the bot locale when enabled is true.
@@ -471,180 +340,104 @@ components:
         responseDeliveryDelayInMilliseconds:
           type: integer
           description: The silent delay, in milliseconds, inserted between the end of audio filler playback and the start of the bot's response. Valid range is 200 to 1000 milliseconds. If not specified, Amazon Lex uses a default of 500 milliseconds.
-    TestSetStorageLocation:
+    TestSetImportResourceSpecification:
       type: object
-      description: Contains information about the location in which the test set is stored.
+      description: Contains information about the test set that is imported.
       properties:
-        s3BucketName:
-          type: string
-          minLength: 3
-          maxLength: 63
-          pattern: ^[a-z0-9][\.\-a-z0-9]{1,61}[a-z0-9]$
-          description: The name of the Amazon S3 bucket in which the test set is stored.
-        s3Path:
-          type: string
-          minLength: 1
-          maxLength: 1024
-          pattern: ^[\.\-\!\*\_\'\(\)a-zA-Z0-9][\.\-\!\*\_\'\(\)\/a-zA-Z0-9]*$
-          description: The path inside the Amazon S3 bucket where the test set is stored.
-        kmsKeyArn:
-          type: string
-          minLength: 20
-          maxLength: 2048
-          pattern: ^arn:[\w\-]+:kms:[\w\-]+:[\d]{12}:(?:key\/[\w\-]+|alias\/[a-zA-Z0-9:\/_\-]{1,256})$
-          description: The Amazon Resource Name (ARN) of an Amazon Web Services Key Management Service (KMS) key for encrypting the test set.
-      required:
-      - s3BucketName
-      - s3Path
-    TestSetImportInputLocation:
-      type: object
-      description: Contains information about the Amazon S3 location from which the test set is imported.
-      properties:
-        s3BucketName:
-          type: string
-          minLength: 3
-          maxLength: 63
-          pattern: ^[a-z0-9][\.\-a-z0-9]{1,61}[a-z0-9]$
-          description: The name of the Amazon S3 bucket.
-        s3Path:
-          type: string
-          minLength: 1
-          maxLength: 1024
-          pattern: ^[\.\-\!\*\_\'\(\)a-zA-Z0-9][\.\-\!\*\_\'\(\)\/a-zA-Z0-9]*$
-          description: The path inside the Amazon S3 bucket pointing to the test-set CSV file.
-      required:
-      - s3BucketName
-      - s3Path
-    StartImportResponse:
-      type: object
-      properties:
-        importId:
-          type: string
-          minLength: 10
-          maxLength: 10
-          pattern: ^[0-9a-zA-Z]+$
-          description: A unique identifier for the import.
-        resourceSpecification:
-          $ref: '#/components/schemas/ImportResourceSpecification'
-        mergeStrategy:
-          type: string
-          enum:
-          - Overwrite
-          - FailOnConflict
-          - Append
-          description: The strategy used when there was a name conflict between the imported resource and an existing resource. When the merge strategy is FailOnConflict existing resources are not overwritten and the import fails.
-        importStatus:
-          type: string
-          enum:
-          - InProgress
-          - Completed
-          - Failed
-          - Deleting
-          description: The current status of the import. When the status is Complete the bot, bot alias, or custom vocabulary is ready to use.
-        creationDateTime:
-          type: string
-          format: date-time
-          description: The date and time that the import request was created.
-    BotLocaleImportSpecification:
-      type: object
-      description: Provides the bot locale parameters required for importing a bot locale.
-      properties:
-        botId:
-          type: string
-          minLength: 10
-          maxLength: 10
-          pattern: ^[0-9a-zA-Z]+$
-          description: The identifier of the bot to import the locale to.
-        botVersion:
-          type: string
-          minLength: 5
-          maxLength: 5
-          pattern: ^DRAFT$
-          description: The version of the bot to import the locale to. This can only be the DRAFT version of the bot.
-        localeId:
-          type: string
-          description: The identifier of the language and locale that the bot will be used in. The string must match one of the supported locales. All of the intents, slot types, and slots used in the bot must have the same locale. For more information, see Supported languages.
-        nluIntentConfidenceThreshold:
-          type: number
-          format: double
-          minimum: 0
-          maximum: 1
-          description: 'Determines the threshold where Amazon Lex will insert the AMAZON.FallbackIntent, AMAZON.KendraSearchIntent, or both when returning alternative intents. AMAZON.FallbackIntent and AMAZON.KendraSearchIntent are only inserted if they are configured for the bot. For example, suppose a bot is configured with the confidence threshold of 0.80 and the AMAZON.FallbackIntent. Amazon Lex returns three alternative intents with the following confidence scores: IntentA (0.70), IntentB (0.60), IntentC (0.50). The response from the PostText operation would be: AMAZON.FallbackIntent IntentA IntentB IntentC'
-        voiceSettings:
-          $ref: '#/components/schemas/VoiceSettings'
-        speechRecognitionSettings:
-          $ref: '#/components/schemas/SpeechRecognitionSettings'
-        speechDetectionSensitivity:
-          type: string
-          enum:
-          - Default
-          - HighNoiseTolerance
-          - MaximumNoiseTolerance
-          description: The sensitivity level for voice activity detection (VAD) in the bot locale. This setting helps optimize speech recognition accuracy by adjusting how the system responds to background noise during voice interactions.
-        unifiedSpeechSettings:
-          $ref: '#/components/schemas/UnifiedSpeechSettings'
-        audioFillerSettings:
-          $ref: '#/components/schemas/AudioFillerSettings'
-      required:
-      - botId
-      - botVersion
-      - localeId
-    PreconditionFailedException:
-      type: object
-      description: Your request couldn't be completed because one or more request fields aren't valid. Check the fields in your request and try again.
-      properties:
-        message:
-          type: string
-    DescribeImportResponse:
-      type: object
-      properties:
-        importId:
-          type: string
-          minLength: 10
-          maxLength: 10
-          pattern: ^[0-9a-zA-Z]+$
-          description: The unique identifier of the described import.
-        resourceSpecification:
-          $ref: '#/components/schemas/ImportResourceSpecification'
-        importedResourceId:
-          type: string
-          minLength: 5
-          maxLength: 10
-          pattern: ^([0-9a-zA-Z_])+$
-          description: The unique identifier that Amazon Lex assigned to the resource created by the import.
-        importedResourceName:
+        testSetName:
           type: string
           minLength: 1
           maxLength: 100
           pattern: ^([0-9a-zA-Z][_-]?){1,100}$
-          description: The name of the imported resource.
-        mergeStrategy:
+          description: The name of the test set.
+        description:
+          type: string
+          minLength: 0
+          maxLength: 2000
+          description: The description of the test set.
+        roleArn:
+          type: string
+          minLength: 32
+          maxLength: 2048
+          pattern: ^arn:aws:iam::[0-9]{12}:role/.*$
+          description: The Amazon Resource Name (ARN) of an IAM role that has permission to access the test set.
+        storageLocation:
+          $ref: '#/components/schemas/TestSetStorageLocation'
+        importInputLocation:
+          $ref: '#/components/schemas/TestSetImportInputLocation'
+        modality:
           type: string
           enum:
-          - Overwrite
-          - FailOnConflict
-          - Append
-          description: The strategy used when there was a name conflict between the imported resource and an existing resource. When the merge strategy is FailOnConflict existing resources are not overwritten and the import fails.
-        importStatus:
-          type: string
-          enum:
-          - InProgress
-          - Completed
-          - Failed
-          - Deleting
-          description: The status of the import process. When the status is Completed the resource is imported and ready for use.
-        failureReasons:
-          type: array
-          items:
+          - Text
+          - Audio
+          description: Specifies whether the test-set being imported contains written or spoken data.
+        testSetTags:
+          type: object
+          additionalProperties:
             type: string
-        creationDateTime:
+            minLength: 0
+            maxLength: 256
+      required:
+      - testSetName
+      - roleArn
+      - storageLocation
+      - importInputLocation
+      - modality
+    ServiceQuotaExceededException:
+      type: object
+      description: You have reached a quota for your bot.
+      properties:
+        message:
           type: string
-          format: date-time
-          description: The date and time that the import was created.
-        lastUpdatedDateTime:
+    DeepgramSpeechModelConfig:
+      type: object
+      description: Configuration settings for integrating Deepgram speech-to-text models with Amazon Lex.
+      properties:
+        apiTokenSecretArn:
           type: string
-          format: date-time
-          description: The date and time that the import was last updated.
+          minLength: 20
+          maxLength: 2048
+          pattern: ^arn:aws[A-Za-z-]*:secretsmanager:[a-z0-9-]{1,20}:[0-9]{12}:secret:[A-Za-z0-9/_+=.@-]{1,512}-[A-Za-z0-9]{6}$
+          description: The Amazon Resource Name (ARN) of the Secrets Manager secret that contains the Deepgram API token.
+        modelId:
+          type: string
+          minLength: 1
+          maxLength: 32
+          pattern: ^[A-Za-z0-9-_]+$
+          description: The identifier of the Deepgram speech-to-text model to use for processing speech input.
+      required:
+      - apiTokenSecretArn
+    ImportResourceSpecification:
+      type: object
+      description: Provides information about the bot or bot locale that you want to import. You can specify the botImportSpecification or the botLocaleImportSpecification, but not both.
+      properties:
+        botImportSpecification:
+          $ref: '#/components/schemas/BotImportSpecification'
+        botLocaleImportSpecification:
+          $ref: '#/components/schemas/BotLocaleImportSpecification'
+        customVocabularyImportSpecification:
+          $ref: '#/components/schemas/CustomVocabularyImportSpecification'
+        testSetImportResourceSpecification:
+          $ref: '#/components/schemas/TestSetImportResourceSpecification'
+    InternalServerException:
+      type: object
+      description: The service encountered an unexpected condition. Try your request again.
+      properties:
+        message:
+          type: string
+    SpeechFoundationModel:
+      type: object
+      description: Configuration for a foundation model used for speech synthesis and recognition capabilities.
+      properties:
+        modelArn:
+          type: string
+          pattern: ^arn:aws(-[^:]+)?:bedrock:[a-z0-9-]{1,20}::foundation-model\/[a-z0-9-]{1,63}[.]{1}([a-z0-9-]{1,63}[.]){0,2}[a-z0-9-]{1,63}([:][a-z0-9-]{1,63}){0,2}$
+          description: The Amazon Resource Name (ARN) of the foundation model used for speech processing.
+        voiceId:
+          type: string
+          description: The identifier of the voice to use for speech synthesis with the foundation model.
+      required:
+      - modelArn
     ImportSummary:
       type: object
       description: Provides summary information about an import in an import list.
@@ -698,6 +491,115 @@ components:
           - CustomVocabulary
           - TestSet
           description: The type of resource that was imported.
+    DataPrivacy:
+      type: object
+      description: By default, data stored by Amazon Lex is encrypted. The DataPrivacy structure provides settings that determine how Amazon Lex handles special cases of securing the data for your bot.
+      properties:
+        childDirected:
+          type: boolean
+          description: For each Amazon Lex bot created with the Amazon Lex Model Building Service, you must specify whether your use of Amazon Lex is related to a website, program, or other application that is directed or targeted, in whole or in part, to children under age 13 and subject to the Children's Online Privacy Protection Act (COPPA) by specifying true or false in the childDirected field. By specifying true in the childDirected field, you confirm that your use of Amazon Lex is related to a website, program, or other application that is directed or targeted, in whole or in part, to children under age 13 and subject to COPPA. By specifying false in the childDirected field, you confirm that your use of Amazon Lex is not related to a website, program, or other application that is directed or targeted, in whole or in part, to children under age 13 and subject to COPPA. You may not specify a default value for the childDirected field that does not accurately reflect whether your use of Amazon Lex is related to a website, program, or other application that is directed or targeted, in whole or in part, to children under age 13 and subject to COPPA. If your use of Amazon Lex relates to a website, program, or other application that is directed in whole or in part, to children under age 13, you must obtain any required verifiable parental consent under COPPA. For information regarding the use of Amazon Lex in connection with websites, programs, or other applications that are directed or targeted, in whole or in part, to children under age 13, see the Amazon Lex FAQ.
+      required:
+      - childDirected
+    ValidationException:
+      type: object
+      description: One of the input parameters in your request isn't valid. Check the parameters and try your request again.
+      properties:
+        message:
+          type: string
+    BotImportSpecification:
+      type: object
+      description: Provides the bot parameters required for importing a bot.
+      properties:
+        botName:
+          type: string
+          minLength: 1
+          maxLength: 100
+          pattern: ^([0-9a-zA-Z][_-]?){1,100}$
+          description: The name that Amazon Lex should use for the bot.
+        roleArn:
+          type: string
+          minLength: 32
+          maxLength: 2048
+          pattern: ^arn:aws:iam::[0-9]{12}:role/.*$
+          description: The Amazon Resource Name (ARN) of the IAM role used to build and run the bot.
+        dataPrivacy:
+          $ref: '#/components/schemas/DataPrivacy'
+        errorLogSettings:
+          $ref: '#/components/schemas/ErrorLogSettings'
+        idleSessionTTLInSeconds:
+          type: integer
+          minimum: 60
+          maximum: 86400
+          description: The time, in seconds, that Amazon Lex should keep information about a user's conversation with the bot. A user interaction remains active for the amount of time specified. If no conversation occurs during this time, the session expires and Amazon Lex deletes any data provided before the timeout. You can specify between 60 (1 minute) and 86,400 (24 hours) seconds.
+        botTags:
+          type: object
+          additionalProperties:
+            type: string
+            minLength: 0
+            maxLength: 256
+        testBotAliasTags:
+          type: object
+          additionalProperties:
+            type: string
+            minLength: 0
+            maxLength: 256
+      required:
+      - botName
+      - roleArn
+      - dataPrivacy
+    ThrottlingException:
+      type: object
+      description: Your request rate is too high. Reduce the frequency of requests.
+      properties:
+        retryAfterSeconds:
+          type: integer
+          description: The number of seconds after which the user can invoke the API again.
+        message:
+          type: string
+    ResourceNotFoundException:
+      type: object
+      description: You asked to describe a resource that doesn't exist. Check the resource that you are requesting and try again.
+      properties:
+        message:
+          type: string
+    CustomVocabularyImportSpecification:
+      type: object
+      description: Provides the parameters required for importing a custom vocabulary.
+      properties:
+        botId:
+          type: string
+          minLength: 10
+          maxLength: 10
+          pattern: ^[0-9a-zA-Z]+$
+          description: The identifier of the bot to import the custom vocabulary to.
+        botVersion:
+          type: string
+          minLength: 5
+          maxLength: 5
+          pattern: ^DRAFT$
+          description: The version of the bot to import the custom vocabulary to.
+        localeId:
+          type: string
+          description: The identifier of the local to import the custom vocabulary to. The value must be en_GB.
+      required:
+      - botId
+      - botVersion
+      - localeId
+    PreconditionFailedException:
+      type: object
+      description: Your request couldn't be completed because one or more request fields aren't valid. Check the fields in your request and try again.
+      properties:
+        message:
+          type: string
+    ErrorLogSettings:
+      type: object
+      description: Settings parameters for the error logs, whether it is enabled or disabled.
+      properties:
+        enabled:
+          type: boolean
+          description: Settings parameters for the error logs, when it is enabled.
+      required:
+      - enabled
     ImportSortBy:
       type: object
       description: Provides information for sorting a list of imports.
@@ -716,61 +618,36 @@ components:
       required:
       - attribute
       - order
-    ValidationException:
+    StartImportResponse:
       type: object
-      description: One of the input parameters in your request isn't valid. Check the parameters and try your request again.
       properties:
-        message:
+        importId:
           type: string
-    SpeechModelConfig:
-      type: object
-      description: Configuration settings that define which speech-to-text model to use for processing speech input.
-      properties:
-        deepgramConfig:
-          $ref: '#/components/schemas/DeepgramSpeechModelConfig'
-    TestSetImportResourceSpecification:
-      type: object
-      description: Contains information about the test set that is imported.
-      properties:
-        testSetName:
-          type: string
-          minLength: 1
-          maxLength: 100
-          pattern: ^([0-9a-zA-Z][_-]?){1,100}$
-          description: The name of the test set.
-        description:
-          type: string
-          minLength: 0
-          maxLength: 2000
-          description: The description of the test set.
-        roleArn:
-          type: string
-          minLength: 32
-          maxLength: 2048
-          pattern: ^arn:aws:iam::[0-9]{12}:role/.*$
-          description: The Amazon Resource Name (ARN) of an IAM role that has permission to access the test set.
-        storageLocation:
-          $ref: '#/components/schemas/TestSetStorageLocation'
-        importInputLocation:
-          $ref: '#/components/schemas/TestSetImportInputLocation'
-        modality:
+          minLength: 10
+          maxLength: 10
+          pattern: ^[0-9a-zA-Z]+$
+          description: A unique identifier for the import.
+        resourceSpecification:
+          $ref: '#/components/schemas/ImportResourceSpecification'
+        mergeStrategy:
           type: string
           enum:
-          - Text
-          - Audio
-          description: Specifies whether the test-set being imported contains written or spoken data.
-        testSetTags:
-          type: object
-          additionalProperties:
-            type: string
-            minLength: 0
-            maxLength: 256
-      required:
-      - testSetName
-      - roleArn
-      - storageLocation
-      - importInputLocation
-      - modality
+          - Overwrite
+          - FailOnConflict
+          - Append
+          description: The strategy used when there was a name conflict between the imported resource and an existing resource. When the merge strategy is FailOnConflict existing resources are not overwritten and the import fails.
+        importStatus:
+          type: string
+          enum:
+          - InProgress
+          - Completed
+          - Failed
+          - Deleting
+          description: The current status of the import. When the status is Complete the bot, bot alias, or custom vocabulary is ready to use.
+        creationDateTime:
+          type: string
+          format: date-time
+          description: The date and time that the import request was created.
     DeleteImportResponse:
       type: object
       properties:
@@ -788,15 +665,126 @@ components:
           - Failed
           - Deleting
           description: The current status of the deletion. When the deletion is complete, the import will no longer be returned by the ListImports operation and calls to the DescribeImport operation with the import identifier will fail.
-    ErrorLogSettings:
+    TestSetImportInputLocation:
       type: object
-      description: Settings parameters for the error logs, whether it is enabled or disabled.
+      description: Contains information about the Amazon S3 location from which the test set is imported.
       properties:
-        enabled:
-          type: boolean
-          description: Settings parameters for the error logs, when it is enabled.
+        s3BucketName:
+          type: string
+          minLength: 3
+          maxLength: 63
+          pattern: ^[a-z0-9][\.\-a-z0-9]{1,61}[a-z0-9]$
+          description: The name of the Amazon S3 bucket.
+        s3Path:
+          type: string
+          minLength: 1
+          maxLength: 1024
+          pattern: ^[\.\-\!\*\_\'\(\)a-zA-Z0-9][\.\-\!\*\_\'\(\)\/a-zA-Z0-9]*$
+          description: The path inside the Amazon S3 bucket pointing to the test-set CSV file.
       required:
-      - enabled
+      - s3BucketName
+      - s3Path
+    TestSetStorageLocation:
+      type: object
+      description: Contains information about the location in which the test set is stored.
+      properties:
+        s3BucketName:
+          type: string
+          minLength: 3
+          maxLength: 63
+          pattern: ^[a-z0-9][\.\-a-z0-9]{1,61}[a-z0-9]$
+          description: The name of the Amazon S3 bucket in which the test set is stored.
+        s3Path:
+          type: string
+          minLength: 1
+          maxLength: 1024
+          pattern: ^[\.\-\!\*\_\'\(\)a-zA-Z0-9][\.\-\!\*\_\'\(\)\/a-zA-Z0-9]*$
+          description: The path inside the Amazon S3 bucket where the test set is stored.
+        kmsKeyArn:
+          type: string
+          minLength: 20
+          maxLength: 2048
+          pattern: ^arn:[\w\-]+:kms:[\w\-]+:[\d]{12}:(?:key\/[\w\-]+|alias\/[a-zA-Z0-9:\/_\-]{1,256})$
+          description: The Amazon Resource Name (ARN) of an Amazon Web Services Key Management Service (KMS) key for encrypting the test set.
+      required:
+      - s3BucketName
+      - s3Path
+    ImportFilter:
+      type: object
+      description: Filters the response from the ListImports operation.
+      properties:
+        name:
+          type: string
+          enum:
+          - ImportResourceType
+          description: The name of the field to use for filtering.
+        values:
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 100
+            pattern: ^[0-9a-zA-Z_()\s-]+$
+        operator:
+          type: string
+          enum:
+          - CO
+          - EQ
+          description: The operator to use for the filter. Specify EQ when the ListImports operation should return only resource types that equal the specified value. Specify CO when the ListImports operation should return resource types that contain the specified value.
+      required:
+      - name
+      - values
+      - operator
+    DescribeImportResponse:
+      type: object
+      properties:
+        importId:
+          type: string
+          minLength: 10
+          maxLength: 10
+          pattern: ^[0-9a-zA-Z]+$
+          description: The unique identifier of the described import.
+        resourceSpecification:
+          $ref: '#/components/schemas/ImportResourceSpecification'
+        importedResourceId:
+          type: string
+          minLength: 5
+          maxLength: 10
+          pattern: ^([0-9a-zA-Z_])+$
+          description: The unique identifier that Amazon Lex assigned to the resource created by the import.
+        importedResourceName:
+          type: string
+          minLength: 1
+          maxLength: 100
+          pattern: ^([0-9a-zA-Z][_-]?){1,100}$
+          description: The name of the imported resource.
+        mergeStrategy:
+          type: string
+          enum:
+          - Overwrite
+          - FailOnConflict
+          - Append
+          description: The strategy used when there was a name conflict between the imported resource and an existing resource. When the merge strategy is FailOnConflict existing resources are not overwritten and the import fails.
+        importStatus:
+          type: string
+          enum:
+          - InProgress
+          - Completed
+          - Failed
+          - Deleting
+          description: The status of the import process. When the status is Completed the resource is imported and ready for use.
+        failureReasons:
+          type: array
+          items:
+            type: string
+        creationDateTime:
+          type: string
+          format: date-time
+          description: The date and time that the import was created.
+        lastUpdatedDateTime:
+          type: string
+          format: date-time
+          description: The date and time that the import was last updated.
     VoiceSettings:
       type: object
       description: 'Defines settings for using an Amazon Polly voice to communicate with a user. Valid values include: standard neural long-form generative'
@@ -814,31 +802,50 @@ components:
           description: The identifier of the Amazon Polly voice to use.
       required:
       - voiceId
-    ServiceQuotaExceededException:
+    BotLocaleImportSpecification:
       type: object
-      description: You have reached a quota for your bot.
+      description: Provides the bot locale parameters required for importing a bot locale.
       properties:
-        message:
+        botId:
           type: string
-    SpeechRecognitionSettings:
-      type: object
-      description: Settings that control how Amazon Lex processes and recognizes speech input from users.
-      properties:
-        speechModelPreference:
+          minLength: 10
+          maxLength: 10
+          pattern: ^[0-9a-zA-Z]+$
+          description: The identifier of the bot to import the locale to.
+        botVersion:
+          type: string
+          minLength: 5
+          maxLength: 5
+          pattern: ^DRAFT$
+          description: The version of the bot to import the locale to. This can only be the DRAFT version of the bot.
+        localeId:
+          type: string
+          description: The identifier of the language and locale that the bot will be used in. The string must match one of the supported locales. All of the intents, slot types, and slots used in the bot must have the same locale. For more information, see Supported languages.
+        nluIntentConfidenceThreshold:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+          description: 'Determines the threshold where Amazon Lex will insert the AMAZON.FallbackIntent, AMAZON.KendraSearchIntent, or both when returning alternative intents. AMAZON.FallbackIntent and AMAZON.KendraSearchIntent are only inserted if they are configured for the bot. For example, suppose a bot is configured with the confidence threshold of 0.80 and the AMAZON.FallbackIntent. Amazon Lex returns three alternative intents with the following confidence scores: IntentA (0.70), IntentB (0.60), IntentC (0.50). The response from the PostText operation would be: AMAZON.FallbackIntent IntentA IntentB IntentC'
+        voiceSettings:
+          $ref: '#/components/schemas/VoiceSettings'
+        speechRecognitionSettings:
+          $ref: '#/components/schemas/SpeechRecognitionSettings'
+        speechDetectionSensitivity:
           type: string
           enum:
-          - Standard
-          - Neural
-          - Deepgram
-          description: The speech-to-text model to use.
-        speechModelConfig:
-          $ref: '#/components/schemas/SpeechModelConfig'
-    ConflictException:
-      type: object
-      description: The action that you tried to perform couldn't be completed because the resource is in a conflicting state. For example, deleting a bot that is in the CREATING state. Try your request again.
-      properties:
-        message:
-          type: string
+          - Default
+          - HighNoiseTolerance
+          - MaximumNoiseTolerance
+          description: The sensitivity level for voice activity detection (VAD) in the bot locale. This setting helps optimize speech recognition accuracy by adjusting how the system responds to background noise during voice interactions.
+        unifiedSpeechSettings:
+          $ref: '#/components/schemas/UnifiedSpeechSettings'
+        audioFillerSettings:
+          $ref: '#/components/schemas/AudioFillerSettings'
+      required:
+      - botId
+      - botVersion
+      - localeId
     UnifiedSpeechSettings:
       type: object
       description: Unified configuration settings that combine speech recognition and synthesis capabilities.
@@ -847,19 +854,12 @@ components:
           $ref: '#/components/schemas/SpeechFoundationModel'
       required:
       - speechFoundationModel
-    SpeechFoundationModel:
+    SpeechModelConfig:
       type: object
-      description: Configuration for a foundation model used for speech synthesis and recognition capabilities.
+      description: Configuration settings that define which speech-to-text model to use for processing speech input.
       properties:
-        modelArn:
-          type: string
-          pattern: ^arn:aws(-[^:]+)?:bedrock:[a-z0-9-]{1,20}::foundation-model\/[a-z0-9-]{1,63}[.]{1}([a-z0-9-]{1,63}[.]){0,2}[a-z0-9-]{1,63}([:][a-z0-9-]{1,63}){0,2}$
-          description: The Amazon Resource Name (ARN) of the foundation model used for speech processing.
-        voiceId:
-          type: string
-          description: The identifier of the voice to use for speech synthesis with the foundation model.
-      required:
-      - modelArn
+        deepgramConfig:
+          $ref: '#/components/schemas/DeepgramSpeechModelConfig'
   securitySchemes:
     sigv4:
       type: apiKey
