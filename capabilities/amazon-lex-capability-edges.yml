@@ -1,0 +1,25 @@
+slug: amazon-lex
+provider: Amazon Lex
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Bots
+  spec_file: amazon-lex-bots-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.72
+  evidence: 'PUT /bots CreateBot — "Creates an Amazon Lex conversational bot"; vendor: "advanced natural
+    language models ... automatic speech recognition (ASR) ... natural language understanding (NLU)"'
+  reason: Operations build, version, configure and analyse NLU-based conversational AI models — AI/ML
+    model lifecycle management. Not customer-service operations themselves; the API manages the AI artefacts.
