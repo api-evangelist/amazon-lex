@@ -114,3 +114,16 @@ note: >-
   method: probed rather than searched. The HTML pricing page is the weaker source of the two — it
   renders several rates as unresolved template tokens ({priceOf!lex/lex!Text!to!Text!...}) to a plain
   fetch, while the JSON gives every rate for every region and locale.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - metered
+  units: []
+  plans:
+  - name: On-Demand (pay-as-you-go)
+    access: other
+    model: metered
+    model_how: stated
+    units: []
+    periods: []
