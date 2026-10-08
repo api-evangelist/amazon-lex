@@ -519,6 +519,8 @@ apis:
     url: >-
       https://docs.aws.amazon.com/lexv2/latest/APIReference/API_Operations_Amazon_Lex_Runtime_V2.html
 common:
+  - type: FinOps
+    url: finops/amazon-lex-finops.yml
   - type: CapabilityMap
     url: capabilities/amazon-lex-capability-edges.yml
     name: Amazon Lex Business Capability Map
