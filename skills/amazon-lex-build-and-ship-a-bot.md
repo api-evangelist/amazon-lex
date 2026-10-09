@@ -2,7 +2,7 @@
 name: Build and ship an Amazon Lex V2 bot
 description: Create a bot, add a locale, intents and slots, build the locale, snapshot it as an immutable version, and point an alias at it — the full build-time path from nothing to callable, with the state machine an agent has to respect.
 api: openapi/amazon-lex-models-v2-openapi.yml
-operations: [CreateBot, DescribeBot, CreateBotLocale, DescribeBotLocale, CreateIntent, CreateSlotType, CreateSlot, BuildBotLocale, CreateBotVersion, DescribeBotVersion, CreateBotAlias, UpdateBotAlias, ListBots]
+operations: [putBots, DescribeBot, CreateBotLocale, DescribeBotLocale, putBotsByBotIdBotversionsByBotVersionBotlocalesByLocaleIdIntents, CreateSlotType, CreateSlot, BuildBotLocale, CreateBotVersion, DescribeBotVersion, CreateBotAlias, UpdateBotAlias, getBots]
 generated: '2026-09-17'
 method: generated
 source: openapi/amazon-lex-models-v2-openapi.yml + conventions/amazon-lex-conventions.yml + errors/amazon-lex-problem-types.yml + rate-limits/amazon-lex-rate-limits.yml

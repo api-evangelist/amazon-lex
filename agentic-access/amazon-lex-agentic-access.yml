@@ -1,4 +1,4 @@
-generated: '2026-09-17'
+generated: '2026-09-23'
 method: generated
 source: openapi/amazon-lex-models-v2-openapi.yml, openapi/amazon-lex-runtime-v2-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
@@ -7,11 +7,11 @@ description: Recommended x-agentic-access execution contracts, classified heuris
 summary:
   operations: 113
   by_action_class:
-    acting: 92
-    connected: 21
+    acting: 63
+    connected: 50
   by_consequence:
-    write: 87
-    read: 21
+    write: 58
+    read: 50
     safety-critical: 2
     physical: 3
   human_in_the_loop_required: 2
@@ -36,18 +36,12 @@ operations:
   method: post
   operationId: ListBots
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /bots/{botId}
   method: delete
   operationId: DeleteBot
@@ -94,66 +88,42 @@ operations:
   method: post
   operationId: ListAggregatedUtterances
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /bots/{botId}/analytics/intentmetrics
   method: post
   operationId: ListIntentMetrics
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /bots/{botId}/analytics/intentpaths
   method: post
   operationId: ListIntentPaths
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /bots/{botId}/analytics/intentstagemetrics
   method: post
   operationId: ListIntentStageMetrics
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /bots/{botId}/analytics/sessionmetrics
   method: post
   operationId: ListSessionMetrics
@@ -190,34 +160,22 @@ operations:
   method: post
   operationId: ListUtteranceMetrics
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /bots/{botId}/analytics/utterances
   method: post
   operationId: ListUtteranceAnalyticsData
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /bots/{botId}/botaliases
   method: put
   operationId: CreateBotAlias
@@ -238,18 +196,12 @@ operations:
   method: post
   operationId: ListBotAliases
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /bots/{botId}/botaliases/{botAliasId}
   method: delete
   operationId: DeleteBotAlias
@@ -328,18 +280,12 @@ operations:
   method: post
   operationId: ListBotAnalyzerHistory
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /bots/{botId}/botanalyzer/{botAnalyzerRequestId}
   method: delete
   operationId: DeleteBotAnalyzerRecommendation
@@ -392,18 +338,12 @@ operations:
   method: post
   operationId: ListBotVersions
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /bots/{botId}/botversions/{botVersion}
   method: delete
   operationId: DeleteBotVersion
@@ -450,18 +390,12 @@ operations:
   method: post
   operationId: ListBotLocales
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}
   method: post
   operationId: BuildBotLocale
@@ -524,18 +458,12 @@ operations:
   method: post
   operationId: ListBotRecommendations
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/botrecommendations
   method: put
   operationId: StartBotRecommendation
@@ -582,34 +510,22 @@ operations:
   method: post
   operationId: SearchAssociatedTranscripts
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/botrecommendations/{botRecommendationId}/intents
   method: post
   operationId: ListRecommendedIntents
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/botrecommendations/{botRecommendationId}/stopbotrecommendation
   method: put
   operationId: StopBotRecommendation
@@ -694,18 +610,12 @@ operations:
   method: post
   operationId: ListCustomVocabularyItems
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/customvocabulary/DEFAULT/metadata
   method: get
   operationId: DescribeCustomVocabularyMetadata
@@ -736,18 +646,12 @@ operations:
   method: post
   operationId: ListBotResourceGenerations
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/generations/{generationId}
   method: get
   operationId: DescribeBotResourceGeneration
@@ -778,18 +682,12 @@ operations:
   method: post
   operationId: ListIntents
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/intents/{intentId}
   method: delete
   operationId: DeleteIntent
@@ -852,18 +750,12 @@ operations:
   method: post
   operationId: ListSlots
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/intents/{intentId}/slots/{slotId}
   method: delete
   operationId: DeleteSlot
@@ -926,18 +818,12 @@ operations:
   method: post
   operationId: ListSlotTypes
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /bots/{botId}/botversions/{botVersion}/botlocales/{localeId}/slottypes/{slotTypeId}
   method: delete
   operationId: DeleteSlotType
@@ -1016,18 +902,12 @@ operations:
   method: post
   operationId: ListBotReplicas
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /bots/{botId}/replicas/{replicaRegion}
   method: delete
   operationId: DeleteBotReplica
@@ -1058,34 +938,22 @@ operations:
   method: post
   operationId: ListBotAliasReplicas
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /bots/{botId}/replicas/{replicaRegion}/botversions
   method: post
   operationId: ListBotVersionReplicas
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /bots/{botId}/utterances
   method: delete
   operationId: DeleteUtterances
@@ -1106,34 +974,22 @@ operations:
   method: post
   operationId: ListBuiltInIntents
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /builtins/locales/{localeId}/slottypes
   method: post
   operationId: ListBuiltInSlotTypes
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /createuploadurl
   method: post
   operationId: CreateUploadUrl
@@ -1170,18 +1026,12 @@ operations:
   method: post
   operationId: ListExports
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /exports/{exportId}
   method: delete
   operationId: DeleteExport
@@ -1228,18 +1078,12 @@ operations:
   method: post
   operationId: ListImports
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /imports
   method: put
   operationId: StartImport
@@ -1418,18 +1262,12 @@ operations:
   method: post
   operationId: ListTestExecutions
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /testexecutions/{testExecutionId}
   method: get
   operationId: DescribeTestExecution
@@ -1454,18 +1292,12 @@ operations:
   method: post
   operationId: ListTestExecutionResultItems
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /testsetdiscrepancy/{testSetDiscrepancyReportId}
   method: get
   operationId: DescribeTestSetDiscrepancyReport
@@ -1506,18 +1338,12 @@ operations:
   method: post
   operationId: ListTestSets
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /testsets/{testSetId}
   method: delete
   operationId: DeleteTestSet
