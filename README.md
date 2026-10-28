@@ -1,4 +1,4 @@
-# Amazon Lex (amazon-lex)
+# Amazon Lex
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,61 +66,205 @@
 
 Amazon Lex is a fully managed artificial intelligence (AI) service with advanced natural language models to design, build, test, and deploy conversational interfaces in applications. It provides the deep learning functionalities of automatic speech recognition (ASR) for converting speech to text, and natural language understanding (NLU) to recognize the intent of the text, enabling you to build applications with highly engaging user experiences and lifelike conversational interactions.
 
-**APIs.json:** [https://apis.io/amazon-lex](https://apis.io/amazon-lex)
+**Areas:** Artificial Intelligence · Conversational AI · Chatbots · Natural Language Processing · Speech · Voice · Contact Center · Customer Service · AWS
 
-## Timestamps
+## Amazon Lex on APIs.io
 
-- **Created:** 2024-01-15
-- **Modified:** 2026-05-19
+Everything profiled for Amazon Lex is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/amazon-lex/](https://apis.io/providers/amazon-lex/)** — or go straight to one of the APIs or properties below.
 
-## APIs
+### APIs (11)
 
-### Amazon Lex API
+- [Amazon Lex Bots API](https://apis.io/apis/amazon-lex/amazon-lex-bots-api/) — Lex bot management
+- [Amazon Lex Builtins API](https://apis.io/apis/amazon-lex/amazon-lex-builtins-api/) — The builtins API from Amazon Lex — 2 operation(s) for builtins.
+- [Amazon Lex Createuploadurl API](https://apis.io/apis/amazon-lex/amazon-lex-createuploadurl-api/) — The createuploadurl API from Amazon Lex — 1 operation(s) for createuploadurl.
+- [Amazon Lex Exports API](https://apis.io/apis/amazon-lex/amazon-lex-exports-api/) — The exports API from Amazon Lex — 2 operation(s) for exports.
+- [Amazon Lex Imports API](https://apis.io/apis/amazon-lex/amazon-lex-imports-api/) — The imports API from Amazon Lex — 2 operation(s) for imports.
+- [Amazon Lex Policy API](https://apis.io/apis/amazon-lex/amazon-lex-policy-api/) — The policy API from Amazon Lex — 3 operation(s) for policy.
+- [Amazon Lex Tags API](https://apis.io/apis/amazon-lex/amazon-lex-tags-api/) — The tags API from Amazon Lex — 1 operation(s) for tags.
+- [Amazon Lex Testexecutions API](https://apis.io/apis/amazon-lex/amazon-lex-testexecutions-api/) — The testexecutions API from Amazon Lex — 4 operation(s) for testexecutions.
+- [Amazon Lex Testsetdiscrepancy API](https://apis.io/apis/amazon-lex/amazon-lex-testsetdiscrepancy-api/) — The testsetdiscrepancy API from Amazon Lex — 1 operation(s) for testsetdiscrepancy.
+- [Amazon Lex Testsetgenerations API](https://apis.io/apis/amazon-lex/amazon-lex-testsetgenerations-api/) — The testsetgenerations API from Amazon Lex — 2 operation(s) for testsetgenerations.
+- [Amazon Lex Testsets API](https://apis.io/apis/amazon-lex/amazon-lex-testsets-api/) — The testsets API from Amazon Lex — 5 operation(s) for testsets.
 
-The Amazon Lex API provides programmatic access to manage bots, bot aliases, bot channels, intents, slots, and slot types for building conversational AI interfaces and chatbots.
+### Published properties
 
-- **Base URL:** `https://models-v2-lex.amazonaws.com`
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-#### Properties
+#### MCP servers (1)
 
-- [Documentation](https://docs.aws.amazon.com/lex/latest/dg/what-is.html)
-- [openapi](openapi/openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [openapi](https://api.apis.guru/v2/specs/amazonaws.com/models.lex.v2/latest/openapi.yaml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [json-schema](json-schema/json-schema.yml)
-- [json-ld](json-ld/json-ld.yml)
-- [pricing](https://aws.amazon.com/lex/pricing/)
-- [getting-started](https://aws.amazon.com/lex/getting-started/)
-- [faq](https://aws.amazon.com/lex/faqs/)
-- [JSON Schema](json-schema/amazon-lex-bot-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/amazon-lex-intent-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON-LD](json-ld/amazon-lex-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [Postman Collection](collections/amazon-lex.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/amazon-lex.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/openapi.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/openapi.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Model Context Protocol servers that expose the API to agents.
 
-## Common Properties
+- [amazon-lex-mcp.yml](https://apis.io/servers/amazon-lex/amazon-lex-mcp-yml/)
 
-- [portal](https://aws.amazon.com/)
-- [website](https://aws.amazon.com/lex/)
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Amazon Lex Agentic Access](https://apis.io/agentic-access/amazon-lex/amazon-lex-agentic-access/)
+
+#### JSON Schema (2)
+
+The data models the API reads and writes.
+
+- [Bot](https://apis.io/schemas/amazon-lex/amazon-lex-bot/)
+- [Intent](https://apis.io/schemas/amazon-lex/amazon-lex-intent/)
+
+#### JSON Structure (2)
+
+Data models expressed in JSON Structure.
+
+- [Amazon Lex Bot Structure](https://apis.io/json-structure/amazon-lex/amazon-lex-bot-structure/)
+- [Amazon Lex Intent Structure](https://apis.io/json-structure/amazon-lex/amazon-lex-intent-structure/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Amazon Lex Context](https://apis.io/jsonld/amazon-lex/amazon-lex-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Amazon Lex Vocabulary](https://apis.io/vocabularies/amazon-lex/amazon-lex-vocabulary/)
+
+#### Examples (2)
+
+Example requests and responses.
+
+- [Amazon Lex Bot Example](https://apis.io/examples/amazon-lex/amazon-lex-bot-example/)
+- [Amazon Lex Intent Example](https://apis.io/examples/amazon-lex/amazon-lex-intent-example/)
+
+#### Collections (4)
+
+Postman and Open Collection request collections.
+
+- [Amazon Lex API](https://apis.io/collections/amazon-lex/open-amazon-lex/)
+- [Amazon Lex Bots API](https://apis.io/collections/amazon-lex/open-amazon-lex-bots-api/)
+- [Amazon Lex API](https://apis.io/collections/amazon-lex/open-openapi/)
+- [Amazon Lex Bots API](https://apis.io/collections/amazon-lex/postman-amazon-lex-bots-api/)
+
+#### Overlays (13)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Amazon Lex Bots Api Phrasing Overlay](https://apis.io/overlays/amazon-lex/amazon-lex-bots-api-phrasing-overlay/)
+- [Amazon Lex Builtins Api Phrasing Overlay](https://apis.io/overlays/amazon-lex/amazon-lex-builtins-api-phrasing-overlay/)
+- [Amazon Lex Createuploadurl Api Phrasing Overlay](https://apis.io/overlays/amazon-lex/amazon-lex-createuploadurl-api-phrasing-overlay/)
+- [Amazon Lex Exports Api Phrasing Overlay](https://apis.io/overlays/amazon-lex/amazon-lex-exports-api-phrasing-overlay/)
+- [Amazon Lex Imports Api Phrasing Overlay](https://apis.io/overlays/amazon-lex/amazon-lex-imports-api-phrasing-overlay/)
+- [Amazon Lex Models V2 Overlay](https://apis.io/overlays/amazon-lex/amazon-lex-models-v2-overlay/)
+- [Amazon Lex Policy Api Phrasing Overlay](https://apis.io/overlays/amazon-lex/amazon-lex-policy-api-phrasing-overlay/)
+- [Amazon Lex Runtime V2 Overlay](https://apis.io/overlays/amazon-lex/amazon-lex-runtime-v2-overlay/)
+- [Amazon Lex Tags Api Phrasing Overlay](https://apis.io/overlays/amazon-lex/amazon-lex-tags-api-phrasing-overlay/)
+- [Amazon Lex Testexecutions Api Phrasing Overlay](https://apis.io/overlays/amazon-lex/amazon-lex-testexecutions-api-phrasing-overlay/)
+- [Amazon Lex Testsetdiscrepancy Api Phrasing Overlay](https://apis.io/overlays/amazon-lex/amazon-lex-testsetdiscrepancy-api-phrasing-overlay/)
+- [Amazon Lex Testsetgenerations Api Phrasing Overlay](https://apis.io/overlays/amazon-lex/amazon-lex-testsetgenerations-api-phrasing-overlay/)
+- [Amazon Lex Testsets Api Phrasing Overlay](https://apis.io/overlays/amazon-lex/amazon-lex-testsets-api-phrasing-overlay/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Amazon Lex — jsonschema rules](https://apis.io/rules/amazon-lex/amazon-lex-jsonschema-spectral-rules/)
+- [Amazon Lex API Rules](https://apis.io/rules/amazon-lex/amazon-lex-spectral-rules/)
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Amazon Lex Authentication](https://apis.io/security/amazon-lex/amazon-lex-authentication/)
+- [Amazon Lex Domain Security](https://apis.io/security/amazon-lex/amazon-lex-domain-security/)
+- [Amazon Lex Trust Center](https://apis.io/security/amazon-lex/amazon-lex-trust-center/)
+- [Amazon Lex Vulnerability Disclosure](https://apis.io/security/amazon-lex/amazon-lex-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Amazon Lex Plans Pricing](https://apis.io/plans/amazon-lex/amazon-lex-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Amazon Lex Rate Limits](https://apis.io/rate-limits/amazon-lex/amazon-lex-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Amazon Lex Finops](https://apis.io/finops/amazon-lex/amazon-lex-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://aws.amazon.com/lex/)
 - [Documentation](https://docs.aws.amazon.com/lex/)
-- [terms-of-service](https://aws.amazon.com/service-terms/)
-- [privacy-policy](https://aws.amazon.com/privacy/)
-- [support](https://aws.amazon.com/premiumsupport/)
-- [blog](https://aws.amazon.com/blogs/machine-learning/)
-- [github](https://github.com/aws)
-- [console](https://console.aws.amazon.com/lex/)
-- [sign-up](https://portal.aws.amazon.com/billing/signup)
-- [login](https://signin.aws.amazon.com/)
-- [Status Page](https://health.aws.amazon.com/health/status)
-- [knowledge-center](https://repost.aws/knowledge-center)
-- [youtube](https://www.youtube.com/user/AmazonWebServices)
-- [stack-overflow](https://stackoverflow.com/questions/tagged/amazon-lex)
-- [contact](https://aws.amazon.com/contact-us/)
-- [security](https://aws.amazon.com/security/)
-- [compliance](https://aws.amazon.com/compliance/)
-- [Features](undefined)
-- [Use Cases](undefined)
-- [Integrations](undefined)
-- [Spectral Rules](rules/amazon-lex-spectral-rules.yml)
-- [Vocabulary](vocabulary/amazon-lex-vocabulary.yaml)
+- [Getting started](https://docs.aws.amazon.com/lexv2/latest/dg/getting-started.html)
+- [API reference](https://docs.aws.amazon.com/lexv2/latest/APIReference/Welcome.html)
+- [Pricing](https://aws.amazon.com/lex/pricing/)
+- [Support](https://aws.amazon.com/premiumsupport/)
+- [Blog](https://aws.amazon.com/blogs/machine-learning/)
+- [Security](https://aws.amazon.com/security/)
+- [Compliance](https://aws.amazon.com/compliance/)
+- [Terms of service](https://aws.amazon.com/service-terms/)
+- [Privacy policy](https://aws.amazon.com/privacy/)
+- [GitHub](https://github.com/aws)
+- [Status](https://health.aws.amazon.com/health/status)
+
+## API Evangelist rating
+
+**Kin Score 76.2** — exemplar · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 80.0 |
+| Contract quality | 71.4 |
+| Contract governance | 45.5 |
+| Operational transparency | 84.2 |
+| Developer ergonomics | 81.5 |
+| Access clarity | 75.0 |
+
+**Agent readiness 34.5** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | mostly |
+
+**Regulatory alignment 32.7** — AI & Biometrics
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/amazon-lex/](https://apis.io/providers/amazon-lex/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Amazon Lex: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/amazon-lex/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
