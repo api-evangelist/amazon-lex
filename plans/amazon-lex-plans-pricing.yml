@@ -59,7 +59,7 @@ plans:
   included_quota: Free plan available for 6 months after account creation; credits must be used within
     12 months
 x-canonical:
-  generated: '2026-11-01'
+  generated: '2026-11-02'
   vocabulary: engine/economics/plans-canonical.yml
   models:
   - hybrid
