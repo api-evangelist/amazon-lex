@@ -1,0 +1,118 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-28'
+method: searched
+source: https://aws.amazon.com/lex/pricing/
+sources:
+- https://aws.amazon.com/lex/pricing/
+provenance:
+  tool: engine/economics/harvest_pricing.py
+  run: 20261028T120612
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: per-call
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-28'
+published: true
+note: Several prices appear only as unresolved template tokens; numeric values taken from the pricing
+  example tables on the page.
+plan_count: 6
+currency: USD
+plans:
+- name: Request and response - speech request
+  price_text: $0.004 per speech request
+  price: 0.004
+  currency: USD
+  period: per-use
+  unit: speech request
+- name: Request and response - text request
+  price_text: $0.00075
+  price: 0.00075
+  currency: USD
+  period: per-use
+  unit: text request
+- name: Streaming conversation - speech interval
+  price_text: $0.0065
+  price: 0.0065
+  currency: USD
+  period: per-use
+  unit: 15-second speech interval
+- name: Streaming conversation - text request
+  price_text: $0.0020
+  price: 0.002
+  currency: USD
+  period: per-use
+  unit: text request
+- name: Automated chatbot designer training
+  price_text: $0.50 per minute
+  price: 0.5
+  currency: USD
+  period: per-use
+  unit: minute of training time
+- name: AWS Free Tier credits
+  price_text: up to $200 in AWS Free Tier credits
+  price: 200
+  currency: USD
+  period: one-time
+  unit: credits
+  included_quota: Free plan available for 6 months after account creation; credits must be used within
+    12 months
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - hybrid
+  units:
+  - compute
+  - credit
+  - request
+  plans:
+  - name: Request and response - speech request
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - request
+    periods:
+    - other
+  - name: Request and response - text request
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - request
+    periods:
+    - other
+  - name: Streaming conversation - speech interval
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Streaming conversation - text request
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - request
+    periods:
+    - other
+  - name: Automated chatbot designer training
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: AWS Free Tier credits
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - one-time
