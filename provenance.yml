@@ -5,10 +5,19 @@ artifacts:
   agentic-access/amazon-lex-agentic-access.yml:
     method: generated
     evidence: declared in the artifact
+  ai-preferences/amazon-lex-ai-preferences.yml:
+    method: harvested
+    evidence: declared in the artifact
   authentication/amazon-lex-authentication.yml:
     method: searched
     evidence: declared in the artifact
   capabilities/amazon-lex-capability-edges.yml:
+    method: unknown
+    evidence: no authorship recorded
+  certification/observations-2026-11-11.jsonl:
+    method: unknown
+    evidence: no authorship recorded
+  certification/status.yml:
     method: unknown
     evidence: no authorship recorded
   changelog/amazon-lex-changelog.yml:
@@ -35,6 +44,9 @@ artifacts:
   collections/openapi.postman_collection.json:
     method: unknown
     evidence: no authorship recorded
+  compliance/amazon-lex-compliance.yml:
+    method: harvested
+    evidence: declared in the artifact
   conformance/amazon-lex-conformance.yml:
     method: searched
     evidence: declared in the artifact
@@ -43,6 +55,9 @@ artifacts:
     evidence: declared in the artifact
   data-model/amazon-lex-data-model.yml:
     method: derived
+    evidence: declared in the artifact
+  eligibility/amazon-lex-eligibility.yml:
+    method: harvested
     evidence: declared in the artifact
   errors/amazon-lex-problem-types.yml:
     method: derived
@@ -59,6 +74,9 @@ artifacts:
   front-door-ai/2026-09-17.yml:
     method: unknown
     evidence: no authorship recorded
+  hosts/amazon-lex-hosts.yml:
+    method: derived
+    evidence: declared in the artifact
   integrations/_index.yml:
     method: generated
     evidence: carries an API Evangelist house phrase
@@ -74,7 +92,94 @@ artifacts:
   json-schema/amazon-lex-bot-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/amazon-lex-delete-bot-channel-association-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-get-bot-alias-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-get-bot-alias-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-get-bot-aliases-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-get-bot-aliases-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-get-bot-channel-association-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-get-bot-channel-association-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-get-bot-channel-associations-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-get-bot-channel-associations-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-get-bot-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-get-intents-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-get-migration-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-get-migration-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-get-migrations-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-get-migrations-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-get-slot-types-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/amazon-lex-intent-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-post-content-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-post-content-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-post-text-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-post-text-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-put-bot-alias-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-put-bot-alias-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-put-bot-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-put-bot-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-put-intent-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-put-intent-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-put-slot-type-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-start-migration-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-lex-start-migration-response-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/json-schema.yml:
@@ -89,7 +194,7 @@ artifacts:
   kin/checks-2026-10-23T222754.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
-  kin/checks-2026-11-02T082323.yml:
+  kin/checks-2026-11-06T143934.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-23T000603.yml:
@@ -158,9 +263,15 @@ artifacts:
   kin/score-2026-11-02T082323.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-11-06T143934.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   lifecycle/amazon-lex-lifecycle.yml:
     method: searched
     evidence: declared in the artifact
+  llms/amazon-lex-llms-provenance.yml:
+    method: searched
+    evidence: 'derive-llms-provenance.py: harvested'
   llms/amazon-lex-llms.txt:
     method: searched
     evidence: 'derive-llms-provenance.py: harvested'
@@ -176,55 +287,54 @@ artifacts:
   mcp/amazon-lex-tool-crosswalk.yml:
     method: derived
     evidence: declared in the artifact
-  openapi/_original/amazon-lex-models-v2-openapi.yml:
-    method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
-  openapi/_original/amazon-lex-openapi.yml:
-    method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
-  openapi/_original/amazon-lex-runtime-v2-openapi.yml:
-    method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
-  openapi/_original/openapi.yml:
-    method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+  openapi/amazon-lex-aliases-api-openapi.yml:
+    method: unknown
+    evidence: no authorship recorded
   openapi/amazon-lex-bots-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: unknown
+    evidence: no authorship recorded
   openapi/amazon-lex-builtins-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: unknown
+    evidence: no authorship recorded
+  openapi/amazon-lex-channels-api-openapi.yml:
+    method: unknown
+    evidence: no authorship recorded
   openapi/amazon-lex-createuploadurl-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/amazon-lex-exports-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: unknown
+    evidence: no authorship recorded
   openapi/amazon-lex-imports-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: unknown
+    evidence: no authorship recorded
+  openapi/amazon-lex-migrations-api-openapi.yml:
+    method: unknown
+    evidence: no authorship recorded
+  openapi/amazon-lex-operations-api-openapi.yml:
+    method: unknown
+    evidence: no authorship recorded
   openapi/amazon-lex-policy-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: unknown
+    evidence: no authorship recorded
   openapi/amazon-lex-tags-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: unknown
+    evidence: no authorship recorded
   openapi/amazon-lex-testexecutions-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: unknown
+    evidence: no authorship recorded
   openapi/amazon-lex-testsetdiscrepancy-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: unknown
+    evidence: no authorship recorded
   openapi/amazon-lex-testsetgenerations-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: unknown
+    evidence: no authorship recorded
   openapi/amazon-lex-testsets-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: unknown
+    evidence: no authorship recorded
+  openapi/amazon-lex-versions-api-openapi.yml:
+    method: unknown
+    evidence: no authorship recorded
   overlays/amazon-lex-bots-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
@@ -267,6 +377,9 @@ artifacts:
   packages/amazon-lex-packages.yml:
     method: searched
     evidence: declared in the artifact
+  patterns/amazon-lex-patterns.yml:
+    method: derived
+    evidence: declared in the artifact
   plans/amazon-lex-plans-pricing.yml:
     method: searched
     evidence: declared in the artifact
@@ -277,6 +390,9 @@ artifacts:
     method: searched
     evidence: declared in the artifact
   rules/amazon-lex-jsonschema-spectral-rules.yml:
+    method: generated
+    evidence: declared in the artifact
+  rules/amazon-lex-rules.yml:
     method: generated
     evidence: declared in the artifact
   rules/amazon-lex-spectral-rules.yml:
@@ -315,15 +431,34 @@ artifacts:
   smithy/amazon-lex-runtime-v2-2020-08-07.json:
     method: unknown
     evidence: no authorship recorded
+  smithy/lex-model-building-service-2017-04-19.json:
+    method: harvested
+    evidence: byte-identical to https://raw.githubusercontent.com/aws/api-models-aws/3cd98287b471c106254abd89279cc87308d38bfd/models/lex-model-building-service/service/2017-04-19/lex-model-building-service-2017-04-19.json
+      (sha256 827feeac8c99, fetched 2026-11-11T21:11:36+00:00)
   smithy/lex-models-v2-2020-08-07.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: harvested
+    evidence: byte-identical to https://raw.githubusercontent.com/aws/api-models-aws/3cd98287b471c106254abd89279cc87308d38bfd/models/lex-models-v2/service/2020-08-07/lex-models-v2-2020-08-07.json
+      (sha256 8b134d3313b8, fetched 2026-11-11T21:11:34+00:00)
+  smithy/lex-runtime-service-2016-11-28.json:
+    method: harvested
+    evidence: byte-identical to https://raw.githubusercontent.com/aws/api-models-aws/3cd98287b471c106254abd89279cc87308d38bfd/models/lex-runtime-service/service/2016-11-28/lex-runtime-service-2016-11-28.json
+      (sha256 cf47a9b9b6ee, fetched 2026-11-11T21:11:37+00:00)
   smithy/lex-runtime-v2-2020-08-07.json:
+    method: harvested
+    evidence: byte-identical to https://raw.githubusercontent.com/aws/api-models-aws/3cd98287b471c106254abd89279cc87308d38bfd/models/lex-runtime-v2/service/2020-08-07/lex-runtime-v2-2020-08-07.json
+      (sha256 ff65ea611b9e, fetched 2026-11-11T21:11:35+00:00)
+  terms/amazon-lex-terms-of-service.yml:
+    method: harvested
+    evidence: declared in the artifact
+  vendors/amazon-lex-vendors.yml:
     method: unknown
     evidence: no authorship recorded
   vocabulary/amazon-lex-vocabulary.yaml:
     method: unknown
     evidence: no authorship recorded
+  vocabulary/amazon-lex-vocabulary.yml:
+    method: derived
+    evidence: declared in the artifact
   well-known/amazon-lex-security.txt:
     method: unknown
     evidence: no authorship recorded
